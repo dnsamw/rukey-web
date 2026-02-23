@@ -9,9 +9,9 @@ const stats = [
 
 export default function StatsBar() {
   return (
-    <section className="bg-[var(--color-primary)]">
+    <section className="bg-primary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-orange-400">
+        <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-gray-100/50">
           {stats.map(({ icon: Icon, value, label }) => (
             <div
               key={label}
@@ -22,7 +22,7 @@ export default function StatsBar() {
               </div>
               <div className="text-center sm:text-left">
                 <div className="text-2xl font-black text-white leading-none">{value}</div>
-                <div className="text-orange-100 text-sm font-medium mt-0.5">{label}</div>
+                <div className="text-white text-sm font-medium mt-0.5">{label}</div>
               </div>
             </div>
           ))}
