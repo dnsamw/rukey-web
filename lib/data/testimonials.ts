@@ -8,7 +8,7 @@ export const testimonials = [
       'CleanPro has been maintaining our office for over 3 years. Their attention to detail is exceptional and the team is always professional, punctual and a pleasure to deal with.',
     rating: 5,
     initials: 'SJ',
-    color: 'bg-[#1E3A5F]',
+    color: 'bg-[var(--color-secondary)]',
   },
   {
     id: '2',
@@ -19,7 +19,7 @@ export const testimonials = [
       'We switched to CleanPro 18 months ago and the difference was immediately noticeable. Our school has never been cleaner — parents and staff comment on it all the time.',
     rating: 5,
     initials: 'DN',
-    color: 'bg-[#F97316]',
+    color: 'bg-[var(--color-primary)]',
   },
   {
     id: '3',

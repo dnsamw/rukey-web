@@ -23,7 +23,7 @@ type Quote = {
 }
 
 const statusColors: Record<string, string> = {
-  new: 'bg-orange-100 text-[#F97316]',
+  new: 'bg-orange-100 text-[var(--color-primary)]',
   contacted: 'bg-blue-100 text-blue-600',
   completed: 'bg-emerald-100 text-emerald-600',
   archived: 'bg-gray-100 text-gray-400',
@@ -68,8 +68,8 @@ export default function QuotesPage() {
               onClick={() => setFilterStatus(s)}
               className={`px-4 py-2 rounded-xl text-xs font-bold capitalize transition-all ${
                 filterStatus === s
-                  ? 'bg-[#1E3A5F] text-white'
-                  : 'bg-white border border-gray-200 text-gray-500 hover:border-[#1E3A5F] hover:text-[#1E3A5F]'
+                  ? 'bg-[var(--color-secondary)] text-white'
+                  : 'bg-white border border-gray-200 text-gray-500 hover:border-[var(--color-secondary)] hover:text-[var(--color-secondary)]'
               }`}
             >
               {s} {s === 'all' ? `(${quotes.length})` : `(${quotes.filter((q) => q.status === s).length})`}
@@ -79,7 +79,7 @@ export default function QuotesPage() {
 
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <div className="w-8 h-8 border-2 border-gray-200 border-t-[#F97316] rounded-full animate-spin" />
+            <div className="w-8 h-8 border-2 border-gray-200 border-t-[var(--color-primary)] rounded-full animate-spin" />
           </div>
         ) : (
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
@@ -88,12 +88,12 @@ export default function QuotesPage() {
                 {filtered.map((q) => (
                   <div key={q.id} className="flex items-center justify-between px-6 py-4 hover:bg-gray-50 transition-colors">
                     <div className="flex items-center gap-4 min-w-0">
-                      <div className="w-10 h-10 bg-[#1E3A5F] rounded-xl flex items-center justify-center text-white text-sm font-bold shrink-0">
+                      <div className="w-10 h-10 bg-[var(--color-secondary)] rounded-xl flex items-center justify-center text-white text-sm font-bold shrink-0">
                         {q.name.charAt(0).toUpperCase()}
                       </div>
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="font-bold text-[#1E3A5F] text-sm">{q.name}</span>
+                          <span className="font-bold text-[var(--color-secondary)] text-sm">{q.name}</span>
                           {q.company && <span className="text-gray-400 text-xs">· {q.company}</span>}
                           <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${statusColors[q.status] ?? 'bg-gray-100 text-gray-400'}`}>
                             {q.status}
@@ -110,7 +110,7 @@ export default function QuotesPage() {
                     </div>
                     <button
                       onClick={() => setSelected(q)}
-                      className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-400 hover:bg-[#F97316] hover:text-white transition-colors shrink-0 ml-4"
+                      className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-400 hover:bg-[var(--color-primary)] hover:text-white transition-colors shrink-0 ml-4"
                     >
                       <Eye size={15} />
                     </button>
@@ -141,9 +141,9 @@ export default function QuotesPage() {
                     <Icon size={12} /> {label}
                   </div>
                   {href ? (
-                    <a href={href} className="font-semibold text-[#1E3A5F] hover:text-[#F97316] transition-colors">{value}</a>
+                    <a href={href} className="font-semibold text-[var(--color-secondary)] hover:text-[var(--color-primary)] transition-colors">{value}</a>
                   ) : (
-                    <span className="font-semibold text-[#1E3A5F]">{value}</span>
+                    <span className="font-semibold text-[var(--color-secondary)]">{value}</span>
                   )}
                 </div>
               ))}
@@ -158,7 +158,7 @@ export default function QuotesPage() {
               ].map(({ label, value }) => value && (
                 <div key={label} className="flex gap-3">
                   <span className="text-gray-400 w-28 shrink-0">{label}</span>
-                  <span className="font-semibold text-[#1E3A5F]">{value}</span>
+                  <span className="font-semibold text-[var(--color-secondary)]">{value}</span>
                 </div>
               ))}
             </div>
@@ -166,7 +166,7 @@ export default function QuotesPage() {
             {/* Message */}
             {selected.message && (
               <div>
-                <div className="text-xs font-semibold text-[#1E3A5F] mb-2">Additional Notes</div>
+                <div className="text-xs font-semibold text-[var(--color-secondary)] mb-2">Additional Notes</div>
                 <div className="bg-gray-50 rounded-xl p-4 text-sm text-gray-600 leading-relaxed">
                   {selected.message}
                 </div>
@@ -175,7 +175,7 @@ export default function QuotesPage() {
 
             {/* Status update */}
             <div>
-              <div className="text-xs font-semibold text-[#1E3A5F] mb-2">Update Status</div>
+              <div className="text-xs font-semibold text-[var(--color-secondary)] mb-2">Update Status</div>
               <div className="flex gap-2 flex-wrap">
                 {['new', 'contacted', 'completed', 'archived'].map((s) => (
                   <button
@@ -183,7 +183,7 @@ export default function QuotesPage() {
                     onClick={() => updateStatus(selected.id, s)}
                     className={`px-4 py-2 rounded-xl text-xs font-bold capitalize transition-all ${
                       selected.status === s
-                        ? 'bg-[#1E3A5F] text-white'
+                        ? 'bg-[var(--color-secondary)] text-white'
                         : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
                     }`}
                   >
@@ -196,7 +196,7 @@ export default function QuotesPage() {
             {/* Reply button */}
             
             <a  href={`mailto:${selected.email}?subject=Re: Your CleanPro Quote Request`}
-              className="w-full flex items-center justify-center gap-2 bg-[#F97316] text-white py-3 rounded-xl font-bold text-sm hover:bg-[#EA6C0A] transition-colors"
+              className="w-full flex items-center justify-center gap-2 bg-[var(--color-primary)] text-white py-3 rounded-xl font-bold text-sm hover:bg-[var(--color-primary-dark)] transition-colors"
             >
               <Mail size={16} /> Reply via Email
             </a>

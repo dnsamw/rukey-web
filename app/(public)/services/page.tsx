@@ -22,7 +22,7 @@ export default async function ServicesPage() {
   return (
     <>
       {/* Page Hero */}
-      <section className="relative bg-[#1E3A5F] py-24 overflow-hidden">
+      <section className="relative bg-[var(--color-secondary)] py-24 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <Image
             src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80"
@@ -44,7 +44,7 @@ export default async function ServicesPage() {
           </svg>
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="inline-block bg-[#F97316]/20 text-[#F97316] text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
+          <span className="inline-block bg-[var(--color-primary)]/20 text-[var(--color-primary)] text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
             What We Offer
           </span>
           <h1 className="text-4xl md:text-5xl font-black text-white mb-4">
@@ -62,7 +62,7 @@ export default async function ServicesPage() {
               Home
             </Link>
             <span className="text-gray-600">/</span>
-            <span className="text-[#F97316]">Our Services</span>
+            <span className="text-[var(--color-primary)]">Our Services</span>
           </nav>
         </div>
       </section>
@@ -93,21 +93,21 @@ export default async function ServicesPage() {
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-[#1E3A5F]/0 group-hover:bg-[#1E3A5F]/30 transition-all duration-300" />
-                    <div className="absolute top-4 left-4 w-11 h-11 bg-[#F97316] rounded-xl flex items-center justify-center shadow-lg">
+                    <div className="absolute inset-0 bg-[var(--color-secondary)]/0 group-hover:bg-[var(--color-secondary)]/30 transition-all duration-300" />
+                    <div className="absolute top-4 left-4 w-11 h-11 bg-[var(--color-primary)] rounded-xl flex items-center justify-center shadow-lg">
                       <Icon size={20} className="text-white" />
                     </div>
                   </div>
 
                   {/* Content */}
                   <div className="p-6 flex flex-col flex-1">
-                    <h3 className="text-lg font-bold text-[#1E3A5F] mb-2 group-hover:text-[#F97316] transition-colors">
+                    <h3 className="text-lg font-bold text-[var(--color-secondary)] mb-2 group-hover:text-[var(--color-primary)] transition-colors">
                       {service.name}
                     </h3>
                     <p className="text-gray-500 text-sm leading-relaxed flex-1 mb-5">
                       {service.short_description}
                     </p>
-                    <span className="inline-flex items-center gap-1.5 text-[#F97316] text-sm font-semibold">
+                    <span className="inline-flex items-center gap-1.5 text-[var(--color-primary)] text-sm font-semibold">
                       View Service
                       <ArrowRight
                         size={15}

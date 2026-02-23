@@ -38,14 +38,14 @@ export default function Footer({ settings }: Props) {
   ];
 
   return (
-    <footer className="bg-[#1E3A5F] text-white">
+    <footer className="bg-[var(--color-secondary)] text-white">
       {/* Main footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-[#F97316] rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-[var(--color-primary)] rounded-lg flex items-center justify-center">
                 <span className="text-white font-black text-lg">
                   {general.company_name.charAt(0)}
                 </span>
@@ -73,7 +73,7 @@ export default function Footer({ settings }: Props) {
                   key={label}
                   href={href || "#"}
                   aria-label={label}
-                  className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center hover:bg-[#F97316] transition-colors"
+                  className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center hover:bg-[var(--color-primary)] transition-colors"
                 >
                   <Icon size={16} />
                 </a>
@@ -91,7 +91,7 @@ export default function Footer({ settings }: Props) {
                 <li key={s.href}>
                   <Link
                     href={s.href}
-                    className="text-gray-400 text-sm hover:text-[#F97316] transition-colors"
+                    className="text-gray-400 text-sm hover:text-[var(--color-primary)] transition-colors"
                   >
                     {s.label}
                   </Link>
@@ -110,7 +110,7 @@ export default function Footer({ settings }: Props) {
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className="text-gray-400 text-sm hover:text-[#F97316] transition-colors"
+                    className="text-gray-400 text-sm hover:text-[var(--color-primary)] transition-colors"
                   >
                     {l.label}
                   </Link>
@@ -128,18 +128,18 @@ export default function Footer({ settings }: Props) {
               <li>
                 <a
                   href={`tel:${general.phone.replace(/\s/g, "")}`}
-                  className="flex items-center gap-3 text-gray-400 text-sm hover:text-[#F97316] transition-colors"
+                  className="flex items-center gap-3 text-gray-400 text-sm hover:text-[var(--color-primary)] transition-colors"
                 >
-                  <Phone size={16} className="text-[#F97316] shrink-0" />
+                  <Phone size={16} className="text-[var(--color-primary)] shrink-0" />
                   {general.phone}
                 </a>
               </li>
               <li>
                 <a
                   href={`mailto:${general.email}`}
-                  className="flex items-center gap-3 text-gray-400 text-sm hover:text-[#F97316] transition-colors"
+                  className="flex items-center gap-3 text-gray-400 text-sm hover:text-[var(--color-primary)] transition-colors"
                 >
-                  <Mail size={16} className="text-[#F97316] shrink-0" />
+                  <Mail size={16} className="text-[var(--color-primary)] shrink-0" />
                   {general.email}
                 </a>
               </li>
@@ -152,7 +152,7 @@ export default function Footer({ settings }: Props) {
                 >
                   <MapPin
                     size={16}
-                    className="text-[#F97316] shrink-0 mt-0.5"
+                    className="text-[var(--color-primary)] shrink-0 mt-0.5"
                   />
                   <span>
                     <span className="text-gray-300 font-medium">
@@ -168,7 +168,7 @@ export default function Footer({ settings }: Props) {
                 <li>
                   <Link
                     href="/contact"
-                    className="text-[#F97316] text-xs font-semibold hover:underline ml-7"
+                    className="text-[var(--color-primary)] text-xs font-semibold hover:underline ml-7"
                   >
                     +{addresses.length - 2} more locations →
                   </Link>

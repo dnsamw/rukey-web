@@ -144,8 +144,8 @@ export default function ServicesEditorPage() {
     fetchServices()
   }
 
-  const inputClass = "w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F97316]/40 focus:border-[#F97316] transition-all"
-  const labelClass = "block text-xs font-semibold text-[#1E3A5F] mb-1.5"
+  const inputClass = "w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/40 focus:border-[var(--color-primary)] transition-all"
+  const labelClass = "block text-xs font-semibold text-[var(--color-secondary)] mb-1.5"
 
   return (
     <AdminShell>
@@ -156,7 +156,7 @@ export default function ServicesEditorPage() {
           action={
             <button
               onClick={openAdd}
-              className="inline-flex items-center gap-2 bg-[#F97316] text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-[#EA6C0A] transition-colors shadow-md"
+              className="inline-flex items-center gap-2 bg-[var(--color-primary)] text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-[var(--color-primary-dark)] transition-colors shadow-md"
             >
               <Plus size={16} /> Add Service
             </button>
@@ -165,7 +165,7 @@ export default function ServicesEditorPage() {
 
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <div className="w-8 h-8 border-2 border-gray-200 border-t-[#F97316] rounded-full animate-spin" />
+            <div className="w-8 h-8 border-2 border-gray-200 border-t-[var(--color-primary)] rounded-full animate-spin" />
           </div>
         ) : (
           <div className="space-y-4">
@@ -183,7 +183,7 @@ export default function ServicesEditorPage() {
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="font-bold text-[#1E3A5F]">{service.name}</span>
+                        <span className="font-bold text-[var(--color-secondary)]">{service.name}</span>
                         <span className="text-xs text-gray-400 font-mono bg-gray-100 px-2 py-0.5 rounded-md">
                           /{service.slug}
                         </span>
@@ -223,7 +223,7 @@ export default function ServicesEditorPage() {
             {!services.length && (
               <div className="text-center py-16 bg-white rounded-2xl border border-gray-100">
                 <p className="text-gray-400 text-sm mb-4">No services yet. Add your first service.</p>
-                <button onClick={openAdd} className="inline-flex items-center gap-2 bg-[#F97316] text-white px-5 py-2.5 rounded-xl text-sm font-bold">
+                <button onClick={openAdd} className="inline-flex items-center gap-2 bg-[var(--color-primary)] text-white px-5 py-2.5 rounded-xl text-sm font-bold">
                   <Plus size={16} /> Add Service
                 </button>
               </div>
@@ -243,7 +243,7 @@ export default function ServicesEditorPage() {
           {/* Name + Slug */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className={labelClass}>Service Name <span className="text-[#F97316]">*</span></label>
+              <label className={labelClass}>Service Name <span className="text-[var(--color-primary)]">*</span></label>
               <input
                 className={inputClass}
                 placeholder="e.g. Office Cleaning"
@@ -252,7 +252,7 @@ export default function ServicesEditorPage() {
               />
             </div>
             <div>
-              <label className={labelClass}>URL Slug <span className="text-[#F97316]">*</span></label>
+              <label className={labelClass}>URL Slug <span className="text-[var(--color-primary)]">*</span></label>
               <input
                 className={inputClass}
                 placeholder="e.g. office-cleaning"
@@ -273,8 +273,8 @@ export default function ServicesEditorPage() {
                   onClick={() => setForm((p) => ({ ...p, icon_name: icon }))}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
                     form.icon_name === icon
-                      ? 'bg-[#F97316] text-white border-[#F97316]'
-                      : 'border-gray-200 text-gray-500 hover:border-[#F97316] hover:text-[#F97316]'
+                      ? 'bg-[var(--color-primary)] text-white border-[var(--color-primary)]'
+                      : 'border-gray-200 text-gray-500 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]'
                   }`}
                 >
                   {icon}
@@ -285,7 +285,7 @@ export default function ServicesEditorPage() {
 
           {/* Short description */}
           <div>
-            <label className={labelClass}>Short Description <span className="text-[#F97316]">*</span></label>
+            <label className={labelClass}>Short Description <span className="text-[var(--color-primary)]">*</span></label>
             <textarea
               className={`${inputClass} resize-none`}
               rows={2}
@@ -337,7 +337,7 @@ export default function ServicesEditorPage() {
                   <button
                     type="button"
                     onClick={() => addListItem(field)}
-                    className="text-xs text-[#F97316] font-semibold hover:underline"
+                    className="text-xs text-[var(--color-primary)] font-semibold hover:underline"
                   >
                     + Add item
                   </button>
@@ -363,7 +363,7 @@ export default function ServicesEditorPage() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="px-5 py-2.5 rounded-xl bg-[#F97316] text-white text-sm font-bold hover:bg-[#EA6C0A] transition-colors disabled:opacity-60"
+              className="px-5 py-2.5 rounded-xl bg-[var(--color-primary)] text-white text-sm font-bold hover:bg-[var(--color-primary-dark)] transition-colors disabled:opacity-60"
             >
               {saving ? 'Saving...' : editingService ? 'Save Changes' : 'Add Service'}
             </button>

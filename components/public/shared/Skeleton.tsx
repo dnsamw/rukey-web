@@ -107,7 +107,7 @@ export function TestimonialsSkeleton() {
 
 export function PageHeroSkeleton() {
   return (
-    <div className="bg-[#1E3A5F] py-24">
+    <div className="bg-[var(--color-secondary)] py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
         <div className="h-6 w-32 bg-white/20 animate-pulse rounded-full mx-auto" />
         <div className="h-10 w-72 bg-white/20 animate-pulse rounded-xl mx-auto" />

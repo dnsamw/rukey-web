@@ -13,8 +13,8 @@ export const metadata = {
 }
 
 const team = [
-  { name: 'Michael Chen', role: 'Founder & CEO', initials: 'MC', color: 'bg-[#1E3A5F]' },
-  { name: 'Angela Torres', role: 'Operations Manager', initials: 'AT', color: 'bg-[#F97316]' },
+  { name: 'Michael Chen', role: 'Founder & CEO', initials: 'MC', color: 'bg-[var(--color-secondary)]' },
+  { name: 'Angela Torres', role: 'Operations Manager', initials: 'AT', color: 'bg-[var(--color-primary)]' },
   { name: 'James Patel', role: 'Head of Training', initials: 'JP', color: 'bg-emerald-500' },
   { name: 'Rachel Kim', role: 'Client Relations', initials: 'RK', color: 'bg-purple-500' },
 ]
@@ -31,7 +31,7 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-[#1E3A5F] py-24 overflow-hidden">
+      <section className="relative bg-[var(--color-secondary)] py-24 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <Image
             src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1600&q=80"
@@ -46,7 +46,7 @@ export default function AboutPage() {
           </svg>
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="inline-block bg-[#F97316]/20 text-[#F97316] text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
+          <span className="inline-block bg-[var(--color-primary)]/20 text-[var(--color-primary)] text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
             Our Story
           </span>
           <h1 className="text-4xl md:text-5xl font-black text-white mb-4">About Rukey</h1>
@@ -56,7 +56,7 @@ export default function AboutPage() {
           <nav className="mt-6 flex justify-center gap-2 text-sm">
             <Link href="/" className="text-gray-400 hover:text-white transition-colors">Home</Link>
             <span className="text-gray-600">/</span>
-            <span className="text-[#F97316]">About Us</span>
+            <span className="text-[var(--color-primary)]">About Us</span>
           </nav>
         </div>
       </section>
@@ -74,7 +74,7 @@ export default function AboutPage() {
                   className="object-cover"
                 />
               </div>
-              <div className="absolute -bottom-6 -right-6 bg-[#F97316] text-white rounded-2xl p-6 shadow-xl">
+              <div className="absolute -bottom-6 -right-6 bg-[var(--color-primary)] text-white rounded-2xl p-6 shadow-xl">
                 <div className="text-4xl font-black leading-none">12+</div>
                 <div className="text-sm font-medium text-orange-100 mt-1">Years Trusted</div>
               </div>
@@ -102,8 +102,8 @@ export default function AboutPage() {
                   { icon: Users, label: 'Police Checked Staff' },
                 ].map(({ icon: Icon, label }) => (
                   <div key={label} className="flex items-center gap-3 bg-gray-50 rounded-xl p-4">
-                    <Icon size={18} className="text-[#F97316] shrink-0" />
-                    <span className="text-sm font-semibold text-[#1E3A5F]">{label}</span>
+                    <Icon size={18} className="text-[var(--color-primary)] shrink-0" />
+                    <span className="text-sm font-semibold text-[var(--color-secondary)]">{label}</span>
                   </div>
                 ))}
               </div>
@@ -123,11 +123,11 @@ export default function AboutPage() {
                 <div key={m.year} className={`flex items-center gap-8 ${i % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
                   <div className={`flex-1 ${i % 2 === 0 ? 'text-right' : 'text-left'}`}>
                     <div className="bg-white rounded-xl p-5 shadow-sm inline-block max-w-xs">
-                      <div className="text-[#F97316] font-black text-lg mb-1">{m.year}</div>
+                      <div className="text-[var(--color-primary)] font-black text-lg mb-1">{m.year}</div>
                       <p className="text-gray-600 text-sm">{m.event}</p>
                     </div>
                   </div>
-                  <div className="relative z-10 w-4 h-4 bg-[#F97316] rounded-full border-4 border-white shadow shrink-0" />
+                  <div className="relative z-10 w-4 h-4 bg-[var(--color-primary)] rounded-full border-4 border-white shadow shrink-0" />
                   <div className="flex-1" />
                 </div>
               ))}
@@ -146,7 +146,7 @@ export default function AboutPage() {
                 <div className={`${member.color} w-24 h-24 rounded-2xl flex items-center justify-center text-white text-2xl font-black mx-auto mb-4 group-hover:scale-105 transition-transform duration-200 shadow-md`}>
                   {member.initials}
                 </div>
-                <h3 className="font-bold text-[#1E3A5F] text-sm">{member.name}</h3>
+                <h3 className="font-bold text-[var(--color-secondary)] text-sm">{member.name}</h3>
                 <p className="text-gray-400 text-xs mt-1">{member.role}</p>
               </div>
             ))}

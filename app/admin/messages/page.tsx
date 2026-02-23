@@ -19,7 +19,7 @@ type Message = {
 }
 
 const statusColors: Record<string, string> = {
-  new: 'bg-orange-100 text-[#F97316]',
+  new: 'bg-orange-100 text-[var(--color-primary)]',
   read: 'bg-blue-100 text-blue-600',
   replied: 'bg-emerald-100 text-emerald-600',
   archived: 'bg-gray-100 text-gray-400',
@@ -68,8 +68,8 @@ export default function MessagesPage() {
               onClick={() => setFilterStatus(s)}
               className={`px-4 py-2 rounded-xl text-xs font-bold capitalize transition-all ${
                 filterStatus === s
-                  ? 'bg-[#1E3A5F] text-white'
-                  : 'bg-white border border-gray-200 text-gray-500 hover:border-[#1E3A5F] hover:text-[#1E3A5F]'
+                  ? 'bg-[var(--color-secondary)] text-white'
+                  : 'bg-white border border-gray-200 text-gray-500 hover:border-[var(--color-secondary)] hover:text-[var(--color-secondary)]'
               }`}
             >
               {s} {s === 'all' ? `(${messages.length})` : `(${messages.filter((m) => m.status === s).length})`}
@@ -79,7 +79,7 @@ export default function MessagesPage() {
 
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <div className="w-8 h-8 border-2 border-gray-200 border-t-[#F97316] rounded-full animate-spin" />
+            <div className="w-8 h-8 border-2 border-gray-200 border-t-[var(--color-primary)] rounded-full animate-spin" />
           </div>
         ) : (
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
@@ -88,12 +88,12 @@ export default function MessagesPage() {
                 {filtered.map((m) => (
                   <div key={m.id} className={`flex items-center justify-between px-6 py-4 hover:bg-gray-50 transition-colors ${m.status === 'new' ? 'bg-orange-50/30' : ''}`}>
                     <div className="flex items-center gap-4 min-w-0">
-                      <div className="w-10 h-10 bg-[#F97316] rounded-xl flex items-center justify-center text-white text-sm font-bold shrink-0">
+                      <div className="w-10 h-10 bg-[var(--color-primary)] rounded-xl flex items-center justify-center text-white text-sm font-bold shrink-0">
                         {m.name.charAt(0).toUpperCase()}
                       </div>
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className={`font-bold text-sm ${m.status === 'new' ? 'text-[#1E3A5F]' : 'text-gray-600'}`}>
+                          <span className={`font-bold text-sm ${m.status === 'new' ? 'text-[var(--color-secondary)]' : 'text-gray-600'}`}>
                             {m.name}
                           </span>
                           <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${statusColors[m.status] ?? 'bg-gray-100 text-gray-400'}`}>
@@ -109,7 +109,7 @@ export default function MessagesPage() {
                     </div>
                     <button
                       onClick={() => openMessage(m)}
-                      className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-400 hover:bg-[#F97316] hover:text-white transition-colors shrink-0 ml-4"
+                      className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-400 hover:bg-[var(--color-primary)] hover:text-white transition-colors shrink-0 ml-4"
                     >
                       <Eye size={15} />
                     </button>
@@ -134,27 +134,27 @@ export default function MessagesPage() {
                 <div key={label} className="bg-gray-50 rounded-xl p-3">
                   <div className="flex items-center gap-1.5 text-gray-400 text-xs mb-1"><Icon size={12} /> {label}</div>
                   {href
-                    ? <a href={href} className="font-semibold text-[#1E3A5F] hover:text-[#F97316] transition-colors">{value}</a>
-                    : <span className="font-semibold text-[#1E3A5F]">{value}</span>}
+                    ? <a href={href} className="font-semibold text-[var(--color-secondary)] hover:text-[var(--color-primary)] transition-colors">{value}</a>
+                    : <span className="font-semibold text-[var(--color-secondary)]">{value}</span>}
                 </div>
               ))}
             </div>
             {selected.service && (
               <div className="bg-gray-50 rounded-xl p-4 text-sm">
                 <span className="text-gray-400">Service: </span>
-                <span className="font-semibold text-[#1E3A5F]">{selected.service}</span>
+                <span className="font-semibold text-[var(--color-secondary)]">{selected.service}</span>
               </div>
             )}
             <div>
-              <div className="text-xs font-semibold text-[#1E3A5F] mb-2">Message</div>
+              <div className="text-xs font-semibold text-[var(--color-secondary)] mb-2">Message</div>
               <div className="bg-gray-50 rounded-xl p-4 text-sm text-gray-600 leading-relaxed">{selected.message}</div>
             </div>
             <div>
-              <div className="text-xs font-semibold text-[#1E3A5F] mb-2">Update Status</div>
+              <div className="text-xs font-semibold text-[var(--color-secondary)] mb-2">Update Status</div>
               <div className="flex gap-2 flex-wrap">
                 {['new', 'read', 'replied', 'archived'].map((s) => (
                   <button key={s} onClick={() => updateStatus(selected.id, s)}
-                    className={`px-4 py-2 rounded-xl text-xs font-bold capitalize transition-all ${selected.status === s ? 'bg-[#1E3A5F] text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}>
+                    className={`px-4 py-2 rounded-xl text-xs font-bold capitalize transition-all ${selected.status === s ? 'bg-[var(--color-secondary)] text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}>
                     {s}
                   </button>
                 ))}
@@ -162,7 +162,7 @@ export default function MessagesPage() {
             </div>
             
             <a  href={`mailto:${selected.email}?subject=Re: Your CleanPro Enquiry`}
-              className="w-full flex items-center justify-center gap-2 bg-[#F97316] text-white py-3 rounded-xl font-bold text-sm hover:bg-[#EA6C0A] transition-colors"
+              className="w-full flex items-center justify-center gap-2 bg-[var(--color-primary)] text-white py-3 rounded-xl font-bold text-sm hover:bg-[var(--color-primary-dark)] transition-colors"
             >
               <Mail size={16} /> Reply via Email
             </a>

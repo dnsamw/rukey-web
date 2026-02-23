@@ -35,14 +35,14 @@ export default function AdminLoginPage() {
   };
 
   const inputClass =
-    "w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F97316]/40 focus:border-[#F97316] transition-all bg-white";
+    "w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/40 focus:border-[var(--color-primary)] transition-all bg-white";
 
   return (
     <div className="min-h-screen bg-[#111827] flex items-center justify-center px-4">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#F97316]/5 rounded-full" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-[#F97316]/5 rounded-full" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-[var(--color-primary)]/5 rounded-full" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-[var(--color-primary)]/5 rounded-full" />
       </div>
 
       <div className="relative w-full max-w-md">
@@ -51,11 +51,11 @@ export default function AdminLoginPage() {
           {/* Logo */}
           <div className="flex items-center justify-center mb-8">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-[#F97316] rounded-xl flex items-center justify-center shadow-lg">
+              <div className="w-12 h-12 bg-[var(--color-primary)] rounded-xl flex items-center justify-center shadow-lg">
                 <span className="text-white font-black text-xl">C</span>
               </div>
               <div>
-                <span className="block font-black text-[#1E3A5F] text-xl leading-none">
+                <span className="block font-black text-[var(--color-secondary)] text-xl leading-none">
                   CleanPro
                 </span>
                 <span className="block text-gray-400 text-xs font-medium mt-0.5">
@@ -65,7 +65,7 @@ export default function AdminLoginPage() {
             </div>
           </div>
 
-          <h2 className="text-xl font-bold text-[#1E3A5F] mb-1 text-center">
+          <h2 className="text-xl font-bold text-[var(--color-secondary)] mb-1 text-center">
             Welcome back
           </h2>
           <p className="text-gray-400 text-sm text-center mb-8">
@@ -80,7 +80,7 @@ export default function AdminLoginPage() {
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-[#1E3A5F] mb-1.5">
+              <label className="block text-xs font-semibold text-[var(--color-secondary)] mb-1.5">
                 Email Address
               </label>
               <input
@@ -94,7 +94,7 @@ export default function AdminLoginPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-[#1E3A5F] mb-1.5">
+              <label className="block text-xs font-semibold text-[var(--color-secondary)] mb-1.5">
                 Password
               </label>
               <div className="relative">
@@ -119,7 +119,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 bg-[#F97316] text-white py-3.5 rounded-xl font-bold hover:bg-[#EA6C0A] transition-all disabled:opacity-70 disabled:cursor-not-allowed shadow-md mt-2"
+              className="w-full flex items-center justify-center gap-2 bg-[var(--color-primary)] text-white py-3.5 rounded-xl font-bold hover:bg-[var(--color-primary-dark)] transition-all disabled:opacity-70 disabled:cursor-not-allowed shadow-md mt-2"
             >
               {loading ? (
                 <>

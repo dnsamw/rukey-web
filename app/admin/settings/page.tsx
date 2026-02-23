@@ -67,15 +67,15 @@ export default function SettingsPage() {
   const updateAddress = (i: number, field: 'area' | 'address', value: string) =>
     setAddresses((p) => p.map((a, idx) => idx === i ? { ...a, [field]: value } : a))
 
-  const inputClass = "w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F97316]/40 focus:border-[#F97316] transition-all"
-  const labelClass = "block text-xs font-semibold text-[#1E3A5F] mb-1.5"
+  const inputClass = "w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/40 focus:border-[var(--color-primary)] transition-all"
+  const labelClass = "block text-xs font-semibold text-[var(--color-secondary)] mb-1.5"
   const sectionClass = "bg-white rounded-2xl border border-gray-100 shadow-sm p-6"
 
   if (loading) {
     return (
       <AdminShell>
         <div className="flex items-center justify-center py-20">
-          <div className="w-8 h-8 border-2 border-gray-200 border-t-[#F97316] rounded-full animate-spin" />
+          <div className="w-8 h-8 border-2 border-gray-200 border-t-[var(--color-primary)] rounded-full animate-spin" />
         </div>
       </AdminShell>
     )
@@ -91,7 +91,7 @@ export default function SettingsPage() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="inline-flex items-center gap-2 bg-[#F97316] text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-[#EA6C0A] transition-colors shadow-md disabled:opacity-60"
+              className="inline-flex items-center gap-2 bg-[var(--color-primary)] text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-[var(--color-primary-dark)] transition-colors shadow-md disabled:opacity-60"
             >
               <Save size={15} />
               {saving ? 'Saving...' : 'Save All Changes'}
@@ -101,7 +101,7 @@ export default function SettingsPage() {
 
         {/* General */}
         <div className={sectionClass}>
-          <h2 className="font-bold text-[#1E3A5F] mb-5">General Information</h2>
+          <h2 className="font-bold text-[var(--color-secondary)] mb-5">General Information</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div className="sm:col-span-2">
               <label className={labelClass}>Company Name</label>
@@ -134,10 +134,10 @@ export default function SettingsPage() {
         {/* Office Addresses */}
         <div className={sectionClass}>
           <div className="flex items-center justify-between mb-5">
-            <h2 className="font-bold text-[#1E3A5F]">Office Locations</h2>
+            <h2 className="font-bold text-[var(--color-secondary)]">Office Locations</h2>
             <button
               onClick={addAddress}
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#F97316] hover:underline"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-[var(--color-primary)] hover:underline"
             >
               <Plus size={14} /> Add Location
             </button>
@@ -173,7 +173,7 @@ export default function SettingsPage() {
 
         {/* Social Media */}
         <div className={sectionClass}>
-          <h2 className="font-bold text-[#1E3A5F] mb-5">Social Media Links</h2>
+          <h2 className="font-bold text-[var(--color-secondary)] mb-5">Social Media Links</h2>
           <div className="space-y-4">
             {[
               { key: 'facebook', label: 'Facebook URL' },
@@ -198,7 +198,7 @@ export default function SettingsPage() {
           <button
             onClick={handleSave}
             disabled={saving}
-            className="inline-flex items-center gap-2 bg-[#F97316] text-white px-8 py-3 rounded-xl text-sm font-bold hover:bg-[#EA6C0A] transition-colors shadow-md disabled:opacity-60"
+            className="inline-flex items-center gap-2 bg-[var(--color-primary)] text-white px-8 py-3 rounded-xl text-sm font-bold hover:bg-[var(--color-primary-dark)] transition-colors shadow-md disabled:opacity-60"
           >
             <Save size={15} />
             {saving ? 'Saving...' : 'Save All Changes'}

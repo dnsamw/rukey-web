@@ -23,8 +23,8 @@ type Testimonial = {
 }
 
 const colorOptions = [
-  { label: 'Navy', value: 'bg-[#1E3A5F]' },
-  { label: 'Orange', value: 'bg-[#F97316]' },
+  { label: 'Navy', value: 'bg-[var(--color-secondary)]' },
+  { label: 'Orange', value: 'bg-[var(--color-primary)]' },
   { label: 'Green', value: 'bg-emerald-500' },
   { label: 'Purple', value: 'bg-purple-500' },
   { label: 'Blue', value: 'bg-blue-500' },
@@ -32,7 +32,7 @@ const colorOptions = [
 
 const emptyForm = {
   name: '', role: '', company: '', quote: '',
-  rating: 5, initials: '', color: 'bg-[#1E3A5F]',
+  rating: 5, initials: '', color: 'bg-[var(--color-secondary)]',
 }
 
 export default function TestimonialsEditorPage() {
@@ -112,8 +112,8 @@ export default function TestimonialsEditorPage() {
     fetch()
   }
 
-  const inputClass = "w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F97316]/40 focus:border-[#F97316] transition-all"
-  const labelClass = "block text-xs font-semibold text-[#1E3A5F] mb-1.5"
+  const inputClass = "w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/40 focus:border-[var(--color-primary)] transition-all"
+  const labelClass = "block text-xs font-semibold text-[var(--color-secondary)] mb-1.5"
 
   return (
     <AdminShell>
@@ -122,7 +122,7 @@ export default function TestimonialsEditorPage() {
           title="Testimonials"
           subtitle="Manage client reviews shown on your website."
           action={
-            <button onClick={openAdd} className="inline-flex items-center gap-2 bg-[#F97316] text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-[#EA6C0A] transition-colors shadow-md">
+            <button onClick={openAdd} className="inline-flex items-center gap-2 bg-[var(--color-primary)] text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-[var(--color-primary-dark)] transition-colors shadow-md">
               <Plus size={16} /> Add Testimonial
             </button>
           }
@@ -130,7 +130,7 @@ export default function TestimonialsEditorPage() {
 
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <div className="w-8 h-8 border-2 border-gray-200 border-t-[#F97316] rounded-full animate-spin" />
+            <div className="w-8 h-8 border-2 border-gray-200 border-t-[var(--color-primary)] rounded-full animate-spin" />
           </div>
         ) : (
           <div className="space-y-4">
@@ -143,11 +143,11 @@ export default function TestimonialsEditorPage() {
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <div className="flex items-center gap-2 mb-1 flex-wrap">
-                        <span className="font-bold text-[#1E3A5F] text-sm">{t.name}</span>
+                        <span className="font-bold text-[var(--color-secondary)] text-sm">{t.name}</span>
                         <span className="text-gray-400 text-xs">— {t.role}, {t.company}</span>
                         <div className="flex gap-0.5">
                           {[...Array(t.rating)].map((_, i) => (
-                            <Star key={i} size={11} className="text-[#F97316] fill-[#F97316]" />
+                            <Star key={i} size={11} className="text-[var(--color-primary)] fill-[var(--color-primary)]" />
                           ))}
                         </div>
                         <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${t.is_active ? 'bg-emerald-100 text-emerald-600' : 'bg-gray-100 text-gray-400'}`}>
@@ -174,7 +174,7 @@ export default function TestimonialsEditorPage() {
             {!testimonials.length && (
               <div className="text-center py-16 bg-white rounded-2xl border border-gray-100">
                 <p className="text-gray-400 text-sm mb-4">No testimonials yet.</p>
-                <button onClick={openAdd} className="inline-flex items-center gap-2 bg-[#F97316] text-white px-5 py-2.5 rounded-xl text-sm font-bold">
+                <button onClick={openAdd} className="inline-flex items-center gap-2 bg-[var(--color-primary)] text-white px-5 py-2.5 rounded-xl text-sm font-bold">
                   <Plus size={16} /> Add Testimonial
                 </button>
               </div>
@@ -187,7 +187,7 @@ export default function TestimonialsEditorPage() {
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className={labelClass}>Full Name <span className="text-[#F97316]">*</span></label>
+              <label className={labelClass}>Full Name <span className="text-[var(--color-primary)]">*</span></label>
               <input className={inputClass} placeholder="Sarah Johnson" value={form.name}
                 onChange={(e) => setForm((p) => ({ ...p, name: e.target.value, initials: autoInitials(e.target.value) }))} />
             </div>
@@ -210,7 +210,7 @@ export default function TestimonialsEditorPage() {
             </div>
           </div>
           <div>
-            <label className={labelClass}>Quote <span className="text-[#F97316]">*</span></label>
+            <label className={labelClass}>Quote <span className="text-[var(--color-primary)]">*</span></label>
             <textarea className={`${inputClass} resize-none`} rows={4} placeholder="What did they say about your service?"
               value={form.quote} onChange={(e) => setForm((p) => ({ ...p, quote: e.target.value }))} />
           </div>
@@ -220,7 +220,7 @@ export default function TestimonialsEditorPage() {
               <div className="flex gap-2">
                 {[1, 2, 3, 4, 5].map((r) => (
                   <button key={r} type="button" onClick={() => setForm((p) => ({ ...p, rating: r }))}>
-                    <Star size={22} className={r <= form.rating ? 'text-[#F97316] fill-[#F97316]' : 'text-gray-200'} />
+                    <Star size={22} className={r <= form.rating ? 'text-[var(--color-primary)] fill-[var(--color-primary)]' : 'text-gray-200'} />
                   </button>
                 ))}
               </div>
@@ -244,7 +244,7 @@ export default function TestimonialsEditorPage() {
             <button onClick={() => setModalOpen(false)} className="px-5 py-2.5 rounded-xl border border-gray-200 text-sm font-semibold text-gray-600 hover:bg-gray-50 transition-colors">
               Cancel
             </button>
-            <button onClick={handleSave} disabled={saving} className="px-5 py-2.5 rounded-xl bg-[#F97316] text-white text-sm font-bold hover:bg-[#EA6C0A] transition-colors disabled:opacity-60">
+            <button onClick={handleSave} disabled={saving} className="px-5 py-2.5 rounded-xl bg-[var(--color-primary)] text-white text-sm font-bold hover:bg-[var(--color-primary-dark)] transition-colors disabled:opacity-60">
               {saving ? 'Saving...' : editing ? 'Save Changes' : 'Add Testimonial'}
             </button>
           </div>

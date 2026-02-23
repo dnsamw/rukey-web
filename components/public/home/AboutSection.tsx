@@ -34,18 +34,18 @@ export default function AboutSection() {
                 className="object-cover"
               />
               {/* Overlay gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1E3A5F]/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-secondary)]/40 to-transparent" />
             </div>
 
             {/* Floating badge — years experience */}
-            <div className="absolute -bottom-6 -right-6 bg-[#F97316] text-white rounded-2xl p-6 shadow-xl">
+            <div className="absolute -bottom-6 -right-6 bg-[var(--color-primary)] text-white rounded-2xl p-6 shadow-xl">
               <div className="text-4xl font-black leading-none">12+</div>
               <div className="text-sm font-medium text-orange-100 mt-1">Years of<br />Experience</div>
             </div>
 
             {/* Floating badge — clients */}
             <div className="absolute -top-6 -left-6 bg-white rounded-2xl p-4 shadow-xl border border-gray-100">
-              <div className="text-2xl font-black text-[#1E3A5F] leading-none">500+</div>
+              <div className="text-2xl font-black text-[var(--color-secondary)] leading-none">500+</div>
               <div className="text-xs font-medium text-gray-400 mt-1">Happy Clients</div>
             </div>
 
@@ -56,11 +56,11 @@ export default function AboutSection() {
                   key={label}
                   className="bg-white/95 backdrop-blur-sm rounded-xl px-3 py-2 flex items-center gap-2 shadow-md"
                 >
-                  <div className="w-7 h-7 bg-[#F97316]/10 rounded-lg flex items-center justify-center">
-                    <Icon size={14} className="text-[#F97316]" />
+                  <div className="w-7 h-7 bg-[var(--color-primary)]/10 rounded-lg flex items-center justify-center">
+                    <Icon size={14} className="text-[var(--color-primary)]" />
                   </div>
                   <div>
-                    <div className="text-xs font-bold text-[#1E3A5F] leading-none">{label}</div>
+                    <div className="text-xs font-bold text-[var(--color-secondary)] leading-none">{label}</div>
                     <div className="text-[10px] text-gray-400 mt-0.5">{sub}</div>
                   </div>
                 </div>
@@ -90,7 +90,7 @@ export default function AboutSection() {
                 <li key={point} className="flex items-start gap-3">
                   <CheckCircle2
                     size={18}
-                    className="text-[#F97316] shrink-0 mt-0.5"
+                    className="text-[var(--color-primary)] shrink-0 mt-0.5"
                   />
                   <span className="text-gray-600 text-sm leading-relaxed">{point}</span>
                 </li>

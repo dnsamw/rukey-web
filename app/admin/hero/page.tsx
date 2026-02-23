@@ -110,8 +110,8 @@ export default function HeroEditorPage() {
     fetchSlides()
   }
 
-  const inputClass = "w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F97316]/40 focus:border-[#F97316] transition-all"
-  const labelClass = "block text-xs font-semibold text-[#1E3A5F] mb-1.5"
+  const inputClass = "w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/40 focus:border-[var(--color-primary)] transition-all"
+  const labelClass = "block text-xs font-semibold text-[var(--color-secondary)] mb-1.5"
 
   return (
     <AdminShell>
@@ -122,7 +122,7 @@ export default function HeroEditorPage() {
           action={
             <button
               onClick={openAdd}
-              className="inline-flex items-center gap-2 bg-[#F97316] text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-[#EA6C0A] transition-colors shadow-md"
+              className="inline-flex items-center gap-2 bg-[var(--color-primary)] text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-[var(--color-primary-dark)] transition-colors shadow-md"
             >
               <Plus size={16} /> Add Slide
             </button>
@@ -131,7 +131,7 @@ export default function HeroEditorPage() {
 
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <div className="w-8 h-8 border-2 border-gray-200 border-t-[#F97316] rounded-full animate-spin" />
+            <div className="w-8 h-8 border-2 border-gray-200 border-t-[var(--color-primary)] rounded-full animate-spin" />
           </div>
         ) : (
           <div className="space-y-4">
@@ -162,8 +162,8 @@ export default function HeroEditorPage() {
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="font-bold text-[#1E3A5F]">{slide.title}</span>
-                        <span className="text-[#F97316] font-bold">{slide.subtitle}</span>
+                        <span className="font-bold text-[var(--color-secondary)]">{slide.title}</span>
+                        <span className="text-[var(--color-primary)] font-bold">{slide.subtitle}</span>
                         <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${
                           slide.is_active ? 'bg-emerald-100 text-emerald-600' : 'bg-gray-100 text-gray-400'
                         }`}>
@@ -203,7 +203,7 @@ export default function HeroEditorPage() {
             {!slides.length && (
               <div className="text-center py-16 bg-white rounded-2xl border border-gray-100">
                 <p className="text-gray-400 text-sm mb-4">No slides yet. Add your first hero slide.</p>
-                <button onClick={openAdd} className="inline-flex items-center gap-2 bg-[#F97316] text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-[#EA6C0A] transition-colors">
+                <button onClick={openAdd} className="inline-flex items-center gap-2 bg-[var(--color-primary)] text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-[var(--color-primary-dark)] transition-colors">
                   <Plus size={16} /> Add Slide
                 </button>
               </div>
@@ -222,7 +222,7 @@ export default function HeroEditorPage() {
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className={labelClass}>Title <span className="text-[#F97316]">*</span></label>
+              <label className={labelClass}>Title <span className="text-[var(--color-primary)]">*</span></label>
               <input
                 className={inputClass}
                 placeholder="e.g. Office"
@@ -231,7 +231,7 @@ export default function HeroEditorPage() {
               />
             </div>
             <div>
-              <label className={labelClass}>Subtitle <span className="text-[#F97316]">*</span></label>
+              <label className={labelClass}>Subtitle <span className="text-[var(--color-primary)]">*</span></label>
               <input
                 className={inputClass}
                 placeholder="e.g. Cleaning"
@@ -265,7 +265,7 @@ export default function HeroEditorPage() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="px-5 py-2.5 rounded-xl bg-[#F97316] text-white text-sm font-bold hover:bg-[#EA6C0A] transition-colors disabled:opacity-60"
+              className="px-5 py-2.5 rounded-xl bg-[var(--color-primary)] text-white text-sm font-bold hover:bg-[var(--color-primary-dark)] transition-colors disabled:opacity-60"
             >
               {saving ? 'Saving...' : editingSlide ? 'Save Changes' : 'Add Slide'}
             </button>

@@ -16,7 +16,7 @@ export default function StatCard({ title, value, subtitle, icon: Icon, color }: 
           <Icon size={22} className="text-white" />
         </div>
       </div>
-      <div className="text-3xl font-black text-[#1E3A5F] mb-1">{value}</div>
+      <div className="text-3xl font-black text-[var(--color-secondary)] mb-1">{value}</div>
       <div className="text-sm font-semibold text-gray-600">{title}</div>
       {subtitle && <div className="text-xs text-gray-400 mt-1">{subtitle}</div>}
     </div>

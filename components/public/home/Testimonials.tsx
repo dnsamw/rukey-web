@@ -63,7 +63,7 @@ export default function Testimonials({ testimonials }: Props) {
                   <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 h-full flex flex-col">
                     {/* Quote icon */}
                     <div className="mb-4">
-                      <Quote size={32} className="text-[#F97316]/30" />
+                      <Quote size={32} className="text-[var(--color-primary)]/30" />
                     </div>
 
                     {/* Stars */}
@@ -72,7 +72,7 @@ export default function Testimonials({ testimonials }: Props) {
                         <Star
                           key={i}
                           size={14}
-                          className="text-[#F97316] fill-[#F97316]"
+                          className="text-[var(--color-primary)] fill-[var(--color-primary)]"
                         />
                       ))}
                     </div>
@@ -93,7 +93,7 @@ export default function Testimonials({ testimonials }: Props) {
                         {t.initials}
                       </div>
                       <div>
-                        <div className="font-bold text-[#1E3A5F] text-sm">
+                        <div className="font-bold text-[var(--color-secondary)] text-sm">
                           {t.name}
                         </div>
                         <div className="text-gray-400 text-xs">{t.role}</div>
@@ -109,14 +109,14 @@ export default function Testimonials({ testimonials }: Props) {
           {/* Arrows */}
           <button
             onClick={scrollPrev}
-            className="absolute -left-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-white border border-gray-200 rounded-full shadow-md flex items-center justify-center text-gray-500 hover:bg-[#F97316] hover:text-white hover:border-[#F97316] transition-all duration-200 z-10"
+            className="absolute -left-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-white border border-gray-200 rounded-full shadow-md flex items-center justify-center text-gray-500 hover:bg-[var(--color-primary)] hover:text-white hover:border-[var(--color-primary)] transition-all duration-200 z-10"
             aria-label="Previous"
           >
             <ChevronLeft size={18} />
           </button>
           <button
             onClick={scrollNext}
-            className="absolute -right-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-white border border-gray-200 rounded-full shadow-md flex items-center justify-center text-gray-500 hover:bg-[#F97316] hover:text-white hover:border-[#F97316] transition-all duration-200 z-10"
+            className="absolute -right-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-white border border-gray-200 rounded-full shadow-md flex items-center justify-center text-gray-500 hover:bg-[var(--color-primary)] hover:text-white hover:border-[var(--color-primary)] transition-all duration-200 z-10"
             aria-label="Next"
           >
             <ChevronRight size={18} />
@@ -131,7 +131,7 @@ export default function Testimonials({ testimonials }: Props) {
               onClick={() => emblaApi?.scrollTo(i)}
               className={`transition-all duration-300 rounded-full ${
                 i === selectedIndex
-                  ? "w-8 h-2.5 bg-[#F97316]"
+                  ? "w-8 h-2.5 bg-[var(--color-primary)]"
                   : "w-2.5 h-2.5 bg-gray-300 hover:bg-gray-400"
               }`}
               aria-label={`Go to slide ${i + 1}`}
