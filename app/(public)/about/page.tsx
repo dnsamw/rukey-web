@@ -6,6 +6,12 @@ import VisionMissionValues from '@/components/public/home/VisionMissionValues'
 import WhyChooseUs from '@/components/public/home/WhyChooseUs'
 import GetAQuoteBanner from '@/components/public/home/GetAQuoteBanner'
 
+export const metadata = {
+  title: 'About Us',
+  description:
+    "Learn about Rukey's 12+ year history, our mission, values and the team behind Victoria's most trusted facility cleaning company.",
+}
+
 const team = [
   { name: 'Michael Chen', role: 'Founder & CEO', initials: 'MC', color: 'bg-[#1E3A5F]' },
   { name: 'Angela Torres', role: 'Operations Manager', initials: 'AT', color: 'bg-[#F97316]' },
