@@ -63,16 +63,16 @@ export default function ContactSection({ settings }: Props) {
           <div className="lg:col-span-2 space-y-8">
             {/* Phone */}
             <div className="flex gap-4">
-              <div className="w-12 h-12 bg-[#F97316]/10 rounded-xl flex items-center justify-center shrink-0">
-                <Phone size={20} className="text-[#F97316]" />
+              <div className="w-12 h-12 bg-[var(--color-primary)]/10 rounded-xl flex items-center justify-center shrink-0">
+                <Phone size={20} className="text-[var(--color-primary)]" />
               </div>
               <div>
-                <div className="font-bold text-[#1E3A5F] text-sm mb-1">
+                <div className="font-bold text-[var(--color-secondary)] text-sm mb-1">
                   Phone
                 </div>
                 <a
                   href="tel:1300565576"
-                  className="text-gray-500 hover:text-[#F97316] transition-colors text-sm"
+                  className="text-gray-500 hover:text-[var(--color-primary)] transition-colors text-sm"
                 >
                   {general.phone}
                 </a>
@@ -81,16 +81,16 @@ export default function ContactSection({ settings }: Props) {
 
             {/* Email */}
             <div className="flex gap-4">
-              <div className="w-12 h-12 bg-[#F97316]/10 rounded-xl flex items-center justify-center shrink-0">
-                <Mail size={20} className="text-[#F97316]" />
+              <div className="w-12 h-12 bg-[var(--color-primary)]/10 rounded-xl flex items-center justify-center shrink-0">
+                <Mail size={20} className="text-[var(--color-primary)]" />
               </div>
               <div>
-                <div className="font-bold text-[#1E3A5F] text-sm mb-1">
+                <div className="font-bold text-[var(--color-secondary)] text-sm mb-1">
                   Email
                 </div>
                 <a
                   href="mailto:info@rukey.com.au"
-                  className="text-gray-500 hover:text-[#F97316] transition-colors text-sm"
+                  className="text-gray-500 hover:text-[var(--color-primary)] transition-colors text-sm"
                 >
                   {general.email}
                 </a>
@@ -99,17 +99,17 @@ export default function ContactSection({ settings }: Props) {
 
             {/* Offices */}
             <div className="flex gap-4">
-              <div className="w-12 h-12 bg-[#F97316]/10 rounded-xl flex items-center justify-center shrink-0 mt-1">
-                <MapPin size={20} className="text-[#F97316]" />
+              <div className="w-12 h-12 bg-[var(--color-primary)]/10 rounded-xl flex items-center justify-center shrink-0 mt-1">
+                <MapPin size={20} className="text-[var(--color-primary)]" />
               </div>
               <div>
-                <div className="font-bold text-[#1E3A5F] text-sm mb-3">
+                <div className="font-bold text-[var(--color-secondary)] text-sm mb-3">
                   Our Offices
                 </div>
                 <ul className="space-y-2">
                   {addresses.map((a) => (
                     <li key={a.area}>
-                      <span className="text-[#F97316] font-semibold text-xs">
+                      <span className="text-[var(--color-primary)] font-semibold text-xs">
                         {a.area} —{" "}
                       </span>
                       <span className="text-gray-500 text-xs">{a.address}</span>
@@ -121,7 +121,7 @@ export default function ContactSection({ settings }: Props) {
 
             {/* Hours */}
             <div className="bg-gray-50 rounded-2xl p-6">
-              <h4 className="font-bold text-[#1E3A5F] text-sm mb-4">
+              <h4 className="font-bold text-[var(--color-secondary)] text-sm mb-4">
                 Business Hours
               </h4>
               <div className="space-y-2 text-sm">
@@ -132,7 +132,7 @@ export default function ContactSection({ settings }: Props) {
                 ].map(({ day, hours }) => (
                   <div key={day} className="flex justify-between">
                     <span className="text-gray-500">{day}</span>
-                    <span className="font-semibold text-[#1E3A5F]">
+                    <span className="font-semibold text-[var(--color-secondary)]">
                       {hours}
                     </span>
                   </div>
@@ -148,7 +148,7 @@ export default function ContactSection({ settings }: Props) {
                 <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-4">
                   <CheckCircle2 size={32} className="text-emerald-500" />
                 </div>
-                <h3 className="text-xl font-bold text-[#1E3A5F] mb-2">
+                <h3 className="text-xl font-bold text-[var(--color-secondary)] mb-2">
                   Message Sent!
                 </h3>
                 <p className="text-gray-500 text-sm max-w-xs">
@@ -166,7 +166,7 @@ export default function ContactSection({ settings }: Props) {
                       message: "",
                     });
                   }}
-                  className="mt-6 text-[#F97316] text-sm font-semibold hover:underline"
+                  className="mt-6 text-[var(--color-primary)] text-sm font-semibold hover:underline"
                 >
                   Send another message
                 </button>
@@ -179,8 +179,8 @@ export default function ContactSection({ settings }: Props) {
                 {/* Row 1 */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold text-[#1E3A5F] mb-1.5">
-                      Full Name <span className="text-[#F97316]">*</span>
+                    <label className="block text-xs font-semibold text-[var(--color-secondary)] mb-1.5">
+                      Full Name <span className="text-[var(--color-primary)]">*</span>
                     </label>
                     <input
                       type="text"
@@ -189,12 +189,12 @@ export default function ContactSection({ settings }: Props) {
                       value={form.name}
                       onChange={handleChange}
                       placeholder="John Smith"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F97316]/40 focus:border-[#F97316] transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/40 focus:border-[var(--color-primary)] transition-all"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-[#1E3A5F] mb-1.5">
-                      Email Address <span className="text-[#F97316]">*</span>
+                    <label className="block text-xs font-semibold text-[var(--color-secondary)] mb-1.5">
+                      Email Address <span className="text-[var(--color-primary)]">*</span>
                     </label>
                     <input
                       type="email"
@@ -203,7 +203,7 @@ export default function ContactSection({ settings }: Props) {
                       value={form.email}
                       onChange={handleChange}
                       placeholder="john@company.com.au"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F97316]/40 focus:border-[#F97316] transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/40 focus:border-[var(--color-primary)] transition-all"
                     />
                   </div>
                 </div>
@@ -211,7 +211,7 @@ export default function ContactSection({ settings }: Props) {
                 {/* Row 2 */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold text-[#1E3A5F] mb-1.5">
+                    <label className="block text-xs font-semibold text-[var(--color-secondary)] mb-1.5">
                       Phone Number
                     </label>
                     <input
@@ -220,18 +220,18 @@ export default function ContactSection({ settings }: Props) {
                       value={form.phone}
                       onChange={handleChange}
                       placeholder="04XX XXX XXX"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F97316]/40 focus:border-[#F97316] transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/40 focus:border-[var(--color-primary)] transition-all"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-[#1E3A5F] mb-1.5">
+                    <label className="block text-xs font-semibold text-[var(--color-secondary)] mb-1.5">
                       Service Required
                     </label>
                     <select
                       name="service"
                       value={form.service}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#F97316]/40 focus:border-[#F97316] transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/40 focus:border-[var(--color-primary)] transition-all"
                     >
                       <option value="">Select a service...</option>
                       <option>Office Cleaning</option>
@@ -248,8 +248,8 @@ export default function ContactSection({ settings }: Props) {
 
                 {/* Message */}
                 <div>
-                  <label className="block text-xs font-semibold text-[#1E3A5F] mb-1.5">
-                    Message <span className="text-[#F97316]">*</span>
+                  <label className="block text-xs font-semibold text-[var(--color-secondary)] mb-1.5">
+                    Message <span className="text-[var(--color-primary)]">*</span>
                   </label>
                   <textarea
                     name="message"
@@ -258,7 +258,7 @@ export default function ContactSection({ settings }: Props) {
                     value={form.message}
                     onChange={handleChange}
                     placeholder="Tell us about your facility and cleaning requirements..."
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F97316]/40 focus:border-[#F97316] transition-all resize-none"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/40 focus:border-[var(--color-primary)] transition-all resize-none"
                   />
                 </div>
 
@@ -266,7 +266,7 @@ export default function ContactSection({ settings }: Props) {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex items-center justify-center gap-2 bg-[#F97316] text-white py-4 rounded-xl font-bold hover:bg-[#EA6C0A] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
+                  className="w-full flex items-center justify-center gap-2 bg-[var(--color-primary)] text-white py-4 rounded-xl font-bold hover:bg-[var(--color-primary-dark)] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
                 >
                   {loading ? (
                     <>

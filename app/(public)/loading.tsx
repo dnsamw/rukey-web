@@ -5,7 +5,7 @@ export default function HomeLoading() {
     <>
       <HeroSkeleton />
       {/* Stats bar placeholder */}
-      <div className="bg-[#F97316] h-24 animate-pulse" />
+      <div className="bg-[var(--color-primary)] h-24 animate-pulse" />
       <ServicesGridSkeleton />
       {/* About section placeholder */}
       <div className="py-24 bg-white">

@@ -29,8 +29,8 @@ export default async function DashboardPage() {
   ])
 
   const stats = [
-    { title: 'Hero Slides', value: slidesCount ?? 0, subtitle: 'Active slides in carousel', icon: Images, color: 'bg-[#1E3A5F]' },
-    { title: 'Services', value: servicesCount ?? 0, subtitle: 'Active service listings', icon: Layers, color: 'bg-[#F97316]' },
+    { title: 'Hero Slides', value: slidesCount ?? 0, subtitle: 'Active slides in carousel', icon: Images, color: 'bg-[var(--color-secondary)]' },
+    { title: 'Services', value: servicesCount ?? 0, subtitle: 'Active service listings', icon: Layers, color: 'bg-[var(--color-primary)]' },
     { title: 'Testimonials', value: testimonialsCount ?? 0, subtitle: 'Client reviews', icon: Star, color: 'bg-emerald-500' },
     { title: 'New Quotes', value: quotesCount ?? 0, subtitle: 'Awaiting response', icon: FileText, color: 'bg-purple-500' },
     { title: 'New Messages', value: messagesCount ?? 0, subtitle: 'Unread contact messages', icon: MessageSquare, color: 'bg-blue-500' },
@@ -42,7 +42,7 @@ export default async function DashboardPage() {
 
         {/* Page header */}
         <div>
-          <h1 className="text-2xl font-black text-[#1E3A5F]">Dashboard</h1>
+          <h1 className="text-2xl font-black text-[var(--color-secondary)]">Dashboard</h1>
           <p className="text-gray-400 text-sm mt-1">Overview of your website content and activity.</p>
         </div>
 
@@ -57,8 +57,8 @@ export default async function DashboardPage() {
           {/* Recent quotes */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
             <div className="flex items-center justify-between p-6 border-b border-gray-100">
-              <h2 className="font-bold text-[#1E3A5F]">Recent Quote Requests</h2>
-              <Link href="/admin/quotes" className="text-xs text-[#F97316] font-semibold hover:underline">
+              <h2 className="font-bold text-[var(--color-secondary)]">Recent Quote Requests</h2>
+              <Link href="/admin/quotes" className="text-xs text-[var(--color-primary)] font-semibold hover:underline">
                 View all
               </Link>
             </div>
@@ -71,7 +71,7 @@ export default async function DashboardPage() {
                   </div>
                   <div className="flex items-center gap-3">
                     <span className={`text-xs px-2.5 py-1 rounded-full font-semibold ${
-                      q.status === 'new' ? 'bg-orange-100 text-[#F97316]' : 'bg-gray-100 text-gray-400'
+                      q.status === 'new' ? 'bg-orange-100 text-[var(--color-primary)]' : 'bg-gray-100 text-gray-400'
                     }`}>
                       {q.status}
                     </span>
@@ -90,8 +90,8 @@ export default async function DashboardPage() {
           {/* Recent messages */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
             <div className="flex items-center justify-between p-6 border-b border-gray-100">
-              <h2 className="font-bold text-[#1E3A5F]">Recent Messages</h2>
-              <Link href="/admin/messages" className="text-xs text-[#F97316] font-semibold hover:underline">
+              <h2 className="font-bold text-[var(--color-secondary)]">Recent Messages</h2>
+              <Link href="/admin/messages" className="text-xs text-[var(--color-primary)] font-semibold hover:underline">
                 View all
               </Link>
             </div>
@@ -104,7 +104,7 @@ export default async function DashboardPage() {
                   </div>
                   <div className="flex items-center gap-3">
                     <span className={`text-xs px-2.5 py-1 rounded-full font-semibold ${
-                      m.status === 'new' ? 'bg-orange-100 text-[#F97316]' : 'bg-gray-100 text-gray-400'
+                      m.status === 'new' ? 'bg-orange-100 text-[var(--color-primary)]' : 'bg-gray-100 text-gray-400'
                     }`}>
                       {m.status}
                     </span>
@@ -124,11 +124,11 @@ export default async function DashboardPage() {
 
         {/* Quick actions */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-          <h2 className="font-bold text-[#1E3A5F] mb-5">Quick Actions</h2>
+          <h2 className="font-bold text-[var(--color-secondary)] mb-5">Quick Actions</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { label: 'Manage Slides', href: '/admin/hero', icon: Images, color: 'bg-[#1E3A5F]' },
-              { label: 'Manage Services', href: '/admin/services', icon: Layers, color: 'bg-[#F97316]' },
+              { label: 'Manage Slides', href: '/admin/hero', icon: Images, color: 'bg-[var(--color-secondary)]' },
+              { label: 'Manage Services', href: '/admin/services', icon: Layers, color: 'bg-[var(--color-primary)]' },
               { label: 'View Quotes', href: '/admin/quotes', icon: FileText, color: 'bg-purple-500' },
               { label: 'Site Settings', href: '/admin/settings', icon: Star, color: 'bg-emerald-500' },
             ].map(({ label, href, icon: Icon, color }) => (

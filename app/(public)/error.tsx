@@ -21,21 +21,21 @@ export default function ErrorPage({
         <div className="w-20 h-20 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
           <AlertTriangle size={36} className="text-red-500" />
         </div>
-        <h1 className="text-2xl font-black text-[#1E3A5F] mb-3">Something went wrong</h1>
+        <h1 className="text-2xl font-black text-[var(--color-secondary)] mb-3">Something went wrong</h1>
         <p className="text-gray-500 leading-relaxed mb-8">
           We encountered an unexpected error. Please try again or head back to the home page.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
             onClick={reset}
-            className="inline-flex items-center justify-center gap-2 bg-[#F97316] text-white px-8 py-3.5 rounded-full font-bold hover:bg-[#EA6C0A] transition-all shadow-md"
+            className="inline-flex items-center justify-center gap-2 bg-[var(--color-primary)] text-white px-8 py-3.5 rounded-full font-bold hover:bg-[var(--color-primary-dark)] transition-all shadow-md"
           >
             <RefreshCw size={18} />
             Try Again
           </button>
           <Link
             href="/"
-            className="inline-flex items-center justify-center gap-2 border-2 border-[#1E3A5F] text-[#1E3A5F] px-8 py-3.5 rounded-full font-bold hover:bg-[#1E3A5F] hover:text-white transition-all"
+            className="inline-flex items-center justify-center gap-2 border-2 border-[var(--color-secondary)] text-[var(--color-secondary)] px-8 py-3.5 rounded-full font-bold hover:bg-[var(--color-secondary)] hover:text-white transition-all"
           >
             <Home size={18} />
             Back to Home

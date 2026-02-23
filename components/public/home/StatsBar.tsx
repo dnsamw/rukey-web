@@ -9,7 +9,7 @@ const stats = [
 
 export default function StatsBar() {
   return (
-    <section className="bg-[#F97316]">
+    <section className="bg-[var(--color-primary)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-orange-400">
           {stats.map(({ icon: Icon, value, label }) => (

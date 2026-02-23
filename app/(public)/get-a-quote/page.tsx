@@ -30,8 +30,8 @@ export default function GetAQuotePage() {
   ) => setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
 
   const inputClass =
-    "w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F97316]/40 focus:border-[#F97316] transition-all";
-  const labelClass = "block text-xs font-semibold text-[#1E3A5F] mb-1.5";
+    "w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/40 focus:border-[var(--color-primary)] transition-all";
+  const labelClass = "block text-xs font-semibold text-[var(--color-secondary)] mb-1.5";
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -65,7 +65,7 @@ export default function GetAQuotePage() {
           <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle2 size={40} className="text-emerald-500" />
           </div>
-          <h2 className="text-2xl font-black text-[#1E3A5F] mb-3">
+          <h2 className="text-2xl font-black text-[var(--color-secondary)] mb-3">
             Quote Request Received!
           </h2>
           <p className="text-gray-500 text-sm leading-relaxed mb-8">
@@ -74,7 +74,7 @@ export default function GetAQuotePage() {
           </p>
           <Link
             href="/"
-            className="inline-block bg-[#F97316] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#EA6C0A] transition-colors"
+            className="inline-block bg-[var(--color-primary)] text-white px-8 py-3 rounded-full font-semibold hover:bg-[var(--color-primary-dark)] transition-colors"
           >
             Back to Home
           </Link>
@@ -86,7 +86,7 @@ export default function GetAQuotePage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-[#1E3A5F] py-20 relative overflow-hidden">
+      <section className="bg-[var(--color-secondary)] py-20 relative overflow-hidden">
         <div className="absolute -bottom-1 left-0 right-0">
           <svg
             viewBox="0 0 1440 60"
@@ -100,7 +100,7 @@ export default function GetAQuotePage() {
           </svg>
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="inline-block bg-[#F97316]/20 text-[#F97316] text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
+          <span className="inline-block bg-[var(--color-primary)]/20 text-[var(--color-primary)] text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
             Free & No Obligation
           </span>
           <h1 className="text-4xl md:text-5xl font-black text-white mb-4">
@@ -118,7 +118,7 @@ export default function GetAQuotePage() {
               Home
             </Link>
             <span className="text-gray-600">/</span>
-            <span className="text-[#F97316]">Get a Quote</span>
+            <span className="text-[var(--color-primary)]">Get a Quote</span>
           </nav>
         </div>
       </section>
@@ -133,21 +133,21 @@ export default function GetAQuotePage() {
                   <div
                     className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold transition-all ${
                       i <= step
-                        ? "bg-[#F97316] text-white"
+                        ? "bg-[var(--color-primary)] text-white"
                         : "bg-gray-200 text-gray-400"
                     }`}
                   >
                     {i < step ? "✓" : i + 1}
                   </div>
                   <span
-                    className={`text-xs mt-1 font-medium ${i <= step ? "text-[#F97316]" : "text-gray-400"}`}
+                    className={`text-xs mt-1 font-medium ${i <= step ? "text-[var(--color-primary)]" : "text-gray-400"}`}
                   >
                     {s}
                   </span>
                 </div>
                 {i < steps.length - 1 && (
                   <div
-                    className={`h-0.5 w-16 sm:w-24 mx-2 mb-4 transition-all ${i < step ? "bg-[#F97316]" : "bg-gray-200"}`}
+                    className={`h-0.5 w-16 sm:w-24 mx-2 mb-4 transition-all ${i < step ? "bg-[var(--color-primary)]" : "bg-gray-200"}`}
                   />
                 )}
               </div>
@@ -158,13 +158,13 @@ export default function GetAQuotePage() {
             {/* Step 0 */}
             {step === 0 && (
               <div className="space-y-5">
-                <h2 className="text-xl font-bold text-[#1E3A5F] mb-6">
+                <h2 className="text-xl font-bold text-[var(--color-secondary)] mb-6">
                   Your Contact Details
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
                     <label className={labelClass}>
-                      Full Name <span className="text-[#F97316]">*</span>
+                      Full Name <span className="text-[var(--color-primary)]">*</span>
                     </label>
                     <input
                       name="name"
@@ -187,7 +187,7 @@ export default function GetAQuotePage() {
                   </div>
                   <div>
                     <label className={labelClass}>
-                      Email <span className="text-[#F97316]">*</span>
+                      Email <span className="text-[var(--color-primary)]">*</span>
                     </label>
                     <input
                       name="email"
@@ -215,7 +215,7 @@ export default function GetAQuotePage() {
                   <button
                     onClick={() => setStep(1)}
                     disabled={!form.name || !form.email}
-                    className="bg-[#F97316] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#EA6C0A] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="bg-[var(--color-primary)] text-white px-8 py-3 rounded-full font-semibold hover:bg-[var(--color-primary-dark)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Next Step →
                   </button>
@@ -226,13 +226,13 @@ export default function GetAQuotePage() {
             {/* Step 1 */}
             {step === 1 && (
               <div className="space-y-5">
-                <h2 className="text-xl font-bold text-[#1E3A5F] mb-6">
+                <h2 className="text-xl font-bold text-[var(--color-secondary)] mb-6">
                   Facility Information
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
                     <label className={labelClass}>
-                      Service Required <span className="text-[#F97316]">*</span>
+                      Service Required <span className="text-[var(--color-primary)]">*</span>
                     </label>
                     <select
                       name="service"
@@ -315,7 +315,7 @@ export default function GetAQuotePage() {
                   <button
                     onClick={() => setStep(2)}
                     disabled={!form.service}
-                    className="bg-[#F97316] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#EA6C0A] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="bg-[var(--color-primary)] text-white px-8 py-3 rounded-full font-semibold hover:bg-[var(--color-primary-dark)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Review Quote →
                   </button>
@@ -326,7 +326,7 @@ export default function GetAQuotePage() {
             {/* Step 2 — Confirm */}
             {step === 2 && (
               <div>
-                <h2 className="text-xl font-bold text-[#1E3A5F] mb-6">
+                <h2 className="text-xl font-bold text-[var(--color-secondary)] mb-6">
                   Review & Submit
                 </h2>
                 <div className="bg-gray-50 rounded-xl p-6 space-y-4 mb-8">
@@ -342,7 +342,7 @@ export default function GetAQuotePage() {
                     { label: "Notes", value: form.message || "—" },
                   ].map(({ label, value }) => (
                     <div key={label} className="flex gap-4 text-sm">
-                      <span className="font-semibold text-[#1E3A5F] w-32 shrink-0">
+                      <span className="font-semibold text-[var(--color-secondary)] w-32 shrink-0">
                         {label}
                       </span>
                       <span className="text-gray-500">{value}</span>
@@ -359,7 +359,7 @@ export default function GetAQuotePage() {
                   <button
                     onClick={handleSubmit}
                     disabled={loading}
-                    className="inline-flex items-center gap-2 bg-[#F97316] text-white px-8 py-3 rounded-full font-bold hover:bg-[#EA6C0A] transition-colors disabled:opacity-70"
+                    className="inline-flex items-center gap-2 bg-[var(--color-primary)] text-white px-8 py-3 rounded-full font-bold hover:bg-[var(--color-primary-dark)] transition-colors disabled:opacity-70"
                   >
                     {loading ? (
                       <>
@@ -382,14 +382,14 @@ export default function GetAQuotePage() {
             Prefer to talk directly?{" "}
             <a
               href="tel:1300565576"
-              className="text-[#F97316] font-semibold hover:underline inline-flex items-center gap-1"
+              className="text-[var(--color-primary)] font-semibold hover:underline inline-flex items-center gap-1"
             >
               <Phone size={13} /> 1300 565 576
             </a>{" "}
             or{" "}
             <a
-              href="mailto:info@cleanpro.com.au"
-              className="text-[#F97316] font-semibold hover:underline inline-flex items-center gap-1"
+              href="mailto:info@rukey.com.au"
+              className="text-[var(--color-primary)] font-semibold hover:underline inline-flex items-center gap-1"
             >
               <Mail size={13} /> Email Us
             </a>

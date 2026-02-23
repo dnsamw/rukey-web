@@ -36,7 +36,7 @@ export default function AdminHeader({ onMenuClick }: Props) {
           href="/"
           target="_blank"
           rel="noopener noreferrer"
-          className="hidden sm:inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-[#F97316] transition-colors font-medium"
+          className="hidden sm:inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-[var(--color-primary)] transition-colors font-medium"
         >
           <ExternalLink size={13} />
           View Site

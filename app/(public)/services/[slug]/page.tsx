@@ -60,7 +60,7 @@ export default async function ServiceDetailPage({ params }: Props) {
   return (
     <>
       {/* Page Hero */}
-      <section className="relative bg-[#1E3A5F] py-24 overflow-hidden">
+      <section className="relative bg-[var(--color-secondary)] py-24 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <Image src={service.image_url} alt="" fill className="object-cover" />
         </div>
@@ -92,13 +92,13 @@ export default async function ServiceDetailPage({ params }: Props) {
               Services
             </Link>
             <span className="text-gray-600">/</span>
-            <span className="text-[#F97316]">{service.name}</span>
+            <span className="text-[var(--color-primary)]">{service.name}</span>
           </nav>
           <div className="flex items-center gap-4 mb-4">
-            <div className="w-14 h-14 bg-[#F97316] rounded-2xl flex items-center justify-center shadow-lg">
+            <div className="w-14 h-14 bg-[var(--color-primary)] rounded-2xl flex items-center justify-center shadow-lg">
               <Icon size={26} className="text-white" />
             </div>
-            <span className="bg-[#F97316]/20 text-[#F97316] text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">
+            <span className="bg-[var(--color-primary)]/20 text-[var(--color-primary)] text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">
               Professional Service
             </span>
           </div>
@@ -129,10 +129,10 @@ export default async function ServiceDetailPage({ params }: Props) {
 
               {/* Description */}
               <div>
-                <h2 className="text-2xl font-bold text-[#1E3A5F] mb-4">
+                <h2 className="text-2xl font-bold text-[var(--color-secondary)] mb-4">
                   About This Service
                 </h2>
-                <div className="h-1 w-12 bg-[#F97316] rounded-full mb-6" />
+                <div className="h-1 w-12 bg-[var(--color-primary)] rounded-full mb-6" />
                 <p className="text-gray-500 leading-relaxed">
                   {service.full_description}
                 </p>
@@ -141,10 +141,10 @@ export default async function ServiceDetailPage({ params }: Props) {
               {/* What's Included */}
               {service.includes.length > 0 && (
                 <div>
-                  <h2 className="text-2xl font-bold text-[#1E3A5F] mb-4">
+                  <h2 className="text-2xl font-bold text-[var(--color-secondary)] mb-4">
                     What's Included
                   </h2>
-                  <div className="h-1 w-12 bg-[#F97316] rounded-full mb-6" />
+                  <div className="h-1 w-12 bg-[var(--color-primary)] rounded-full mb-6" />
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {service.includes.map((item) => (
                       <div
@@ -153,7 +153,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                       >
                         <CheckCircle2
                           size={16}
-                          className="text-[#F97316] shrink-0 mt-0.5"
+                          className="text-[var(--color-primary)] shrink-0 mt-0.5"
                         />
                         <span className="text-gray-600 text-sm">{item}</span>
                       </div>
@@ -165,16 +165,16 @@ export default async function ServiceDetailPage({ params }: Props) {
               {/* Benefits */}
               {service.benefits.length > 0 && (
                 <div>
-                  <h2 className="text-2xl font-bold text-[#1E3A5F] mb-4">
+                  <h2 className="text-2xl font-bold text-[var(--color-secondary)] mb-4">
                     Key Benefits
                   </h2>
-                  <div className="h-1 w-12 bg-[#F97316] rounded-full mb-6" />
+                  <div className="h-1 w-12 bg-[var(--color-primary)] rounded-full mb-6" />
                   <ul className="space-y-3">
                     {service.benefits.map((b) => (
                       <li key={b} className="flex items-start gap-3">
                         <ArrowRight
                           size={16}
-                          className="text-[#F97316] shrink-0 mt-0.5"
+                          className="text-[var(--color-primary)] shrink-0 mt-0.5"
                         />
                         <span className="text-gray-600 text-sm">{b}</span>
                       </li>
@@ -187,7 +187,7 @@ export default async function ServiceDetailPage({ params }: Props) {
             {/* Right sidebar */}
             <div className="space-y-6">
               {/* CTA card */}
-              <div className="bg-[#1E3A5F] rounded-2xl p-7 text-white">
+              <div className="bg-[var(--color-secondary)] rounded-2xl p-7 text-white">
                 <h3 className="text-lg font-bold mb-2">
                   Ready to Get Started?
                 </h3>
@@ -215,7 +215,7 @@ export default async function ServiceDetailPage({ params }: Props) {
 
               {/* Other services */}
               <div className="bg-gray-50 rounded-2xl p-6">
-                <h3 className="font-bold text-[#1E3A5F] text-sm mb-4">
+                <h3 className="font-bold text-[var(--color-secondary)] text-sm mb-4">
                   Other Services
                 </h3>
                 <div className="space-y-3">
@@ -227,15 +227,15 @@ export default async function ServiceDetailPage({ params }: Props) {
                         href={`/services/${s.slug}`}
                         className="flex items-center gap-3 p-3 bg-white rounded-xl hover:shadow-sm transition-all group"
                       >
-                        <div className="w-9 h-9 bg-[#F97316]/10 rounded-lg flex items-center justify-center shrink-0">
-                          <RelIcon size={16} className="text-[#F97316]" />
+                        <div className="w-9 h-9 bg-[var(--color-primary)]/10 rounded-lg flex items-center justify-center shrink-0">
+                          <RelIcon size={16} className="text-[var(--color-primary)]" />
                         </div>
-                        <span className="text-sm font-medium text-gray-600 group-hover:text-[#F97316] transition-colors">
+                        <span className="text-sm font-medium text-gray-600 group-hover:text-[var(--color-primary)] transition-colors">
                           {s.name}
                         </span>
                         <ArrowRight
                           size={14}
-                          className="text-gray-300 ml-auto group-hover:text-[#F97316] group-hover:translate-x-0.5 transition-all"
+                          className="text-gray-300 ml-auto group-hover:text-[var(--color-primary)] group-hover:translate-x-0.5 transition-all"
                         />
                       </Link>
                     );
@@ -243,7 +243,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                 </div>
                 <Link
                   href="/services"
-                  className="block text-center text-[#F97316] text-sm font-semibold mt-4 hover:underline"
+                  className="block text-center text-[var(--color-primary)] text-sm font-semibold mt-4 hover:underline"
                 >
                   View All Services
                 </Link>

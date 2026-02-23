@@ -32,19 +32,19 @@ export default function ServicesGrid({ services }: Props) {
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-[#1E3A5F]/0 group-hover:bg-[#1E3A5F]/40 transition-all duration-300" />
-                  <div className="absolute top-4 left-4 w-10 h-10 bg-[#F97316] rounded-xl flex items-center justify-center shadow-lg">
+                  <div className="absolute inset-0 bg-[var(--color-secondary)]/0 group-hover:bg-[var(--color-secondary)]/40 transition-all duration-300" />
+                  <div className="absolute top-4 left-4 w-10 h-10 bg-[var(--color-primary)] rounded-xl flex items-center justify-center shadow-lg">
                     <Icon size={18} className="text-white" />
                   </div>
                 </div>
                 <div className="p-5">
-                  <h3 className="font-bold text-[#1E3A5F] text-base mb-2 group-hover:text-[#F97316] transition-colors duration-200">
+                  <h3 className="font-bold text-[var(--color-secondary)] text-base mb-2 group-hover:text-[var(--color-primary)] transition-colors duration-200">
                     {service.name}
                   </h3>
                   <p className="text-gray-500 text-sm leading-relaxed mb-4">
                     {service.short_description}
                   </p>
-                  <span className="inline-flex items-center gap-1.5 text-[#F97316] text-sm font-semibold">
+                  <span className="inline-flex items-center gap-1.5 text-[var(--color-primary)] text-sm font-semibold">
                     Learn More
                     <ArrowRight
                       size={15}
@@ -52,7 +52,7 @@ export default function ServicesGrid({ services }: Props) {
                     />
                   </span>
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#F97316] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--color-primary)] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
               </Link>
             );
           })}
@@ -60,7 +60,7 @@ export default function ServicesGrid({ services }: Props) {
         <div className="mt-12 text-center">
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 bg-[#1E3A5F] text-white px-8 py-4 rounded-full font-semibold hover:bg-[#F97316] transition-colors duration-200 shadow-md hover:shadow-lg"
+            className="inline-flex items-center gap-2 bg-[var(--color-secondary)] text-white px-8 py-4 rounded-full font-semibold hover:bg-[var(--color-primary)] transition-colors duration-200 shadow-md hover:shadow-lg"
           >
             View All Services <ArrowRight size={18} />
           </Link>

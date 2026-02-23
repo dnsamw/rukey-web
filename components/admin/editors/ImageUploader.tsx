@@ -40,7 +40,7 @@ export default function ImageUploader({ value, onChange, label = 'Image' }: Prop
 
   return (
     <div>
-      <label className="block text-xs font-semibold text-[#1E3A5F] mb-2">{label}</label>
+      <label className="block text-xs font-semibold text-[var(--color-secondary)] mb-2">{label}</label>
 
       {/* Preview */}
       {value && (
@@ -66,7 +66,7 @@ export default function ImageUploader({ value, onChange, label = 'Image' }: Prop
             type="button"
             onClick={() => setTab(key as 'url' | 'upload')}
             className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-md text-xs font-semibold transition-all ${
-              tab === key ? 'bg-white text-[#1E3A5F] shadow-sm' : 'text-gray-400 hover:text-gray-600'
+              tab === key ? 'bg-white text-[var(--color-secondary)] shadow-sm' : 'text-gray-400 hover:text-gray-600'
             }`}
           >
             <Icon size={13} /> {label}
@@ -81,12 +81,12 @@ export default function ImageUploader({ value, onChange, label = 'Image' }: Prop
             value={urlInput}
             onChange={(e) => setUrlInput(e.target.value)}
             placeholder="https://example.com/image.jpg"
-            className="flex-1 px-3 py-2.5 text-xs border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F97316]/40 focus:border-[#F97316] transition-all"
+            className="flex-1 px-3 py-2.5 text-xs border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/40 focus:border-[var(--color-primary)] transition-all"
           />
           <button
             type="button"
             onClick={handleUrlApply}
-            className="px-4 py-2.5 bg-[#1E3A5F] text-white text-xs font-semibold rounded-xl hover:bg-[#F97316] transition-colors"
+            className="px-4 py-2.5 bg-[var(--color-secondary)] text-white text-xs font-semibold rounded-xl hover:bg-[var(--color-primary)] transition-colors"
           >
             Apply
           </button>
@@ -104,7 +104,7 @@ export default function ImageUploader({ value, onChange, label = 'Image' }: Prop
             type="button"
             onClick={() => fileRef.current?.click()}
             disabled={uploading}
-            className="w-full flex flex-col items-center gap-2 py-6 border-2 border-dashed border-gray-200 rounded-xl hover:border-[#F97316] hover:bg-orange-50 transition-all text-gray-400 hover:text-[#F97316] disabled:opacity-60"
+            className="w-full flex flex-col items-center gap-2 py-6 border-2 border-dashed border-gray-200 rounded-xl hover:border-[var(--color-primary)] hover:bg-orange-50 transition-all text-gray-400 hover:text-[var(--color-primary)] disabled:opacity-60"
           >
             <Upload size={22} />
             <span className="text-xs font-medium">
