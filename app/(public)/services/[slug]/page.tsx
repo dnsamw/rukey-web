@@ -182,7 +182,7 @@ export async function generateMetadata({ params }: Props) {
     title: service.name,
     description: service.short_description,
     openGraph: {
-      title: `${service.name} | CleanPro Facility Services`,
+      title: `${service.name} | Rukey Facility Services`,
       description: service.short_description,
       images: [{ url: service.image_url }],
     },
