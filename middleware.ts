@@ -1,21 +1,47 @@
-// Middleware to protect /admin routes
-import { NextRequest, NextResponse } from 'next/server';
+import { createServerClient } from '@supabase/ssr'
+import { NextResponse, type NextRequest } from 'next/server'
 
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+export async function middleware(request: NextRequest) {
+  let supabaseResponse = NextResponse.next({ request })
 
-  // Protect admin routes
-  if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {
-    // Check for authentication
-    const hasAuth = request.cookies.has('auth-token');
-    if (!hasAuth) {
-      return NextResponse.redirect(new URL('/admin/login', request.url));
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll()
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value }) =>
+            request.cookies.set(name, value)
+          )
+          supabaseResponse = NextResponse.next({ request })
+          cookiesToSet.forEach(({ name, value, options }) =>
+            supabaseResponse.cookies.set(name, value, options)
+          )
+        },
+      },
     }
+  )
+
+  const { data: { user } } = await supabase.auth.getUser()
+  const isAdminRoute = request.nextUrl.pathname.startsWith('/admin')
+  const isLoginPage = request.nextUrl.pathname === '/admin/login'
+
+  // Not logged in and trying to access admin — redirect to login
+  if (isAdminRoute && !isLoginPage && !user) {
+    return NextResponse.redirect(new URL('/admin/login', request.url))
   }
 
-  return NextResponse.next();
+  // Already logged in and hitting login page — redirect to dashboard
+  if (isLoginPage && user) {
+    return NextResponse.redirect(new URL('/admin/dashboard', request.url))
+  }
+
+  return supabaseResponse
 }
 
 export const config = {
   matcher: ['/admin/:path*'],
-};
+}
