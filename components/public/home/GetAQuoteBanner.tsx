@@ -34,7 +34,7 @@ export default function GetAQuoteBanner({ settings }: Props) {
           <div className="flex flex-col sm:flex-row lg:flex-col gap-4 shrink-0">
             <Link
               href="/get-a-quote"
-              className="inline-flex items-center justify-center gap-2 bg-[var(--color-primary)] text-white px-8 py-4 rounded-full font-bold hover:bg-orange-400 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105"
+              className="inline-flex items-center justify-center gap-2 bg-[var(--color-primary)] text-white px-8 py-4 rounded-full font-bold hover:bg-[var(--color-primary)] transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105"
             >
               Get a Free Quote
               <ArrowRight size={18} />
