@@ -170,6 +170,25 @@ import CTAButton from "@/components/public/shared/CTAButton";
 //   },
 // };
 
+export async function generateMetadata({ params }: Props) {
+  const { slug } = await params
+  const service = await getServiceBySlug(slug)
+
+  if (!service) {
+    return { title: 'Service Not Found' }
+  }
+
+  return {
+    title: service.name,
+    description: service.short_description,
+    openGraph: {
+      title: `${service.name} | Rukey Facility Services`,
+      description: service.short_description,
+      images: [{ url: service.image_url }],
+    },
+  }
+}
+
 type Props = { params: Promise<{ slug: string }> };
 
 export default async function ServiceDetailPage({ params }: Props) {

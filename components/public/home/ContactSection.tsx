@@ -4,15 +4,13 @@ import { useState } from "react";
 import { Phone, Mail, MapPin, Send, CheckCircle2 } from "lucide-react";
 import SectionHeading from "@/components/public/shared/SectionHeading";
 import { createClient } from "@/lib/supabase/client";
+import type { SiteSettingsData } from "@/lib/data/fetchers";
 
-const offices = [
-  { area: "Braeside", address: "17 Citrus Street Braeside, VIC 3195" },
-  { area: "Traralgon", address: "8 Baystone Court Traralgon, VIC 3844" },
-  { area: "Red Cliffs", address: "6 Ella-mae Court Red Cliffs, VIC 3496" },
-  { area: "Wodonga", address: "203 Mckoy Street Wodonga, VIC 3690" },
-];
+type Props = { settings: SiteSettingsData };
 
-export default function ContactSection() {
+export default function ContactSection({ settings }: Props) {
+  const { general, addresses } = settings;
+
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
@@ -76,7 +74,7 @@ export default function ContactSection() {
                   href="tel:1300565576"
                   className="text-gray-500 hover:text-[#F97316] transition-colors text-sm"
                 >
-                  1300 565 576
+                  {general.phone}
                 </a>
               </div>
             </div>
@@ -94,7 +92,7 @@ export default function ContactSection() {
                   href="mailto:info@rukey.com.au"
                   className="text-gray-500 hover:text-[#F97316] transition-colors text-sm"
                 >
-                  info@rukey.com.au
+                  {general.email}
                 </a>
               </div>
             </div>
@@ -109,12 +107,12 @@ export default function ContactSection() {
                   Our Offices
                 </div>
                 <ul className="space-y-2">
-                  {offices.map((o) => (
-                    <li key={o.area}>
+                  {addresses.map((a) => (
+                    <li key={a.area}>
                       <span className="text-[#F97316] font-semibold text-xs">
-                        {o.area} —{" "}
+                        {a.area} —{" "}
                       </span>
-                      <span className="text-gray-500 text-xs">{o.address}</span>
+                      <span className="text-gray-500 text-xs">{a.address}</span>
                     </li>
                   ))}
                 </ul>

@@ -1,22 +1,22 @@
 import Link from 'next/link'
 import { ArrowRight, Phone } from 'lucide-react'
+import type { SiteSettingsData } from '@/lib/data/fetchers'
 
-export default function GetAQuoteBanner() {
+type Props = { settings?: SiteSettingsData }
+
+export default function GetAQuoteBanner({ settings }: Props) {
+  // TODO - debug - phone number is not showing up in the banner.
+  const phone = settings?.general.phone ?? '1300 565 576'
+
   return (
     <section className="relative py-20 overflow-hidden">
-
-      {/* Background */}
       <div className="absolute inset-0 bg-[#1E3A5F]" />
-
-      {/* Decorative circles */}
       <div className="absolute -top-20 -right-20 w-80 h-80 bg-[#F97316]/10 rounded-full" />
       <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-[#F97316]/5 rounded-full" />
       <div className="absolute top-1/2 left-1/3 w-40 h-40 bg-white/5 rounded-full -translate-y-1/2" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
-
-          {/* Left */}
           <div className="text-center lg:text-left max-w-2xl">
             <span className="inline-block bg-[#F97316]/20 text-[#F97316] text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
               Free Consultation
@@ -31,8 +31,6 @@ export default function GetAQuoteBanner() {
               needs and build a cleaning program that fits your schedule and budget.
             </p>
           </div>
-
-          {/* Right — CTAs */}
           <div className="flex flex-col sm:flex-row lg:flex-col gap-4 shrink-0">
             <Link
               href="/get-a-quote"
@@ -42,14 +40,13 @@ export default function GetAQuoteBanner() {
               <ArrowRight size={18} />
             </Link>
             
-            <a  href="tel:1300565576"
+            <a  href={`tel:${phone.replace(/\s/g, '')}`}
               className="inline-flex items-center justify-center gap-2 bg-white/10 text-white border border-white/20 px-8 py-4 rounded-full font-semibold hover:bg-white/20 transition-all duration-200"
             >
               <Phone size={18} className="text-[#F97316]" />
-              1300 565 576
+              {phone}
             </a>
           </div>
-
         </div>
       </div>
     </section>

@@ -1,20 +1,20 @@
-import type { ReactNode } from 'react';
-import AdminSidebar from '@/components/admin/layout/AdminSidebar';
-import AdminHeader from '@/components/admin/layout/AdminHeader';
+// import { redirect } from 'next/navigation'
+// import { createClient } from '@/lib/supabase/server'
+// import AdminShell from '@/components/admin/layout/AdminShell'
 
-export const metadata = {
-  title: 'Admin Dashboard - Cleaning Service',
-  description: 'Admin panel for managing cleaning service content',
-};
+// export default async function AdminLayout({
+//   children,
+// }: {
+//   children: React.ReactNode
+// }) {
+//   const supabase = await createClient()
+//   const { data: { user } } = await supabase.auth.getUser()
 
-export default function AdminLayout({ children }: { children: ReactNode }) {
-  return (
-    <div className="admin-layout">
-      <AdminSidebar />
-      <div className="admin-main">
-        <AdminHeader />
-        <main className="admin-content">{children}</main>
-      </div>
-    </div>
-  );
+//   if (!user) redirect('/admin/login')
+
+//   return <AdminShell>{children}</AdminShell>
+// }
+
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  return <>{children}</>
 }

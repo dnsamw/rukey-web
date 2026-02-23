@@ -1,7 +1,15 @@
 import Link from 'next/link'
 import ContactSection from '@/components/public/home/ContactSection'
+import { getSiteSettings } from '@/lib/data/fetchers'
 
-export default function ContactPage() {
+export const metadata = {
+  title: 'Contact Us',
+  description:
+    'Get in touch with Rukey Facility Services. Call 1300 565 576, email us, or fill in our contact form and we\'ll respond within one business day.',
+}
+
+export default async function ContactPage() {
+    const settings = await getSiteSettings();
   return (
     <>
       {/* Hero */}
@@ -27,7 +35,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <ContactSection />
+      <ContactSection settings={settings} />
     </>
   )
 }
