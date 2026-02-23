@@ -1,36 +1,50 @@
-'use client'
+"use client";
 
-import { useState, useCallback, useEffect } from 'react'
-import useEmblaCarousel from 'embla-carousel-react'
-import Autoplay from 'embla-carousel-autoplay'
-import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react'
-import SectionHeading from '@/components/public/shared/SectionHeading'
-import { testimonials } from '@/lib/data/testimonials'
+import { useState, useCallback, useEffect } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
+import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
+import SectionHeading from "@/components/public/shared/SectionHeading";
+// import { testimonials } from '@/lib/data/testimonials'
 
-export default function Testimonials() {
+type Testimonial = {
+  id: string;
+  name: string;
+  role: string;
+  company: string;
+  quote: string;
+  rating: number;
+  initials: string;
+  color: string;
+};
+
+type Props = { testimonials: Testimonial[] };
+
+export default function Testimonials({ testimonials }: Props) {
   const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: true, align: 'start', slidesToScroll: 1 },
-    [Autoplay({ delay: 6000, stopOnInteraction: false })]
-  )
-  const [selectedIndex, setSelectedIndex] = useState(0)
-  const [scrollSnaps, setScrollSnaps] = useState<number[]>([])
+    { loop: true, align: "start", slidesToScroll: 1 },
+    [Autoplay({ delay: 6000, stopOnInteraction: false })],
+  );
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
 
-  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi])
-  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi])
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
   useEffect(() => {
-    if (!emblaApi) return
-    setScrollSnaps(emblaApi.scrollSnapList())
-    const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap())
-    emblaApi.on('select', onSelect)
-    onSelect()
-    return () => { emblaApi.off('select', onSelect) }
-  }, [emblaApi])
+    if (!emblaApi) return;
+    setScrollSnaps(emblaApi.scrollSnapList());
+    const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
+    emblaApi.on("select", onSelect);
+    onSelect();
+    return () => {
+      emblaApi.off("select", onSelect);
+    };
+  }, [emblaApi]);
 
   return (
     <section className="py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
         <SectionHeading
           label="Client Reviews"
           title="What Our Clients Say"
@@ -47,7 +61,6 @@ export default function Testimonials() {
                   className="flex-[0_0_100%] sm:flex-[0_0_calc(50%-12px)] lg:flex-[0_0_calc(33.333%-16px)] min-w-0"
                 >
                   <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 h-full flex flex-col">
-
                     {/* Quote icon */}
                     <div className="mb-4">
                       <Quote size={32} className="text-[#F97316]/30" />
@@ -56,7 +69,11 @@ export default function Testimonials() {
                     {/* Stars */}
                     <div className="flex gap-1 mb-4">
                       {[...Array(t.rating)].map((_, i) => (
-                        <Star key={i} size={14} className="text-[#F97316] fill-[#F97316]" />
+                        <Star
+                          key={i}
+                          size={14}
+                          className="text-[#F97316] fill-[#F97316]"
+                        />
                       ))}
                     </div>
 
@@ -70,16 +87,19 @@ export default function Testimonials() {
 
                     {/* Author */}
                     <div className="flex items-center gap-3">
-                      <div className={`w-11 h-11 ${t.color} rounded-full flex items-center justify-center text-white text-sm font-bold shrink-0`}>
+                      <div
+                        className={`w-11 h-11 ${t.color} rounded-full flex items-center justify-center text-white text-sm font-bold shrink-0`}
+                      >
                         {t.initials}
                       </div>
                       <div>
-                        <div className="font-bold text-[#1E3A5F] text-sm">{t.name}</div>
+                        <div className="font-bold text-[#1E3A5F] text-sm">
+                          {t.name}
+                        </div>
                         <div className="text-gray-400 text-xs">{t.role}</div>
                         <div className="text-gray-400 text-xs">{t.company}</div>
                       </div>
                     </div>
-
                   </div>
                 </div>
               ))}
@@ -111,15 +131,14 @@ export default function Testimonials() {
               onClick={() => emblaApi?.scrollTo(i)}
               className={`transition-all duration-300 rounded-full ${
                 i === selectedIndex
-                  ? 'w-8 h-2.5 bg-[#F97316]'
-                  : 'w-2.5 h-2.5 bg-gray-300 hover:bg-gray-400'
+                  ? "w-8 h-2.5 bg-[#F97316]"
+                  : "w-2.5 h-2.5 bg-gray-300 hover:bg-gray-400"
               }`}
               aria-label={`Go to slide ${i + 1}`}
             />
           ))}
         </div>
-
       </div>
     </section>
-  )
+  );
 }
