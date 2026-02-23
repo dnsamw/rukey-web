@@ -2,6 +2,9 @@ import Navbar from '@/components/public/layout/Navbar'
 import Footer from '@/components/public/layout/Footer'
 import { getSiteSettings } from '@/lib/data/fetchers'
 
+// TODO
+// export const revalidate = 3600 // revalidate every hour (pages auto-refresh from Supabase every hour without a full rebuild)
+
 export default async function PublicLayout({
   children,
 }: {
