@@ -76,7 +76,7 @@ export default function AboutPage() {
               </div>
               <div className="absolute -bottom-6 -right-6 bg-[var(--color-primary)] text-white rounded-2xl p-6 shadow-xl">
                 <div className="text-4xl font-black leading-none">12+</div>
-                <div className="text-sm font-medium text-orange-100 mt-1">Years Trusted</div>
+                <div className="text-sm font-medium text-white mt-1">Years Trusted</div>
               </div>
             </div>
             <div>

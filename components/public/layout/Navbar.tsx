@@ -44,7 +44,7 @@ export default function Navbar({ settings }: Props) {
 
           <a
             href={`tel:${general.phone.replace(/\s/g, "")}`}
-            className="flex items-center gap-2 text-[var(--color-primary)] font-semibold hover:text-orange-400 transition-colors"
+            className="flex items-center gap-2 text-[var(--color-primary)] font-semibold hover:text-white transition-colors"
           >
             <Phone size={14} />
             {general.phone}
@@ -54,7 +54,11 @@ export default function Navbar({ settings }: Props) {
 
       {/* Main navbar */}
       <header
-        className={`sticky top-0 z-50 bg-white transition-shadow duration-300 ${scrolled ? "shadow-md" : "shadow-sm"}`}
+        className={`sticky top-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? "bg-white/40 backdrop-blur-md shadow-md"
+            : "bg-white shadow-sm"
+        }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
@@ -106,8 +110,8 @@ export default function Navbar({ settings }: Props) {
                     href={link.href}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                       isActive
-                        ? "text-[var(--color-primary)] bg-orange-50"
-                        : "text-gray-600 hover:text-[var(--color-primary)] hover:bg-orange-50"
+                        ? "text-[var(--color-primary)] bg-[var(--color-primary)]/10"
+                        : "text-gray-600 hover:text-[var(--color-primary)] hover:bg-primary-50"
                     }`}
                   >
                     {link.label}
