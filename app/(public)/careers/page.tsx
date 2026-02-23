@@ -3,6 +3,12 @@ import { MapPin, Clock, ArrowRight, Heart } from 'lucide-react'
 import SectionHeading from '@/components/public/shared/SectionHeading'
 import GetAQuoteBanner from '@/components/public/home/GetAQuoteBanner'
 
+export const metadata = {
+  title: 'Careers',
+  description:
+    'Join the Rukey team. Browse current job openings across Victoria and build a rewarding career with one of Australia\'s most respected cleaning companies.',
+}
+
 const jobs = [
   { id: '1', title: 'Commercial Cleaner', location: 'Melbourne, VIC', type: 'Full-time', department: 'Operations' },
   { id: '2', title: 'Team Leader — Office Cleaning', location: 'Geelong, VIC', type: 'Full-time', department: 'Operations' },
