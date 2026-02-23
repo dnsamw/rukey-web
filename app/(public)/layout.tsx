@@ -1,18 +1,21 @@
 import Navbar from '@/components/public/layout/Navbar'
 import Footer from '@/components/public/layout/Footer'
+import { getSiteSettings } from '@/lib/data/fetchers'
 
-export default function PublicLayout({
+export default async function PublicLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const settings = await getSiteSettings()
+
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
+      <Navbar settings={settings} />
       <main className="flex-1">
         {children}
       </main>
-      <Footer />
+      <Footer settings={settings} />
     </div>
   )
 }

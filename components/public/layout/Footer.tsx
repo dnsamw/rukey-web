@@ -7,8 +7,9 @@ import {
   Instagram,
   Linkedin,
 } from "lucide-react";
+import type { SiteSettingsData } from "@/lib/data/fetchers";
 
-const services = [
+const serviceLinks = [
   { label: "Office Cleaning", href: "/services/office" },
   { label: "School Cleaning", href: "/services/school" },
   { label: "Medical Cleaning", href: "/services/medical" },
@@ -25,7 +26,17 @@ const quickLinks = [
   { label: "Contact Us", href: "/contact" },
 ];
 
-export default function Footer() {
+type Props = { settings: SiteSettingsData };
+
+export default function Footer({ settings }: Props) {
+  const { general, addresses, social } = settings;
+
+  const socialLinks = [
+    { icon: Facebook, href: social.facebook, label: "Facebook" },
+    { icon: Instagram, href: social.instagram, label: "Instagram" },
+    { icon: Linkedin, href: social.linkedin, label: "LinkedIn" },
+  ];
+
   return (
     <footer className="bg-[#1E3A5F] text-white">
       {/* Main footer */}
@@ -35,31 +46,33 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-10 h-10 bg-[#F97316] rounded-lg flex items-center justify-center">
-                <span className="text-white font-black text-lg">C</span>
+                <span className="text-white font-black text-lg">
+                  {general.company_name.charAt(0)}
+                </span>
               </div>
               <div className="leading-tight">
                 <span className="block font-black text-white text-lg">
-                  CleanPro
+                  {general.company_name.split(" ")[0]}
                 </span>
                 <span className="block text-xs text-gray-400 font-medium">
-                  Facility Services
+                  {general.company_name.split(" ").slice(1).join(" ")}
                 </span>
               </div>
             </div>
-            <p className="text-gray-400 text-sm leading-relaxed mb-6">
-              Professional cleaning solutions for commercial, educational,
-              medical and industrial facilities across Australia.
+            <p className="text-gray-400 text-sm leading-relaxed mb-2">
+              {general.tagline}
             </p>
+            {general.abn && (
+              <p className="text-gray-500 text-xs mb-6">ABN: {general.abn}</p>
+            )}
+
             {/* Socials */}
             <div className="flex gap-3">
-              {[
-                { icon: Facebook, href: "#1" },
-                { icon: Instagram, href: "#2" },
-                { icon: Linkedin, href: "#3" },
-              ].map(({ icon: Icon, href }) => (
+              {socialLinks.map(({ icon: Icon, href, label }) => (
                 <a
-                  key={href}
-                  href={href}
+                  key={label}
+                  href={href || "#"}
+                  aria-label={label}
                   className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center hover:bg-[#F97316] transition-colors"
                 >
                   <Icon size={16} />
@@ -74,7 +87,7 @@ export default function Footer() {
               Our Services
             </h3>
             <ul className="space-y-3">
-              {services.map((s) => (
+              {serviceLinks.map((s) => (
                 <li key={s.href}>
                   <Link
                     href={s.href}
@@ -114,26 +127,53 @@ export default function Footer() {
             <ul className="space-y-4">
               <li>
                 <a
-                  href="tel:1300565576"
+                  href={`tel:${general.phone.replace(/\s/g, "")}`}
                   className="flex items-center gap-3 text-gray-400 text-sm hover:text-[#F97316] transition-colors"
                 >
                   <Phone size={16} className="text-[#F97316] shrink-0" />
-                  1300 565 576
+                  {general.phone}
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:info@cleanpro.com.au"
+                  href={`mailto:${general.email}`}
                   className="flex items-center gap-3 text-gray-400 text-sm hover:text-[#F97316] transition-colors"
                 >
                   <Mail size={16} className="text-[#F97316] shrink-0" />
-                  info@cleanpro.com.au
+                  {general.email}
                 </a>
               </li>
-              <li className="flex items-start gap-3 text-gray-400 text-sm">
-                <MapPin size={16} className="text-[#F97316] shrink-0 mt-0.5" />
-                <span>17 Citrus Street Braeside, VIC 3195</span>
-              </li>
+
+              {/* Dynamic office addresses */}
+              {addresses.slice(0, 2).map((office) => (
+                <li
+                  key={office.area}
+                  className="flex items-start gap-3 text-gray-400 text-sm"
+                >
+                  <MapPin
+                    size={16}
+                    className="text-[#F97316] shrink-0 mt-0.5"
+                  />
+                  <span>
+                    <span className="text-gray-300 font-medium">
+                      {office.area}:{" "}
+                    </span>
+                    {office.address}
+                  </span>
+                </li>
+              ))}
+
+              {/* Show remaining count if more than 2 */}
+              {addresses.length > 2 && (
+                <li>
+                  <Link
+                    href="/contact"
+                    className="text-[#F97316] text-xs font-semibold hover:underline ml-7"
+                  >
+                    +{addresses.length - 2} more locations →
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>
@@ -143,7 +183,7 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row justify-between items-center gap-3">
           <p className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} CleanPro Facility Services. All rights
+            © {new Date().getFullYear()} {general.company_name}. All rights
             reserved.
           </p>
           <div className="flex gap-5">
