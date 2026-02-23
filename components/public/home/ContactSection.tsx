@@ -70,8 +70,8 @@ export default function ContactSection() {
               </div>
               <div>
                 <div className="font-bold text-[#1E3A5F] text-sm mb-1">Email</div>
-                <a href="mailto:info@cleanpro.com.au" className="text-gray-500 hover:text-[#F97316] transition-colors text-sm">
-                  info@cleanpro.com.au
+                <a href="mailto:info@rukey.com.au" className="text-gray-500 hover:text-[#F97316] transition-colors text-sm">
+                  info@rukey.com.au
                 </a>
               </div>
             </div>
