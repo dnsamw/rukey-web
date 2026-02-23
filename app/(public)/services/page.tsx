@@ -1,12 +1,17 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
-import SectionHeading from '@/components/public/shared/SectionHeading'
-import GetAQuoteBanner from '@/components/public/home/GetAQuoteBanner'
-import { services } from '@/lib/data/services'
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import SectionHeading from "@/components/public/shared/SectionHeading";
+import GetAQuoteBanner from "@/components/public/home/GetAQuoteBanner";
+import { getServices } from "@/lib/data/fetchers";
+import { getIcon } from "@/lib/utils/iconMap";
+// import { services } from '@/lib/data/services'
 
-export default function ServicesPage() {
-  const active = services.filter((s) => s.is_active).sort((a, b) => a.order - b.order)
+export default async function ServicesPage() {
+  const services = await getServices();
+  const active = services
+    .filter((s) => s.is_active)
+    .sort((a, b) => a.order - b.order);
 
   return (
     <>
@@ -21,20 +26,35 @@ export default function ServicesPage() {
           />
         </div>
         <div className="absolute -bottom-1 left-0 right-0">
-          <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 60L1440 60L1440 0C1440 0 1080 60 720 60C360 60 0 0 0 0L0 60Z" fill="white" />
+          <svg
+            viewBox="0 0 1440 60"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0 60L1440 60L1440 0C1440 0 1080 60 720 60C360 60 0 0 0 0L0 60Z"
+              fill="white"
+            />
           </svg>
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="inline-block bg-[#F97316]/20 text-[#F97316] text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
             What We Offer
           </span>
-          <h1 className="text-4xl md:text-5xl font-black text-white mb-4">Our Cleaning Services</h1>
+          <h1 className="text-4xl md:text-5xl font-black text-white mb-4">
+            Our Cleaning Services
+          </h1>
           <p className="text-gray-300 max-w-2xl mx-auto text-base leading-relaxed">
-            Comprehensive facility management solutions tailored to every industry — delivered by trained professionals across Australia.
+            Comprehensive facility management solutions tailored to every
+            industry — delivered by trained professionals across Australia.
           </p>
           <nav className="mt-6 flex justify-center gap-2 text-sm">
-            <Link href="/" className="text-gray-400 hover:text-white transition-colors">Home</Link>
+            <Link
+              href="/"
+              className="text-gray-400 hover:text-white transition-colors"
+            >
+              Home
+            </Link>
             <span className="text-gray-600">/</span>
             <span className="text-[#F97316]">Our Services</span>
           </nav>
@@ -52,7 +72,7 @@ export default function ServicesPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {active.map((service) => {
-              const Icon = service.icon
+              const Icon = getIcon(service.icon_name);
               return (
                 <Link
                   key={service.id}
@@ -83,11 +103,14 @@ export default function ServicesPage() {
                     </p>
                     <span className="inline-flex items-center gap-1.5 text-[#F97316] text-sm font-semibold">
                       View Service
-                      <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
+                      <ArrowRight
+                        size={15}
+                        className="group-hover:translate-x-1 transition-transform duration-200"
+                      />
                     </span>
                   </div>
                 </Link>
-              )
+              );
             })}
           </div>
         </div>
@@ -95,5 +118,5 @@ export default function ServicesPage() {
 
       <GetAQuoteBanner />
     </>
-  )
+  );
 }
