@@ -8,6 +8,7 @@ import {
   Linkedin,
 } from "lucide-react";
 import type { SiteSettingsData } from "@/lib/data/fetchers";
+import Image from "next/image";
 
 const serviceLinks = [
   { label: "Office Cleaning", href: "/services/office" },
@@ -45,7 +46,7 @@ export default function Footer({ settings }: Props) {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-[var(--color-primary)] rounded-lg flex items-center justify-center">
+              {/* <div className="w-10 h-10 bg-[var(--color-primary)] rounded-lg flex items-center justify-center">
                 <span className="text-white font-black text-lg">
                   {general.company_name.charAt(0)}
                 </span>
@@ -57,7 +58,16 @@ export default function Footer({ settings }: Props) {
                 <span className="block text-xs text-gray-400 font-medium">
                   {general.company_name.split(" ").slice(1).join(" ")}
                 </span>
-              </div>
+              </div> */}
+              <Image
+                src="/rukey-logo-white.png"
+                alt={general.company_name}
+                width={150}
+                height={50}
+                className="rounded-lg w-24 h-auto md:w-36 lg:w-[150px]"
+                priority
+                unoptimized
+              />
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-2">
               {general.tagline}
