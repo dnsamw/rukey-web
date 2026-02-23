@@ -1,44 +1,59 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Phone, Mail, MapPin, Send, CheckCircle2 } from 'lucide-react'
-import SectionHeading from '@/components/public/shared/SectionHeading'
+import { useState } from "react";
+import { Phone, Mail, MapPin, Send, CheckCircle2 } from "lucide-react";
+import SectionHeading from "@/components/public/shared/SectionHeading";
+import { createClient } from "@/lib/supabase/client";
 
 const offices = [
-  { area: 'Braeside', address: '17 Citrus Street Braeside, VIC 3195' },
-  { area: 'Traralgon', address: '8 Baystone Court Traralgon, VIC 3844' },
-  { area: 'Red Cliffs', address: '6 Ella-mae Court Red Cliffs, VIC 3496' },
-  { area: 'Wodonga', address: '203 Mckoy Street Wodonga, VIC 3690' },
-]
+  { area: "Braeside", address: "17 Citrus Street Braeside, VIC 3195" },
+  { area: "Traralgon", address: "8 Baystone Court Traralgon, VIC 3844" },
+  { area: "Red Cliffs", address: "6 Ella-mae Court Red Cliffs, VIC 3496" },
+  { area: "Wodonga", address: "203 Mckoy Street Wodonga, VIC 3690" },
+];
 
 export default function ContactSection() {
-  const [submitted, setSubmitted] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    service: '',
-    message: '',
-  })
+    name: "",
+    email: "",
+    phone: "",
+    service: "",
+    message: "",
+  });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    // Wire to Supabase in admin step — simulate for now
-    await new Promise((r) => setTimeout(r, 1200))
-    setLoading(false)
-    setSubmitted(true)
-  }
+    e.preventDefault();
+    setLoading(true);
+
+    const supabase = createClient();
+    const { error } = await supabase.from("contact_messages").insert({
+      name: form.name,
+      email: form.email,
+      phone: form.phone || null,
+      service: form.service || null,
+      message: form.message,
+    });
+
+    setLoading(false);
+    if (!error) {
+      setSubmitted(true);
+    } else {
+      console.error("Contact form error:", error);
+      alert("Something went wrong. Please try again or call us directly.");
+    }
+  };
 
   return (
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
         <SectionHeading
           label="Contact Us"
           title="Get In Touch"
@@ -46,18 +61,21 @@ export default function ContactSection() {
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-
           {/* Left — contact info */}
           <div className="lg:col-span-2 space-y-8">
-
             {/* Phone */}
             <div className="flex gap-4">
               <div className="w-12 h-12 bg-[#F97316]/10 rounded-xl flex items-center justify-center shrink-0">
                 <Phone size={20} className="text-[#F97316]" />
               </div>
               <div>
-                <div className="font-bold text-[#1E3A5F] text-sm mb-1">Phone</div>
-                <a href="tel:1300565576" className="text-gray-500 hover:text-[#F97316] transition-colors text-sm">
+                <div className="font-bold text-[#1E3A5F] text-sm mb-1">
+                  Phone
+                </div>
+                <a
+                  href="tel:1300565576"
+                  className="text-gray-500 hover:text-[#F97316] transition-colors text-sm"
+                >
                   1300 565 576
                 </a>
               </div>
@@ -69,8 +87,13 @@ export default function ContactSection() {
                 <Mail size={20} className="text-[#F97316]" />
               </div>
               <div>
-                <div className="font-bold text-[#1E3A5F] text-sm mb-1">Email</div>
-                <a href="mailto:info@rukey.com.au" className="text-gray-500 hover:text-[#F97316] transition-colors text-sm">
+                <div className="font-bold text-[#1E3A5F] text-sm mb-1">
+                  Email
+                </div>
+                <a
+                  href="mailto:info@rukey.com.au"
+                  className="text-gray-500 hover:text-[#F97316] transition-colors text-sm"
+                >
                   info@rukey.com.au
                 </a>
               </div>
@@ -82,11 +105,15 @@ export default function ContactSection() {
                 <MapPin size={20} className="text-[#F97316]" />
               </div>
               <div>
-                <div className="font-bold text-[#1E3A5F] text-sm mb-3">Our Offices</div>
+                <div className="font-bold text-[#1E3A5F] text-sm mb-3">
+                  Our Offices
+                </div>
                 <ul className="space-y-2">
                   {offices.map((o) => (
                     <li key={o.area}>
-                      <span className="text-[#F97316] font-semibold text-xs">{o.area} — </span>
+                      <span className="text-[#F97316] font-semibold text-xs">
+                        {o.area} —{" "}
+                      </span>
                       <span className="text-gray-500 text-xs">{o.address}</span>
                     </li>
                   ))}
@@ -96,21 +123,24 @@ export default function ContactSection() {
 
             {/* Hours */}
             <div className="bg-gray-50 rounded-2xl p-6">
-              <h4 className="font-bold text-[#1E3A5F] text-sm mb-4">Business Hours</h4>
+              <h4 className="font-bold text-[#1E3A5F] text-sm mb-4">
+                Business Hours
+              </h4>
               <div className="space-y-2 text-sm">
                 {[
-                  { day: 'Monday – Friday', hours: '7:00 AM – 6:00 PM' },
-                  { day: 'Saturday', hours: '8:00 AM – 4:00 PM' },
-                  { day: 'Sunday', hours: 'By Appointment' },
+                  { day: "Monday – Friday", hours: "7:00 AM – 6:00 PM" },
+                  { day: "Saturday", hours: "8:00 AM – 4:00 PM" },
+                  { day: "Sunday", hours: "By Appointment" },
                 ].map(({ day, hours }) => (
                   <div key={day} className="flex justify-between">
                     <span className="text-gray-500">{day}</span>
-                    <span className="font-semibold text-[#1E3A5F]">{hours}</span>
+                    <span className="font-semibold text-[#1E3A5F]">
+                      {hours}
+                    </span>
                   </div>
                 ))}
               </div>
             </div>
-
           </div>
 
           {/* Right — form */}
@@ -120,12 +150,24 @@ export default function ContactSection() {
                 <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-4">
                   <CheckCircle2 size={32} className="text-emerald-500" />
                 </div>
-                <h3 className="text-xl font-bold text-[#1E3A5F] mb-2">Message Sent!</h3>
+                <h3 className="text-xl font-bold text-[#1E3A5F] mb-2">
+                  Message Sent!
+                </h3>
                 <p className="text-gray-500 text-sm max-w-xs">
-                  Thanks for reaching out. Our team will get back to you within one business day.
+                  Thanks for reaching out. Our team will get back to you within
+                  one business day.
                 </p>
                 <button
-                  onClick={() => { setSubmitted(false); setForm({ name: '', email: '', phone: '', service: '', message: '' }) }}
+                  onClick={() => {
+                    setSubmitted(false);
+                    setForm({
+                      name: "",
+                      email: "",
+                      phone: "",
+                      service: "",
+                      message: "",
+                    });
+                  }}
                   className="mt-6 text-[#F97316] text-sm font-semibold hover:underline"
                 >
                   Send another message
@@ -240,13 +282,11 @@ export default function ContactSection() {
                     </>
                   )}
                 </button>
-
               </form>
             )}
           </div>
-
         </div>
       </div>
     </section>
-  )
+  );
 }
