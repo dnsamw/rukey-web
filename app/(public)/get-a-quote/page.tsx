@@ -5,12 +5,6 @@ import Link from "next/link";
 import { Send, CheckCircle2, Phone, Mail } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
-export const metadata = {
-  title: 'Get a Free Quote',
-  description:
-    'Request a free, no-obligation cleaning quote from Rukey Facility Services. Tell us about your facility and we\'ll build a tailored program that fits your needs and budget.',
-}
-
 const steps = ["Your Details", "Facility Info", "Confirm"];
 
 export default function GetAQuotePage() {
