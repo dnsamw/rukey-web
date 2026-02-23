@@ -31,7 +31,7 @@ export default function AdminSidebar({ open, onClose }: Props) {
             <span className="text-white font-black text-sm">C</span>
           </div>
           <div>
-            <span className="block text-white font-bold text-sm leading-none">CleanPro</span>
+            <span className="block text-white font-bold text-sm leading-none">Rukey</span>
             <span className="block text-gray-500 text-xs mt-0.5">Admin Panel</span>
           </div>
         </div>
@@ -69,7 +69,7 @@ export default function AdminSidebar({ open, onClose }: Props) {
       {/* Footer */}
       <div className="px-3 pb-5 shrink-0">
         <div className="bg-gray-800 rounded-xl p-4 text-xs text-gray-400">
-          <p className="font-semibold text-gray-300 mb-1">CleanPro CMS</p>
+          <p className="font-semibold text-gray-300 mb-1">Rukey CMS</p>
           <p>Logged in as admin</p>
         </div>
       </div>

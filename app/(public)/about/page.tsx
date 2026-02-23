@@ -69,7 +69,7 @@ export default function AboutPage() {
               <div className="relative h-[460px] rounded-2xl overflow-hidden shadow-xl">
                 <Image
                   src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?w=900&q=80"
-                  alt="CleanPro team"
+                  alt="Rukey team"
                   fill
                   className="object-cover"
                 />
@@ -139,7 +139,7 @@ export default function AboutPage() {
       {/* Team */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading label="Meet the Team" title="The People Behind CleanPro" />
+          <SectionHeading label="Meet the Team" title="The People Behind Rukey" />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {team.map((member) => (
               <div key={member.name} className="text-center group">

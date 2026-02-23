@@ -40,7 +40,7 @@ export default function CareersPage() {
           <span className="inline-block bg-[var(--color-primary)]/20 text-[var(--color-primary)] text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
             Join Our Team
           </span>
-          <h1 className="text-4xl md:text-5xl font-black text-white mb-4">Careers at CleanPro</h1>
+          <h1 className="text-4xl md:text-5xl font-black text-white mb-4">Careers at Rukey</h1>
           <p className="text-gray-300 max-w-2xl mx-auto text-base leading-relaxed">
             Build a rewarding career with one of Victoria's most respected facility services companies. We invest in our people.
           </p>
@@ -112,7 +112,7 @@ export default function CareersPage() {
               We're always on the lookout for great people. Send us your resume and we'll keep you in mind.
             </p>
             
-            <a  href="mailto:careers@cleanpro.com.au"
+            <a  href="mailto:careers@rukey.com.au"
               className="inline-block bg-[var(--color-primary)] text-white px-7 py-3 rounded-full text-sm font-bold hover:bg-[var(--color-primary-dark)] transition-colors"
             >
               Send Your Resume

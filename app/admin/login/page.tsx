@@ -56,7 +56,7 @@ export default function AdminLoginPage() {
               </div>
               <div>
                 <span className="block font-black text-[var(--color-secondary)] text-xl leading-none">
-                  CleanPro
+                  Rukey
                 </span>
                 <span className="block text-gray-400 text-xs font-medium mt-0.5">
                   Admin Panel
@@ -88,7 +88,7 @@ export default function AdminLoginPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@cleanpro.com.au"
+                placeholder="admin@rukey.com.au"
                 className={inputClass}
               />
             </div>

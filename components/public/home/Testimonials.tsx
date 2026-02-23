@@ -48,7 +48,7 @@ export default function Testimonials({ testimonials }: Props) {
         <SectionHeading
           label="Client Reviews"
           title="What Our Clients Say"
-          subtitle="Don't just take our word for it — here's what facility managers, principals and business owners across Australia say about CleanPro."
+          subtitle="Don't just take our word for it — here's what facility managers, principals and business owners across Australia say about Rukey."
         />
 
         {/* Carousel */}

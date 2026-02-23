@@ -388,7 +388,7 @@ export default function GetAQuotePage() {
             </a>{" "}
             or{" "}
             <a
-              href="mailto:info@cleanpro.com.au"
+              href="mailto:info@rukey.com.au"
               className="text-[var(--color-primary)] font-semibold hover:underline inline-flex items-center gap-1"
             >
               <Mail size={13} /> Email Us

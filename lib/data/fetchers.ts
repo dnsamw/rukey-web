@@ -4,19 +4,25 @@ import type { Service } from "@/types/service";
 
 export type SiteSettingsData = {
   general: {
-    company_name: string;
-    tagline: string;
-    phone: string;
-    email: string;
-    abn: string;
-  };
-  addresses: { area: string; address: string }[];
+    company_name: string
+    tagline: string
+    phone: string
+    email: string
+    abn: string
+  }
+  addresses: { area: string; address: string }[]
   social: {
-    facebook: string;
-    instagram: string;
-    linkedin: string;
-  };
-};
+    facebook: string
+    instagram: string
+    linkedin: string
+  }
+  theme: {
+    primary: string
+    primary_dark: string
+    secondary: string
+    secondary_dark: string
+  }
+}
 
 export async function getHeroSlides(): Promise<HeroSlide[]> {
   const supabase = await createClient();
@@ -81,10 +87,10 @@ export async function getTestimonials() {
 
 const defaultSettings: SiteSettingsData = {
   general: {
-    company_name: "CleanPro Facility Services",
+    company_name: "Rukey Facility Services",
     tagline: "Professional Cleaning Across Australia",
     phone: "1300 565 576",
-    email: "info@cleanpro.com.au",
+    email: "info@rukey.com.au",
     abn: "",
   },
   addresses: [
@@ -94,6 +100,12 @@ const defaultSettings: SiteSettingsData = {
     facebook: "#",
     instagram: "#",
     linkedin: "#",
+  },
+  theme: {
+    primary: '#F97316',
+    primary_dark: '#EA6C0A',
+    secondary: '#1E3A5F',
+    secondary_dark: '#162d4a',
   },
 };
 
@@ -109,6 +121,7 @@ export async function getSiteSettings(): Promise<SiteSettingsData> {
       general: map.general ?? defaultSettings.general,
       addresses: map.addresses ?? defaultSettings.addresses,
       social: map.social ?? defaultSettings.social,
+      theme: map.theme ?? defaultSettings.theme,
     };
   } catch {
     return defaultSettings;

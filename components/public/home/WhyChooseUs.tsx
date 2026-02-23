@@ -46,7 +46,7 @@ export default function WhyChooseUs() {
               Why Us
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-secondary)] mb-4">
-              The CleanPro Difference
+              The Rukey Difference
             </h2>
             <div className="h-1 w-16 bg-[var(--color-primary)] rounded-full mb-10" />
 
@@ -86,7 +86,7 @@ export default function WhyChooseUs() {
                 <span className="text-xs text-gray-400 ml-1">5.0</span>
               </div>
               <p className="text-gray-600 text-sm leading-relaxed italic mb-3">
-                "CleanPro transformed our office — the team is reliable, thorough and an absolute pleasure to work with."
+                "Rukey transformed our office — the team is reliable, thorough and an absolute pleasure to work with."
               </p>
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 bg-[var(--color-secondary)] rounded-full flex items-center justify-center text-white text-xs font-bold">

@@ -161,7 +161,7 @@ export default function MessagesPage() {
               </div>
             </div>
             
-            <a  href={`mailto:${selected.email}?subject=Re: Your CleanPro Enquiry`}
+            <a  href={`mailto:${selected.email}?subject=Re: Your Rukey Enquiry`}
               className="w-full flex items-center justify-center gap-2 bg-[var(--color-primary)] text-white py-3 rounded-xl font-bold text-sm hover:bg-[var(--color-primary-dark)] transition-colors"
             >
               <Mail size={16} /> Reply via Email

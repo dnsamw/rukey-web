@@ -1,5 +1,6 @@
 import Navbar from '@/components/public/layout/Navbar'
 import Footer from '@/components/public/layout/Footer'
+import ThemeInjector from '@/components/ThemeInjector'
 import { getSiteSettings } from '@/lib/data/fetchers'
 
 // TODO
@@ -14,6 +15,7 @@ export default async function PublicLayout({
 
   return (
     <div className="flex flex-col min-h-screen">
+      <ThemeInjector theme={settings.theme} />
       <Navbar settings={settings} />
       <main className="flex-1">
         {children}

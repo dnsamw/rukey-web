@@ -78,7 +78,7 @@ export default function AboutSection() {
             />
 
             <p className="text-gray-500 leading-relaxed mb-8">
-              CleanPro Facility Services delivers a wide range of facility management services for
+              Rukey Facility Services delivers a wide range of facility management services for
               councils, offices, education sectors, medical institutions, fitness centres and more.
               We can tailor every service to your exact requirements — whether delivered individually
               or as a complete package.
