@@ -7,6 +7,12 @@ import { getServices } from "@/lib/data/fetchers";
 import { getIcon } from "@/lib/utils/iconMap";
 // import { services } from '@/lib/data/services'
 
+export const metadata = {
+  title: 'Our Cleaning Services',
+  description:
+    'Explore Rukey\'s full range of cleaning services — office, school, medical, gym, council, retail, industrial and window cleaning across Australia.',
+}
+
 export default async function ServicesPage() {
   const services = await getServices();
   const active = services
