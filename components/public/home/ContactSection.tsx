@@ -1,44 +1,57 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Phone, Mail, MapPin, Send, CheckCircle2 } from 'lucide-react'
-import SectionHeading from '@/components/public/shared/SectionHeading'
+import { useState } from "react";
+import { Phone, Mail, MapPin, Send, CheckCircle2 } from "lucide-react";
+import SectionHeading from "@/components/public/shared/SectionHeading";
+import { createClient } from "@/lib/supabase/client";
+import type { SiteSettingsData } from "@/lib/data/fetchers";
 
-const offices = [
-  { area: 'Braeside', address: '17 Citrus Street Braeside, VIC 3195' },
-  { area: 'Traralgon', address: '8 Baystone Court Traralgon, VIC 3844' },
-  { area: 'Red Cliffs', address: '6 Ella-mae Court Red Cliffs, VIC 3496' },
-  { area: 'Wodonga', address: '203 Mckoy Street Wodonga, VIC 3690' },
-]
+type Props = { settings: SiteSettingsData };
 
-export default function ContactSection() {
-  const [submitted, setSubmitted] = useState(false)
-  const [loading, setLoading] = useState(false)
+export default function ContactSection({ settings }: Props) {
+  const { general, addresses } = settings;
+
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    service: '',
-    message: '',
-  })
+    name: "",
+    email: "",
+    phone: "",
+    service: "",
+    message: "",
+  });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    // Wire to Supabase in admin step — simulate for now
-    await new Promise((r) => setTimeout(r, 1200))
-    setLoading(false)
-    setSubmitted(true)
-  }
+    e.preventDefault();
+    setLoading(true);
+
+    const supabase = createClient();
+    const { error } = await supabase.from("contact_messages").insert({
+      name: form.name,
+      email: form.email,
+      phone: form.phone || null,
+      service: form.service || null,
+      message: form.message,
+    });
+
+    setLoading(false);
+    if (!error) {
+      setSubmitted(true);
+    } else {
+      console.error("Contact form error:", error);
+      alert("Something went wrong. Please try again or call us directly.");
+    }
+  };
 
   return (
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
         <SectionHeading
           label="Contact Us"
           title="Get In Touch"
@@ -46,48 +59,60 @@ export default function ContactSection() {
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-
           {/* Left — contact info */}
           <div className="lg:col-span-2 space-y-8">
-
             {/* Phone */}
             <div className="flex gap-4">
-              <div className="w-12 h-12 bg-[#F97316]/10 rounded-xl flex items-center justify-center shrink-0">
-                <Phone size={20} className="text-[#F97316]" />
+              <div className="w-12 h-12 bg-[var(--color-primary)]/10 rounded-xl flex items-center justify-center shrink-0">
+                <Phone size={20} className="text-[var(--color-primary)]" />
               </div>
               <div>
-                <div className="font-bold text-[#1E3A5F] text-sm mb-1">Phone</div>
-                <a href="tel:1300565576" className="text-gray-500 hover:text-[#F97316] transition-colors text-sm">
-                  1300 565 576
+                <div className="font-bold text-[var(--color-secondary)] text-sm mb-1">
+                  Phone
+                </div>
+                <a
+                  href="tel:1300565576"
+                  className="text-gray-500 hover:text-[var(--color-primary)] transition-colors text-sm"
+                >
+                  {general.phone}
                 </a>
               </div>
             </div>
 
             {/* Email */}
             <div className="flex gap-4">
-              <div className="w-12 h-12 bg-[#F97316]/10 rounded-xl flex items-center justify-center shrink-0">
-                <Mail size={20} className="text-[#F97316]" />
+              <div className="w-12 h-12 bg-[var(--color-primary)]/10 rounded-xl flex items-center justify-center shrink-0">
+                <Mail size={20} className="text-[var(--color-primary)]" />
               </div>
               <div>
-                <div className="font-bold text-[#1E3A5F] text-sm mb-1">Email</div>
-                <a href="mailto:info@rukey.com.au" className="text-gray-500 hover:text-[#F97316] transition-colors text-sm">
-                  info@rukey.com.au
+                <div className="font-bold text-[var(--color-secondary)] text-sm mb-1">
+                  Email
+                </div>
+                <a
+                  href="mailto:info@rukey.com.au"
+                  className="text-gray-500 hover:text-[var(--color-primary)] transition-colors text-sm"
+                >
+                  {general.email}
                 </a>
               </div>
             </div>
 
             {/* Offices */}
             <div className="flex gap-4">
-              <div className="w-12 h-12 bg-[#F97316]/10 rounded-xl flex items-center justify-center shrink-0 mt-1">
-                <MapPin size={20} className="text-[#F97316]" />
+              <div className="w-12 h-12 bg-[var(--color-primary)]/10 rounded-xl flex items-center justify-center shrink-0 mt-1">
+                <MapPin size={20} className="text-[var(--color-primary)]" />
               </div>
               <div>
-                <div className="font-bold text-[#1E3A5F] text-sm mb-3">Our Offices</div>
+                <div className="font-bold text-[var(--color-secondary)] text-sm mb-3">
+                  Our Offices
+                </div>
                 <ul className="space-y-2">
-                  {offices.map((o) => (
-                    <li key={o.area}>
-                      <span className="text-[#F97316] font-semibold text-xs">{o.area} — </span>
-                      <span className="text-gray-500 text-xs">{o.address}</span>
+                  {addresses.map((a) => (
+                    <li key={a.area}>
+                      <span className="text-[var(--color-primary)] font-semibold text-xs">
+                        {a.area} —{" "}
+                      </span>
+                      <span className="text-gray-500 text-xs">{a.address}</span>
                     </li>
                   ))}
                 </ul>
@@ -96,21 +121,24 @@ export default function ContactSection() {
 
             {/* Hours */}
             <div className="bg-gray-50 rounded-2xl p-6">
-              <h4 className="font-bold text-[#1E3A5F] text-sm mb-4">Business Hours</h4>
+              <h4 className="font-bold text-[var(--color-secondary)] text-sm mb-4">
+                Business Hours
+              </h4>
               <div className="space-y-2 text-sm">
                 {[
-                  { day: 'Monday – Friday', hours: '7:00 AM – 6:00 PM' },
-                  { day: 'Saturday', hours: '8:00 AM – 4:00 PM' },
-                  { day: 'Sunday', hours: 'By Appointment' },
+                  { day: "Monday – Friday", hours: "7:00 AM – 6:00 PM" },
+                  { day: "Saturday", hours: "8:00 AM – 4:00 PM" },
+                  { day: "Sunday", hours: "By Appointment" },
                 ].map(({ day, hours }) => (
                   <div key={day} className="flex justify-between">
                     <span className="text-gray-500">{day}</span>
-                    <span className="font-semibold text-[#1E3A5F]">{hours}</span>
+                    <span className="font-semibold text-[var(--color-secondary)]">
+                      {hours}
+                    </span>
                   </div>
                 ))}
               </div>
             </div>
-
           </div>
 
           {/* Right — form */}
@@ -120,13 +148,25 @@ export default function ContactSection() {
                 <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-4">
                   <CheckCircle2 size={32} className="text-emerald-500" />
                 </div>
-                <h3 className="text-xl font-bold text-[#1E3A5F] mb-2">Message Sent!</h3>
+                <h3 className="text-xl font-bold text-[var(--color-secondary)] mb-2">
+                  Message Sent!
+                </h3>
                 <p className="text-gray-500 text-sm max-w-xs">
-                  Thanks for reaching out. Our team will get back to you within one business day.
+                  Thanks for reaching out. Our team will get back to you within
+                  one business day.
                 </p>
                 <button
-                  onClick={() => { setSubmitted(false); setForm({ name: '', email: '', phone: '', service: '', message: '' }) }}
-                  className="mt-6 text-[#F97316] text-sm font-semibold hover:underline"
+                  onClick={() => {
+                    setSubmitted(false);
+                    setForm({
+                      name: "",
+                      email: "",
+                      phone: "",
+                      service: "",
+                      message: "",
+                    });
+                  }}
+                  className="mt-6 text-[var(--color-primary)] text-sm font-semibold hover:underline"
                 >
                   Send another message
                 </button>
@@ -139,8 +179,8 @@ export default function ContactSection() {
                 {/* Row 1 */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold text-[#1E3A5F] mb-1.5">
-                      Full Name <span className="text-[#F97316]">*</span>
+                    <label className="block text-xs font-semibold text-[var(--color-secondary)] mb-1.5">
+                      Full Name <span className="text-[var(--color-primary)]">*</span>
                     </label>
                     <input
                       type="text"
@@ -149,12 +189,12 @@ export default function ContactSection() {
                       value={form.name}
                       onChange={handleChange}
                       placeholder="John Smith"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F97316]/40 focus:border-[#F97316] transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/40 focus:border-[var(--color-primary)] transition-all"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-[#1E3A5F] mb-1.5">
-                      Email Address <span className="text-[#F97316]">*</span>
+                    <label className="block text-xs font-semibold text-[var(--color-secondary)] mb-1.5">
+                      Email Address <span className="text-[var(--color-primary)]">*</span>
                     </label>
                     <input
                       type="email"
@@ -163,7 +203,7 @@ export default function ContactSection() {
                       value={form.email}
                       onChange={handleChange}
                       placeholder="john@company.com.au"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F97316]/40 focus:border-[#F97316] transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/40 focus:border-[var(--color-primary)] transition-all"
                     />
                   </div>
                 </div>
@@ -171,7 +211,7 @@ export default function ContactSection() {
                 {/* Row 2 */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold text-[#1E3A5F] mb-1.5">
+                    <label className="block text-xs font-semibold text-[var(--color-secondary)] mb-1.5">
                       Phone Number
                     </label>
                     <input
@@ -180,18 +220,18 @@ export default function ContactSection() {
                       value={form.phone}
                       onChange={handleChange}
                       placeholder="04XX XXX XXX"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F97316]/40 focus:border-[#F97316] transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/40 focus:border-[var(--color-primary)] transition-all"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-[#1E3A5F] mb-1.5">
+                    <label className="block text-xs font-semibold text-[var(--color-secondary)] mb-1.5">
                       Service Required
                     </label>
                     <select
                       name="service"
                       value={form.service}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#F97316]/40 focus:border-[#F97316] transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/40 focus:border-[var(--color-primary)] transition-all"
                     >
                       <option value="">Select a service...</option>
                       <option>Office Cleaning</option>
@@ -208,8 +248,8 @@ export default function ContactSection() {
 
                 {/* Message */}
                 <div>
-                  <label className="block text-xs font-semibold text-[#1E3A5F] mb-1.5">
-                    Message <span className="text-[#F97316]">*</span>
+                  <label className="block text-xs font-semibold text-[var(--color-secondary)] mb-1.5">
+                    Message <span className="text-[var(--color-primary)]">*</span>
                   </label>
                   <textarea
                     name="message"
@@ -218,7 +258,7 @@ export default function ContactSection() {
                     value={form.message}
                     onChange={handleChange}
                     placeholder="Tell us about your facility and cleaning requirements..."
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F97316]/40 focus:border-[#F97316] transition-all resize-none"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/40 focus:border-[var(--color-primary)] transition-all resize-none"
                   />
                 </div>
 
@@ -226,7 +266,7 @@ export default function ContactSection() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex items-center justify-center gap-2 bg-[#F97316] text-white py-4 rounded-xl font-bold hover:bg-[#EA6C0A] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
+                  className="w-full flex items-center justify-center gap-2 bg-[var(--color-primary)] text-white py-4 rounded-xl font-bold hover:bg-[var(--color-primary-dark)] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
                 >
                   {loading ? (
                     <>
@@ -240,13 +280,11 @@ export default function ContactSection() {
                     </>
                   )}
                 </button>
-
               </form>
             )}
           </div>
-
         </div>
       </div>
     </section>
-  )
+  );
 }
