@@ -169,6 +169,10 @@ import CTAButton from "@/components/public/shared/CTAButton";
 //     ],
 //   },
 // };
+export async function generateStaticParams() {
+  const services = await getServices()
+  return services.map((s) => ({ slug: s.slug }))
+}
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params
