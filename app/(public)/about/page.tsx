@@ -43,7 +43,7 @@ export default function AboutPage() {
           <span className="inline-block bg-[#F97316]/20 text-[#F97316] text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
             Our Story
           </span>
-          <h1 className="text-4xl md:text-5xl font-black text-white mb-4">About CleanPro</h1>
+          <h1 className="text-4xl md:text-5xl font-black text-white mb-4">About Rukey</h1>
           <p className="text-gray-300 max-w-2xl mx-auto text-base leading-relaxed">
             Over a decade of delivering trusted, professional facility services across Victoria and beyond.
           </p>
@@ -80,7 +80,7 @@ export default function AboutPage() {
                 centered={false}
               />
               <p className="text-gray-500 leading-relaxed mb-5">
-                CleanPro Facility Services was founded in Melbourne in 2012 with a simple mission — to deliver
+                Rukey Facility Services was founded in Melbourne in 2012 with a simple mission — to deliver
                 cleaning services so reliable and thorough that our clients never have to think about it again.
               </p>
               <p className="text-gray-500 leading-relaxed mb-8">

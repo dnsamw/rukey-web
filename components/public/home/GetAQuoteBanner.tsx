@@ -5,7 +5,7 @@ import type { SiteSettingsData } from '@/lib/data/fetchers'
 type Props = { settings?: SiteSettingsData }
 
 export default function GetAQuoteBanner({ settings }: Props) {
-  
+  // TODO - debug - phone number is not showing up in the banner.
   const phone = settings?.general.phone ?? '1300 565 576'
 
   return (
