@@ -1,0 +1,13 @@
+export const metadata = {
+  title: 'Dashboard - Admin',
+  description: 'Admin dashboard overview',
+};
+
+export default function DashboardPage() {
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      <p>Welcome to the admin dashboard!</p>
+    </div>
+  );
+}
