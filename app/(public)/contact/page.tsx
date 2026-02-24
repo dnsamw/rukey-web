@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import ContactSection from '@/components/public/home/ContactSection'
 import { getSiteSettings } from '@/lib/data/fetchers'
+import MapSection from '@/components/public/shared/MapSection';
 
 export const metadata = {
   title: 'Contact Us',
@@ -36,6 +37,7 @@ export default async function ContactPage() {
       </section>
 
       <ContactSection settings={settings} />
+      <MapSection settings={settings} showHeading={true} hideLeftpanel />
     </>
   )
 }
