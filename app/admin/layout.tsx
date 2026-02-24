@@ -15,6 +15,18 @@
 //   return <AdminShell>{children}</AdminShell>
 // }
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+import ThemeInjector from "@/components/ThemeInjector";
+import { getSiteSettings } from "@/lib/data/fetchers";
+export default async function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const settings = await getSiteSettings();
+  return (
+    <>
+      <ThemeInjector theme={settings.theme} />
+      {children}
+    </>
+  );
 }
