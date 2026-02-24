@@ -149,8 +149,8 @@ export default function Navbar({ settings }: Props) {
                   href={link.href}
                   className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                     isActive
-                      ? "text-[var(--color-primary)] bg-orange-50"
-                      : "text-gray-600 hover:text-[var(--color-primary)] hover:bg-orange-50"
+                      ? "text-[var(--color-primary)] bg-[var(--color-primary)]/10"
+                      : "text-gray-600 hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10"
                   }`}
                 >
                   {link.label}

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Eye, EyeOff, LogIn } from "lucide-react";
+import Image from "next/image";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -51,7 +52,7 @@ export default function AdminLoginPage() {
           {/* Logo */}
           <div className="flex items-center justify-center mb-8">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-[var(--color-primary)] rounded-xl flex items-center justify-center shadow-lg">
+              {/* <div className="w-12 h-12 bg-[var(--color-primary)] rounded-xl flex items-center justify-center shadow-lg">
                 <span className="text-white font-black text-xl">C</span>
               </div>
               <div>
@@ -61,6 +62,17 @@ export default function AdminLoginPage() {
                 <span className="block text-gray-400 text-xs font-medium mt-0.5">
                   Admin Panel
                 </span>
+              </div> */}
+              <div className="flex items-center gap-2 shrink-0">
+                <Image
+                  src="/rukey-logo.png"
+                  alt="Rukey CMS"
+                  width={150}
+                  height={40}
+                  className="rounded-lg w-24 h-auto md:w-36 lg:w-[150px]"
+                  priority
+                  unoptimized
+                />
               </div>
             </div>
           </div>

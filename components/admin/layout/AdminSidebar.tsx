@@ -6,6 +6,7 @@ import {
   LayoutDashboard, Images, Layers, Star,
   FileText, MessageSquare, Settings, X, ChevronRight,
 } from 'lucide-react'
+import Image from 'next/image'
 
 const navItems = [
   { label: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
@@ -27,12 +28,23 @@ export default function AdminSidebar({ open, onClose }: Props) {
       {/* Logo */}
       <div className="flex items-center justify-between h-16 px-6 border-b border-gray-800 shrink-0">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-[var(--color-primary)] rounded-lg flex items-center justify-center">
-            <span className="text-white font-black text-sm">C</span>
+          {/* <div className="w-8 h-8 bg-[var(--color-primary)] rounded-lg flex items-center justify-center">
+            <span className="text-white font-black text-sm">R</span>
           </div>
           <div>
             <span className="block text-white font-bold text-sm leading-none">Rukey</span>
             <span className="block text-gray-500 text-xs mt-0.5">Admin Panel</span>
+          </div> */}
+          <div className="flex items-center gap-2 shrink-0">
+              <Image
+                src="/rukey-logo-white.png"
+                alt="Rukey CMS"
+                width={150}
+                height={40}
+                className="rounded-lg w-24 h-auto md:w-36 lg:w-[120px]"
+                priority
+                unoptimized
+            />
           </div>
         </div>
         <button
