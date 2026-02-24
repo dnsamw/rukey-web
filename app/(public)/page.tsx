@@ -8,6 +8,7 @@ import Testimonials from '@/components/public/home/Testimonials'
 import GetAQuoteBanner from '@/components/public/home/GetAQuoteBanner'
 import ContactSection from '@/components/public/home/ContactSection'
 import { getHeroSlides, getServices, getTestimonials,getSiteSettings } from '@/lib/data/fetchers'
+import MapSection from '@/components/public/shared/MapSection'
 
 export default async function HomePage() {
   const [slides, services, testimonials,settings] = await Promise.all([
@@ -28,6 +29,7 @@ export default async function HomePage() {
       <Testimonials testimonials={testimonials} />
       <GetAQuoteBanner settings={settings} />
       <ContactSection settings={settings} />
+      <MapSection settings={settings} hideLeftpanel/>
     </>
   )
 }
