@@ -1,9 +1,15 @@
 import Link from 'next/link'
 import { Home, ArrowLeft, Search } from 'lucide-react'
+import { getSiteSettings } from '@/lib/data/fetchers'
+import ThemeInjector from '@/components/ThemeInjector'
 
-export default function NotFoundPage() {
+
+export default async function NotFoundPage() {
+   const settings = await getSiteSettings()
   return (
     <div className="min-h-screen bg-white flex flex-col">
+      {/* Inject theme variables directly — this page is outside (public) layout */}
+      <ThemeInjector theme={settings.theme} />
       {/* Top accent */}
       <div className="h-1.5 bg-gradient-to-r from-[var(--color-secondary)] via-[var(--color-primary)] to-[var(--color-secondary)]" />
 
