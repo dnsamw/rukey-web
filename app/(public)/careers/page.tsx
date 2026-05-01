@@ -2,6 +2,9 @@ import Link from 'next/link'
 import { MapPin, Clock, ArrowRight, Heart } from 'lucide-react'
 import SectionHeading from '@/components/public/shared/SectionHeading'
 import GetAQuoteBanner from '@/components/public/home/GetAQuoteBanner'
+import { getSiteSettings, getBanners } from '@/lib/data/fetchers'
+import ConfigurableBanner from '@/components/public/shared/ConfigurableBanner'
+import { getBannerForPlacement } from '@/lib/utils/banners'
 
 export const metadata = {
   title: 'Careers',
@@ -26,7 +29,10 @@ const perks = [
   { icon: '🤝', label: 'Supportive Team' },
 ]
 
-export default function CareersPage() {
+export default async function CareersPage() {
+  const [settings, banners] = await Promise.all([getSiteSettings(), getBanners()])
+  const careersBanner = getBannerForPlacement(banners, 'careers_after_roles')
+
   return (
     <>
       {/* Hero */}
@@ -42,7 +48,7 @@ export default function CareersPage() {
           </span>
           <h1 className="text-4xl md:text-5xl font-black text-white mb-4">Careers at Rukey</h1>
           <p className="text-gray-300 max-w-2xl mx-auto text-base leading-relaxed">
-            Build a rewarding career with one of Victoria's most respected facility services companies. We invest in our people.
+            Build a rewarding career with one of Victoria&apos;s most respected facility services companies. We invest in our people.
           </p>
           <nav className="mt-6 flex justify-center gap-2 text-sm">
             <Link href="/" className="text-gray-400 hover:text-white transition-colors">Home</Link>
@@ -107,9 +113,9 @@ export default function CareersPage() {
           {/* No fit */}
           <div className="mt-10 bg-[var(--color-primary)]/5 border border-[var(--color-primary)]/20 rounded-2xl p-8 text-center">
             <Heart size={28} className="text-[var(--color-primary)] mx-auto mb-3" />
-            <h3 className="font-bold text-[var(--color-secondary)] mb-2">Don't see a role that fits?</h3>
+            <h3 className="font-bold text-[var(--color-secondary)] mb-2">Don&apos;t see a role that fits?</h3>
             <p className="text-gray-500 text-sm mb-5">
-              We're always on the lookout for great people. Send us your resume and we'll keep you in mind.
+              We&apos;re always on the lookout for great people. Send us your resume and we&apos;ll keep you in mind.
             </p>
             
             <a  href="mailto:careers@rukey.com.au"
@@ -120,6 +126,14 @@ export default function CareersPage() {
           </div>
         </div>
       </section>
+
+      {careersBanner ? (
+        <section className="py-8 bg-gray-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ConfigurableBanner banner={careersBanner} />
+          </div>
+        </section>
+      ) : null}
 
       <GetAQuoteBanner />
     </>

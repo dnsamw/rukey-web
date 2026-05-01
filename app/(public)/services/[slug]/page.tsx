@@ -2,12 +2,14 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2, ArrowRight, Phone } from "lucide-react";
-import { getServiceBySlug, getServices } from "@/lib/data/fetchers";
+import { getServiceBySlug, getServices, getSiteSettings, getBanners } from "@/lib/data/fetchers";
 import { getIcon } from "@/lib/utils/iconMap";
 // import { services } from "@/lib/data/services";
 import GetAQuoteBanner from "@/components/public/home/GetAQuoteBanner";
 import CTAButton from "@/components/public/shared/CTAButton";
 import { createStaticClient } from "@/lib/supabase/static";
+import ConfigurableBanner from "@/components/public/shared/ConfigurableBanner";
+import { getBannerForPlacement } from "@/lib/utils/banners";
 
 export async function generateStaticParams() {
   const supabase = createStaticClient()
@@ -42,14 +44,17 @@ type Props = { params: Promise<{ slug: string }> };
 
 export default async function ServiceDetailPage({ params }: Props) {
   const { slug } = await params;
-  const [service, allServices] = await Promise.all([
+  const [service, allServices, settings, banners] = await Promise.all([
     getServiceBySlug(slug),
     getServices(),
+    getSiteSettings(),
+    getBanners(),
   ]);
   if (!service) notFound();
 
   const Icon = getIcon(service.icon_name);
   const related = allServices.filter((s) => s.slug !== slug).slice(0, 3);
+  const serviceDetailBanner = getBannerForPlacement(banners, "service_detail_after_content");
 
   // const details = serviceDetails[slug] ?? {
   //   fullDescription: service.short_description,
@@ -252,6 +257,14 @@ export default async function ServiceDetailPage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      {serviceDetailBanner ? (
+        <section className="pb-8 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ConfigurableBanner banner={serviceDetailBanner} />
+          </div>
+        </section>
+      ) : null}
 
       <GetAQuoteBanner />
     </>

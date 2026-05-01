@@ -3,8 +3,10 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import SectionHeading from "@/components/public/shared/SectionHeading";
 import GetAQuoteBanner from "@/components/public/home/GetAQuoteBanner";
-import { getServices } from "@/lib/data/fetchers";
+import { getServices, getSiteSettings, getBanners } from "@/lib/data/fetchers";
 import { getIcon } from "@/lib/utils/iconMap";
+import ConfigurableBanner from "@/components/public/shared/ConfigurableBanner";
+import { getBannerForPlacement } from "@/lib/utils/banners";
 // import { services } from '@/lib/data/services'
 
 export const metadata = {
@@ -14,10 +16,11 @@ export const metadata = {
 }
 
 export default async function ServicesPage() {
-  const services = await getServices();
+  const [services, settings, banners] = await Promise.all([getServices(), getSiteSettings(), getBanners()]);
   const active = services
     .filter((s) => s.is_active)
     .sort((a, b) => a.order - b.order);
+  const servicesBanner = getBannerForPlacement(banners, "services_after_grid");
 
   return (
     <>
@@ -121,6 +124,14 @@ export default async function ServicesPage() {
           </div>
         </div>
       </section>
+
+      {servicesBanner ? (
+        <section className="pb-8 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ConfigurableBanner banner={servicesBanner} />
+          </div>
+        </section>
+      ) : null}
 
       <GetAQuoteBanner />
     </>

@@ -1,0 +1,5 @@
+# Supabase Configuration
+project_id = "gbbwqmvnqjsjzagbnoni"
+
+[db]
+major_version = 15
