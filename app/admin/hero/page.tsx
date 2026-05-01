@@ -19,10 +19,22 @@ type Slide = {
   image_url: string
   order: number
   is_active: boolean
+  banner_enabled: boolean
+  banner_badge: string
+  banner_title: string
+  banner_description: string
+  banner_cta_label: string
+  banner_cta_href: string
+  banner_bg_color: string
+  banner_text_color: string
+  banner_accent_color: string
 }
 
 const empty: Omit<Slide, 'id' | 'order' | 'is_active'> = {
   title: '', subtitle: '', description: '', image_url: '',
+  banner_enabled: false, banner_badge: '', banner_title: '', banner_description: '',
+  banner_cta_label: '', banner_cta_href: '',
+  banner_bg_color: '#1E3A5F', banner_text_color: '#FFFFFF', banner_accent_color: '#F97316',
 }
 
 export default function HeroEditorPage() {
@@ -59,7 +71,18 @@ export default function HeroEditorPage() {
 
   const openEdit = (slide: Slide) => {
     setEditingSlide(slide)
-    setForm({ title: slide.title, subtitle: slide.subtitle, description: slide.description, image_url: slide.image_url })
+    setForm({
+      title: slide.title, subtitle: slide.subtitle, description: slide.description, image_url: slide.image_url,
+      banner_enabled: slide.banner_enabled ?? false,
+      banner_badge: slide.banner_badge ?? '',
+      banner_title: slide.banner_title ?? '',
+      banner_description: slide.banner_description ?? '',
+      banner_cta_label: slide.banner_cta_label ?? '',
+      banner_cta_href: slide.banner_cta_href ?? '',
+      banner_bg_color: slide.banner_bg_color ?? '#1E3A5F',
+      banner_text_color: slide.banner_text_color ?? '#FFFFFF',
+      banner_accent_color: slide.banner_accent_color ?? '#F97316',
+    })
     setModalOpen(true)
   }
 
@@ -217,7 +240,7 @@ export default function HeroEditorPage() {
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         title={editingSlide ? 'Edit Slide' : 'Add New Slide'}
-        size="md"
+        size="lg"
       >
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
@@ -255,6 +278,94 @@ export default function HeroEditorPage() {
             value={form.image_url}
             onChange={(url) => setForm((p) => ({ ...p, image_url: url }))}
           />
+
+          {/* Banner / Advert section */}
+          <div className="border border-gray-100 rounded-2xl p-4 space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-bold text-[var(--color-secondary)]">Promotional Banner</p>
+                <p className="text-xs text-gray-400">Shown beside this slide when active</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setForm((p) => ({ ...p, banner_enabled: !p.banner_enabled }))}
+                className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 focus:outline-none ${
+                  form.banner_enabled ? 'bg-[var(--color-primary)]' : 'bg-gray-200'
+                }`}
+              >
+                <span className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ${
+                  form.banner_enabled ? 'translate-x-5' : 'translate-x-0'
+                }`} />
+              </button>
+            </div>
+
+            {form.banner_enabled && (
+              <div className="space-y-3">
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className={labelClass}>Badge Label</label>
+                    <input className={inputClass} placeholder="e.g. Limited Offer" value={form.banner_badge}
+                      onChange={(e) => setForm((p) => ({ ...p, banner_badge: e.target.value }))} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Banner Title</label>
+                    <input className={inputClass} placeholder="e.g. 20% Off This Month" value={form.banner_title}
+                      onChange={(e) => setForm((p) => ({ ...p, banner_title: e.target.value }))} />
+                  </div>
+                </div>
+                <div>
+                  <label className={labelClass}>Description</label>
+                  <textarea className={`${inputClass} resize-none`} rows={2} placeholder="Short promotional message..." value={form.banner_description}
+                    onChange={(e) => setForm((p) => ({ ...p, banner_description: e.target.value }))} />
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className={labelClass}>CTA Button Label</label>
+                    <input className={inputClass} placeholder="e.g. Claim Offer" value={form.banner_cta_label}
+                      onChange={(e) => setForm((p) => ({ ...p, banner_cta_label: e.target.value }))} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>CTA Button Link</label>
+                    <input className={inputClass} placeholder="/get-a-quote" value={form.banner_cta_href}
+                      onChange={(e) => setForm((p) => ({ ...p, banner_cta_href: e.target.value }))} />
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-3">
+                  <div>
+                    <label className={labelClass}>Background</label>
+                    <div className="flex items-center gap-2">
+                      <input type="color" className="h-9 w-14 rounded-lg border border-gray-200 cursor-pointer p-1"
+                        value={form.banner_bg_color}
+                        onChange={(e) => setForm((p) => ({ ...p, banner_bg_color: e.target.value }))} />
+                      <input className={inputClass} value={form.banner_bg_color}
+                        onChange={(e) => setForm((p) => ({ ...p, banner_bg_color: e.target.value }))} />
+                    </div>
+                  </div>
+                  <div>
+                    <label className={labelClass}>Text Color</label>
+                    <div className="flex items-center gap-2">
+                      <input type="color" className="h-9 w-14 rounded-lg border border-gray-200 cursor-pointer p-1"
+                        value={form.banner_text_color}
+                        onChange={(e) => setForm((p) => ({ ...p, banner_text_color: e.target.value }))} />
+                      <input className={inputClass} value={form.banner_text_color}
+                        onChange={(e) => setForm((p) => ({ ...p, banner_text_color: e.target.value }))} />
+                    </div>
+                  </div>
+                  <div>
+                    <label className={labelClass}>Accent Color</label>
+                    <div className="flex items-center gap-2">
+                      <input type="color" className="h-9 w-14 rounded-lg border border-gray-200 cursor-pointer p-1"
+                        value={form.banner_accent_color}
+                        onChange={(e) => setForm((p) => ({ ...p, banner_accent_color: e.target.value }))} />
+                      <input className={inputClass} value={form.banner_accent_color}
+                        onChange={(e) => setForm((p) => ({ ...p, banner_accent_color: e.target.value }))} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
           <div className="flex justify-end gap-3 pt-2">
             <button
               onClick={() => setModalOpen(false)}

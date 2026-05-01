@@ -1,7 +1,9 @@
 import Link from 'next/link'
 import ContactSection from '@/components/public/home/ContactSection'
-import { getSiteSettings } from '@/lib/data/fetchers'
+import { getSiteSettings, getBanners } from '@/lib/data/fetchers'
 import MapSection from '@/components/public/shared/MapSection';
+import ConfigurableBanner from '@/components/public/shared/ConfigurableBanner'
+import { getBannerForPlacement } from '@/lib/utils/banners'
 
 export const metadata = {
   title: 'Contact Us',
@@ -10,7 +12,8 @@ export const metadata = {
 }
 
 export default async function ContactPage() {
-    const settings = await getSiteSettings();
+  const [settings, banners] = await Promise.all([getSiteSettings(), getBanners()])
+  const contactBanner = getBannerForPlacement(banners, 'contact_after_form')
   return (
     <>
       {/* Hero */}
@@ -38,6 +41,13 @@ export default async function ContactPage() {
 
       <ContactSection settings={settings} />
       <MapSection settings={settings} showHeading={true} hideLeftpanel />
+      {contactBanner ? (
+        <section className="py-8 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ConfigurableBanner banner={contactBanner} />
+          </div>
+        </section>
+      ) : null}
     </>
   )
 }

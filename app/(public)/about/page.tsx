@@ -5,6 +5,9 @@ import SectionHeading from '@/components/public/shared/SectionHeading'
 import VisionMissionValues from '@/components/public/home/VisionMissionValues'
 import WhyChooseUs from '@/components/public/home/WhyChooseUs'
 import GetAQuoteBanner from '@/components/public/home/GetAQuoteBanner'
+import { getSiteSettings, getBanners } from '@/lib/data/fetchers'
+import ConfigurableBanner from '@/components/public/shared/ConfigurableBanner'
+import { getBannerForPlacement } from '@/lib/utils/banners'
 
 export const metadata = {
   title: 'About Us',
@@ -27,7 +30,10 @@ const milestones = [
   { year: '2024', event: '500+ active clients across Australia' },
 ]
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const [settings, banners] = await Promise.all([getSiteSettings(), getBanners()])
+  const aboutBanner = getBannerForPlacement(banners, 'about_after_story')
+
   return (
     <>
       {/* Hero */}
@@ -111,6 +117,14 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {aboutBanner ? (
+        <section className="pb-8 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ConfigurableBanner banner={aboutBanner} />
+          </div>
+        </section>
+      ) : null}
 
       {/* Timeline */}
       <section className="py-24 bg-gray-50">

@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import type { HeroSlide } from "@/types/hero";
 import type { Service } from "@/types/service";
+import { DEFAULT_SITE_BANNERS, type SiteBanner } from "@/types/banner";
+import { normalizeSiteBanners } from "@/lib/utils/banners";
 
 export type SiteSettingsData = {
   general: {
@@ -125,5 +127,21 @@ export async function getSiteSettings(): Promise<SiteSettingsData> {
     };
   } catch {
     return defaultSettings;
+  }
+}
+
+export async function getBanners(): Promise<SiteBanner[]> {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("banners")
+      .select("*")
+      .order("placement", { ascending: true });
+
+    if (error || !data) return DEFAULT_SITE_BANNERS;
+
+    return normalizeSiteBanners(data);
+  } catch {
+    return DEFAULT_SITE_BANNERS;
   }
 }

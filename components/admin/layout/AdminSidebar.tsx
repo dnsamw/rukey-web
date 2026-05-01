@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
   LayoutDashboard, Images, Layers, Star,
-  FileText, MessageSquare, Settings, X, ChevronRight,
+  FileText, MessageSquare, Settings, X, ChevronRight, Megaphone,
 } from 'lucide-react'
 import Image from 'next/image'
 
@@ -13,6 +13,7 @@ const navItems = [
   { label: 'Hero Slides', href: '/admin/hero', icon: Images },
   { label: 'Services', href: '/admin/services', icon: Layers },
   { label: 'Testimonials', href: '/admin/testimonials', icon: Star },
+  { label: 'Banners & Adverts', href: '/admin/banners', icon: Megaphone },
   { label: 'Quote Requests', href: '/admin/quotes', icon: FileText },
   { label: 'Messages', href: '/admin/messages', icon: MessageSquare },
   { label: 'Site Settings', href: '/admin/settings', icon: Settings },
