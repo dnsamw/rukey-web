@@ -5,11 +5,20 @@ import { Phone, Mail, MapPin, Send, CheckCircle2 } from "lucide-react";
 import SectionHeading from "@/components/public/shared/SectionHeading";
 import { createClient } from "@/lib/supabase/client";
 import type { SiteSettingsData } from "@/lib/data/fetchers";
+import {
+  defaultContactPageConfig,
+  type ContactPageConfig,
+} from "@/types/page-config";
 
-type Props = { settings: SiteSettingsData };
+type Props = {
+  settings: SiteSettingsData;
+  config?: ContactPageConfig;
+};
 
-export default function ContactSection({ settings }: Props) {
-  const { general, addresses } = settings;
+export default function ContactSection({ settings, config }: Props) {
+  const pageConfig = config ?? defaultContactPageConfig;
+  const { general } = settings;
+  const visibleOffices = pageConfig.offices.filter((office) => office.is_visible);
 
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -34,10 +43,10 @@ export default function ContactSection({ settings }: Props) {
     const supabase = createClient();
     const { error } = await supabase.from("contact_messages").insert({
       name: form.name,
-      email: form.email,
-      phone: form.phone || null,
+      email: form.email || null,
+      phone: form.phone,
       service: form.service || null,
-      message: form.message,
+      message: form.message || null,
     });
 
     setLoading(false);
@@ -53,9 +62,9 @@ export default function ContactSection({ settings }: Props) {
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          label="Contact Us"
-          title="Get In Touch"
-          subtitle="Have a question or ready to get started? Reach out and our friendly team will get back to you within one business day."
+          label={pageConfig.contact.label}
+          title={pageConfig.contact.title}
+          subtitle={pageConfig.contact.subtitle}
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
@@ -71,7 +80,7 @@ export default function ContactSection({ settings }: Props) {
                   Phone
                 </div>
                 <a
-                  href="tel:1300565576"
+                  href={`tel:${general.phone.replace(/\s/g, "")}`}
                   className="text-gray-500 hover:text-[var(--color-primary)] transition-colors text-sm"
                 >
                   {general.phone}
@@ -89,7 +98,7 @@ export default function ContactSection({ settings }: Props) {
                   Email
                 </div>
                 <a
-                  href="mailto:info@rukey.com.au"
+                  href={`mailto:${general.email}`}
                   className="text-gray-500 hover:text-[var(--color-primary)] transition-colors text-sm"
                 >
                   {general.email}
@@ -107,29 +116,29 @@ export default function ContactSection({ settings }: Props) {
                   Our Offices
                 </div>
                 <ul className="space-y-2">
-                  {addresses.map((a) => (
-                    <li key={a.area}>
+                  {visibleOffices.map((a) => (
+                    <li key={`${a.area}-${a.address}`}>
                       <span className="text-[var(--color-primary)] font-semibold text-xs">
                         {a.area} —{" "}
                       </span>
                       <span className="text-gray-500 text-xs">{a.address}</span>
                     </li>
                   ))}
+                  {!visibleOffices.length ? (
+                    <li className="text-gray-400 text-xs">No office locations configured yet.</li>
+                  ) : null}
                 </ul>
               </div>
             </div>
 
             {/* Hours */}
+            {pageConfig.sections.business_hours ? (
             <div className="bg-gray-50 rounded-2xl p-6">
               <h4 className="font-bold text-[var(--color-secondary)] text-sm mb-4">
                 Business Hours
               </h4>
               <div className="space-y-2 text-sm">
-                {[
-                  { day: "Monday – Friday", hours: "7:00 AM – 6:00 PM" },
-                  { day: "Saturday", hours: "8:00 AM – 4:00 PM" },
-                  { day: "Sunday", hours: "By Appointment" },
-                ].map(({ day, hours }) => (
+                {pageConfig.business_hours.map(({ day, hours }) => (
                   <div key={day} className="flex justify-between">
                     <span className="text-gray-500">{day}</span>
                     <span className="font-semibold text-[var(--color-secondary)]">
@@ -139,6 +148,7 @@ export default function ContactSection({ settings }: Props) {
                 ))}
               </div>
             </div>
+            ) : null}
           </div>
 
           {/* Right — form */}
@@ -234,14 +244,9 @@ export default function ContactSection({ settings }: Props) {
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/40 focus:border-[var(--color-primary)] transition-all"
                     >
                       <option value="">Select a service...</option>
-                      <option>Office Cleaning</option>
-                      <option>School & Education</option>
-                      <option>Medical & Healthcare</option>
-                      <option>Gym & Fitness</option>
-                      <option>Council & Government</option>
-                      <option>Retail & Commercial</option>
-                      <option>Industrial</option>
-                      <option>Window Cleaning</option>
+                      {pageConfig.contact.service_options.map((option) => (
+                        <option key={option}>{option}</option>
+                      ))}
                     </select>
                   </div>
                 </div>

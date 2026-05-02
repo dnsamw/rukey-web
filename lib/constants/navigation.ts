@@ -12,9 +12,10 @@ export const adminNavigation = [
   { label: 'Dashboard', href: '/admin/dashboard' },
   { label: 'Hero Slides', href: '/admin/hero' },
   { label: 'Services', href: '/admin/services' },
-  { label: 'About', href: '/admin/about' },
+  { label: 'About Page', href: '/admin/about' },
+  { label: 'Careers Page', href: '/admin/careers' },
+  { label: 'Contact Page', href: '/admin/contact' },
   { label: 'Testimonials', href: '/admin/testimonials' },
-  { label: 'Careers', href: '/admin/careers' },
   { label: 'Quotes', href: '/admin/quotes' },
   { label: 'Settings', href: '/admin/settings' },
 ];

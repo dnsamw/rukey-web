@@ -326,7 +326,7 @@ function BannerForm({
 }) {
   const [formData, setFormData] = useState(banner)
 
-  const handleChange = (field: keyof SiteBanner, value: any) => {
+  const handleChange = (field: keyof SiteBanner, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
   }
 
