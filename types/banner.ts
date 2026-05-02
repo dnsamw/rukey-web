@@ -1,5 +1,5 @@
 export const BANNER_PLACEMENTS = [
-  "hero_right",
+//   "hero_right",
   "home_after_services",
   "home_after_about",
   "home_before_contact",
@@ -27,19 +27,19 @@ export type SiteBanner = {
 };
 
 export const DEFAULT_SITE_BANNERS: SiteBanner[] = [
-  {
-    id: "hero_offer",
-    placement: "hero_right",
-    is_enabled: false,
-    badge: "Limited Offer",
-    title: "End of Financial Year Offer",
-    description: "Book before June 30 and get a free deep-clean add-on for your first month.",
-    cta_label: "Claim Offer",
-    cta_href: "/get-a-quote",
-    background_color: "#1E3A5F",
-    text_color: "#FFFFFF",
-    accent_color: "#F97316",
-  },
+//   {
+//     id: "hero_offer",
+//     placement: "hero_right",
+//     is_enabled: false,
+//     badge: "Limited Offer",
+//     title: "End of Financial Year Offer",
+//     description: "Book before June 30 and get a free deep-clean add-on for your first month.",
+//     cta_label: "Claim Offer",
+//     cta_href: "/get-a-quote",
+//     background_color: "#1E3A5F",
+//     text_color: "#FFFFFF",
+//     accent_color: "#F97316",
+//   },
   {
     id: "home_services",
     placement: "home_after_services",

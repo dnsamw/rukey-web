@@ -3,6 +3,14 @@ import type { HeroSlide } from "@/types/hero";
 import type { Service } from "@/types/service";
 import { DEFAULT_SITE_BANNERS, type SiteBanner } from "@/types/banner";
 import { normalizeSiteBanners } from "@/lib/utils/banners";
+import {
+  defaultAboutPageConfig,
+  defaultCareersPageConfig,
+  defaultContactPageConfig,
+  type AboutPageConfig,
+  type CareersPageConfig,
+  type ContactPageConfig,
+} from "@/types/page-config";
 
 export type SiteSettingsData = {
   general: {
@@ -24,6 +32,19 @@ export type SiteSettingsData = {
     secondary: string
     secondary_dark: string
   }
+}
+
+export type JobPosting = {
+  id: string
+  title: string
+  description: string
+  location: string
+  employment_type: string | null
+  salary_min: number | null
+  salary_max: number | null
+  is_active: boolean
+  created_at: string
+  updated_at: string
 }
 
 export async function getHeroSlides(): Promise<HeroSlide[]> {
@@ -143,5 +164,143 @@ export async function getBanners(): Promise<SiteBanner[]> {
     return normalizeSiteBanners(data);
   } catch {
     return DEFAULT_SITE_BANNERS;
+  }
+}
+
+function mergeSectionFlags(
+  defaults: Record<string, boolean>,
+  source?: Record<string, boolean>,
+) {
+  return {
+    ...defaults,
+    ...(source ?? {}),
+  }
+}
+
+export async function getAboutPageConfig(): Promise<AboutPageConfig> {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("site_settings")
+      .select("value")
+      .eq("key", "about_page")
+      .maybeSingle();
+
+    if (error || !data?.value) return defaultAboutPageConfig;
+
+    const value = data.value as Partial<AboutPageConfig>;
+
+    return {
+      ...defaultAboutPageConfig,
+      ...value,
+      sections: mergeSectionFlags(defaultAboutPageConfig.sections, value.sections),
+      hero: { ...defaultAboutPageConfig.hero, ...(value.hero ?? {}) },
+      story: {
+        ...defaultAboutPageConfig.story,
+        ...(value.story ?? {}),
+        badges: value.story?.badges ?? defaultAboutPageConfig.story.badges,
+      },
+      timeline: {
+        ...defaultAboutPageConfig.timeline,
+        ...(value.timeline ?? {}),
+        items: value.timeline?.items ?? defaultAboutPageConfig.timeline.items,
+      },
+      team: {
+        ...defaultAboutPageConfig.team,
+        ...(value.team ?? {}),
+        members: value.team?.members ?? defaultAboutPageConfig.team.members,
+      },
+    };
+  } catch {
+    return defaultAboutPageConfig;
+  }
+}
+
+export async function getContactPageConfig(): Promise<ContactPageConfig> {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("site_settings")
+      .select("value")
+      .eq("key", "contact_page")
+      .maybeSingle();
+
+    if (error || !data?.value) return defaultContactPageConfig;
+
+    const value = data.value as Partial<ContactPageConfig>;
+
+    return {
+      ...defaultContactPageConfig,
+      ...value,
+      sections: mergeSectionFlags(defaultContactPageConfig.sections, value.sections),
+      hero: { ...defaultContactPageConfig.hero, ...(value.hero ?? {}) },
+      contact: {
+        ...defaultContactPageConfig.contact,
+        ...(value.contact ?? {}),
+        service_options:
+          value.contact?.service_options ?? defaultContactPageConfig.contact.service_options,
+      },
+      map: { ...defaultContactPageConfig.map, ...(value.map ?? {}) },
+      offices: value.offices ?? defaultContactPageConfig.offices,
+      business_hours: value.business_hours ?? defaultContactPageConfig.business_hours,
+    };
+  } catch {
+    return defaultContactPageConfig;
+  }
+}
+
+export async function getCareersPageConfig(): Promise<CareersPageConfig> {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("site_settings")
+      .select("value")
+      .eq("key", "careers_page")
+      .maybeSingle();
+
+    if (error || !data?.value) return defaultCareersPageConfig;
+
+    const value = data.value as Partial<CareersPageConfig>;
+
+    return {
+      ...defaultCareersPageConfig,
+      ...value,
+      sections: mergeSectionFlags(defaultCareersPageConfig.sections, value.sections),
+      hero: { ...defaultCareersPageConfig.hero, ...(value.hero ?? {}) },
+      perks: {
+        ...defaultCareersPageConfig.perks,
+        ...(value.perks ?? {}),
+        items: value.perks?.items ?? defaultCareersPageConfig.perks.items,
+      },
+      jobs: { ...defaultCareersPageConfig.jobs, ...(value.jobs ?? {}) },
+      fallback: {
+        ...defaultCareersPageConfig.fallback,
+        ...(value.fallback ?? {}),
+      },
+    };
+  } catch {
+    return defaultCareersPageConfig;
+  }
+}
+
+export async function getJobPostings(activeOnly = true): Promise<JobPosting[]> {
+  try {
+    const supabase = await createClient();
+    let query = supabase
+      .from("job_postings")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (activeOnly) {
+      query = query.eq("is_active", true);
+    }
+
+    const { data, error } = await query;
+
+    if (error || !data) return [];
+
+    return data;
+  } catch {
+    return [];
   }
 }

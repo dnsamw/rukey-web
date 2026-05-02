@@ -19,7 +19,7 @@ function slideBanner(slide: HeroSlide): SiteBanner | null {
   if (!slide.banner_enabled) return null;
   return {
     id: `slide-${slide.id}`,
-    placement: "hero_right",
+    placement: "home_after_services",
     is_enabled: true,
     badge: slide.banner_badge ?? "",
     title: slide.banner_title ?? "",
