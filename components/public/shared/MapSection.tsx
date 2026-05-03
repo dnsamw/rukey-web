@@ -1,18 +1,30 @@
 import { MapPin, Phone, Mail, ExternalLink, Clock } from "lucide-react";
 import SectionHeading from "@/components/public/shared/SectionHeading";
 import type { SiteSettingsData } from "@/lib/data/fetchers";
+import {
+  defaultContactPageConfig,
+  type ContactPageConfig,
+} from "@/types/page-config";
 
 type Props = {
   settings: SiteSettingsData;
   showHeading?: boolean;
-  hideLeftpanel?: boolean; 
+  hideLeftpanel?: boolean;
+  config?: ContactPageConfig;
 };
 
-export default function MapSection({ settings, showHeading = true, hideLeftpanel = false }: Props) {
-  const { addresses, general } = settings;
+export default function MapSection({
+  settings,
+  showHeading = true,
+  hideLeftpanel = false,
+  config,
+}: Props) {
+  const { general } = settings;
+  const pageConfig = config ?? defaultContactPageConfig;
+  const offices = pageConfig.offices.filter((office) => office.is_visible);
 
-  // Use first address as main office
-  const mainOffice = addresses[0];
+  // Prefer explicitly selected main office, then first visible office.
+  const mainOffice = offices.find((office) => office.is_main) ?? offices[0];
   if (!mainOffice) return null;
 
   // Build Google Maps embed URL — plain search query, no API key needed
@@ -25,20 +37,14 @@ export default function MapSection({ settings, showHeading = true, hideLeftpanel
     mainOffice.address,
   )}`;
 
-  const businessHours = [
-    { day: "Monday – Friday", hours: "7:00 AM – 6:00 PM" },
-    { day: "Saturday", hours: "8:00 AM – 4:00 PM" },
-    { day: "Sunday", hours: "By Appointment" },
-  ];
-
   return (
     <section className="py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {showHeading && (
           <SectionHeading
-            label="Find Us"
-            title="Our Main Office"
-            subtitle="Visit us or get in touch — our team is ready to help with your facility cleaning needs."
+            label={pageConfig.map.label}
+            title={pageConfig.map.title}
+            subtitle={pageConfig.map.subtitle}
           />
         )}
 
@@ -66,13 +72,15 @@ export default function MapSection({ settings, showHeading = true, hideLeftpanel
             </div>
 
             {/* Other locations */}
-            {addresses.length > 1 && (
+            {offices.length > 1 && (
               <div>
                 <div className="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-3">
                   Other Locations
                 </div>
                 <div className="space-y-3">
-                  {addresses.slice(1).map((office) => (
+                  {offices
+                    .filter((office) => office !== mainOffice)
+                    .map((office) => (
                     <div key={office.area} className="flex items-start gap-2.5">
                       <MapPin
                         size={13}
@@ -87,12 +95,13 @@ export default function MapSection({ settings, showHeading = true, hideLeftpanel
                         </div>
                       </div>
                     </div>
-                  ))}
+                    ))}
                 </div>
               </div>
             )}
 
             {/* Business hours */}
+            {pageConfig.sections.business_hours ? (
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <Clock size={14} className="text-[var(--color-primary)]" />
@@ -101,7 +110,7 @@ export default function MapSection({ settings, showHeading = true, hideLeftpanel
                 </div>
               </div>
               <div className="space-y-2">
-                {businessHours.map(({ day, hours }) => (
+                {pageConfig.business_hours.map(({ day, hours }) => (
                   <div
                     key={day}
                     className="flex justify-between items-center text-xs"
@@ -112,6 +121,7 @@ export default function MapSection({ settings, showHeading = true, hideLeftpanel
                 ))}
               </div>
             </div>
+            ) : null}
 
             {/* Contact */}
             <div className="space-y-3 pt-4 border-t border-white/10">

@@ -7,28 +7,52 @@ import WhyChooseUs from '@/components/public/home/WhyChooseUs'
 import Testimonials from '@/components/public/home/Testimonials'
 import GetAQuoteBanner from '@/components/public/home/GetAQuoteBanner'
 import ContactSection from '@/components/public/home/ContactSection'
-import { getHeroSlides, getServices, getTestimonials,getSiteSettings } from '@/lib/data/fetchers'
+import { getHeroSlides, getServices, getTestimonials, getSiteSettings, getBanners, getAboutPageConfig, getContactPageConfig } from '@/lib/data/fetchers'
 import MapSection from '@/components/public/shared/MapSection'
+import ConfigurableBanner from '@/components/public/shared/ConfigurableBanner'
+import { getBannerForPlacement } from '@/lib/utils/banners'
 
 export default async function HomePage() {
-  const [slides, services, testimonials,settings] = await Promise.all([
+  const [slides, services, testimonials, settings, banners, aboutConfig, contactConfig] = await Promise.all([
     getHeroSlides(),
     getServices(),
     getTestimonials(),
     getSiteSettings(),
+    getBanners(),
+    getAboutPageConfig(),
+    getContactPageConfig(),
   ])
+
+  const homeAfterServicesBanner = getBannerForPlacement(banners, 'home_after_services')
+  const homeAfterAboutBanner = getBannerForPlacement(banners, 'home_after_about')
+  const homeBeforeContactBanner = getBannerForPlacement(banners, 'home_before_contact')
 
   return (
     <>
       <HeroSlider slides={slides} />
       <StatsBar />
       <ServicesGrid services={services} />
-      <AboutSection />
+      {homeAfterServicesBanner ? (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <ConfigurableBanner banner={homeAfterServicesBanner} />
+        </div>
+      ) : null}
+      <AboutSection story={aboutConfig.story} />
+      {homeAfterAboutBanner ? (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+          <ConfigurableBanner banner={homeAfterAboutBanner} />
+        </div>
+      ) : null}
       <VisionMissionValues />
       <WhyChooseUs />
-      <Testimonials testimonials={testimonials} />
+      {testimonials.length > 0 && <Testimonials testimonials={testimonials} />}
       <GetAQuoteBanner settings={settings} />
-      <ContactSection settings={settings} />
+      {homeBeforeContactBanner ? (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+          <ConfigurableBanner banner={homeBeforeContactBanner} />
+        </div>
+      ) : null}
+      <ContactSection settings={settings} config={contactConfig} />
       <MapSection settings={settings} hideLeftpanel/>
     </>
   )

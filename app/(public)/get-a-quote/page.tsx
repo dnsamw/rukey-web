@@ -107,7 +107,7 @@ export default function GetAQuotePage() {
             Get a Free Quote
           </h1>
           <p className="text-gray-300 max-w-xl mx-auto text-base">
-            Tell us about your facility and we'll build a custom cleaning
+            Tell us about your facility and we&apos;ll build a custom cleaning
             program that fits your needs and budget.
           </p>
           <nav className="mt-6 flex justify-center gap-2 text-sm">
