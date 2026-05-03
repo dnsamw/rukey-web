@@ -95,6 +95,7 @@ export default function AboutAdminPage() {
       ...form,
       story: {
         ...form.story,
+        client_count: form.story.client_count.trim(),
         badges: form.story.badges.map((item) => item.trim()).filter(Boolean),
       },
       timeline: {
@@ -137,8 +138,8 @@ export default function AboutAdminPage() {
     <AdminShell>
       <div className="max-w-5xl mx-auto space-y-6">
         <PageHeader
-          title="About Page"
-          subtitle="Configure every section of the About page and control visibility."
+          title="About Content"
+          subtitle="Configure About page and home About section content and visibility."
           action={
             <button
               onClick={handleSave}
@@ -288,6 +289,19 @@ export default function AboutAdminPage() {
                   setForm((prev) => ({
                     ...prev,
                     story: { ...prev.story, years_trusted: e.target.value },
+                  }))
+                }
+              />
+            </div>
+            <div>
+              <label className={labelClass}>Client Count Badge</label>
+              <input
+                className={inputClass}
+                value={form.story.client_count}
+                onChange={(e) =>
+                  setForm((prev) => ({
+                    ...prev,
+                    story: { ...prev.story, client_count: e.target.value },
                   }))
                 }
               />

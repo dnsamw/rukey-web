@@ -19,6 +19,9 @@ export default function ContactSection({ settings, config }: Props) {
   const pageConfig = config ?? defaultContactPageConfig;
   const { general } = settings;
   const visibleOffices = pageConfig.offices.filter((office) => office.is_visible);
+  const serviceOptions = Array.from(
+    new Set([...pageConfig.contact.service_options, "Other"]),
+  ).filter(Boolean);
 
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -44,7 +47,7 @@ export default function ContactSection({ settings, config }: Props) {
     const { error } = await supabase.from("contact_messages").insert({
       name: form.name,
       email: form.email || null,
-      phone: form.phone,
+      phone: form.phone.trim(),
       service: form.service || null,
       message: form.message || null,
     });
@@ -204,12 +207,11 @@ export default function ContactSection({ settings, config }: Props) {
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-[var(--color-secondary)] mb-1.5">
-                      Email Address <span className="text-[var(--color-primary)]">*</span>
+                      Email Address
                     </label>
                     <input
                       type="email"
                       name="email"
-                      required
                       value={form.email}
                       onChange={handleChange}
                       placeholder="john@company.com.au"
@@ -222,11 +224,12 @@ export default function ContactSection({ settings, config }: Props) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
                     <label className="block text-xs font-semibold text-[var(--color-secondary)] mb-1.5">
-                      Phone Number
+                      Phone Number <span className="text-[var(--color-primary)]">*</span>
                     </label>
                     <input
                       type="tel"
                       name="phone"
+                      required
                       value={form.phone}
                       onChange={handleChange}
                       placeholder="04XX XXX XXX"
@@ -244,7 +247,7 @@ export default function ContactSection({ settings, config }: Props) {
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/40 focus:border-[var(--color-primary)] transition-all"
                     >
                       <option value="">Select a service...</option>
-                      {pageConfig.contact.service_options.map((option) => (
+                      {serviceOptions.map((option) => (
                         <option key={option}>{option}</option>
                       ))}
                     </select>
@@ -254,11 +257,10 @@ export default function ContactSection({ settings, config }: Props) {
                 {/* Message */}
                 <div>
                   <label className="block text-xs font-semibold text-[var(--color-secondary)] mb-1.5">
-                    Message <span className="text-[var(--color-primary)]">*</span>
+                    Message
                   </label>
                   <textarea
                     name="message"
-                    required
                     rows={5}
                     value={form.message}
                     onChange={handleChange}

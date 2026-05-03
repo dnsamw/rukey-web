@@ -79,7 +79,7 @@ export default function Testimonials({ testimonials }: Props) {
 
                     {/* Quote text */}
                     <p className="text-gray-600 text-sm leading-relaxed italic flex-1 mb-6">
-                      "{t.quote}"
+                      &ldquo;{t.quote}&rdquo;
                     </p>
 
                     {/* Divider */}
