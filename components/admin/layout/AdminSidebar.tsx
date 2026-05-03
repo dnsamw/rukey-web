@@ -12,7 +12,7 @@ const navItems = [
   { label: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
   { label: 'Hero Slides', href: '/admin/hero', icon: Images },
   { label: 'Services', href: '/admin/services', icon: Layers },
-  { label: 'About Page', href: '/admin/about', icon: Info },
+  { label: 'About Content', href: '/admin/about', icon: Info },
   { label: 'Careers Page', href: '/admin/careers', icon: Briefcase },
   { label: 'Contact Page', href: '/admin/contact', icon: Phone },
   { label: 'Testimonials', href: '/admin/testimonials', icon: Star },

@@ -26,6 +26,7 @@ export type AboutPageConfig = {
     paragraph_2: string
     image_url: string
     years_trusted: string
+    client_count: string
     badges: string[]
   }
   timeline: {
@@ -129,6 +130,7 @@ export const defaultAboutPageConfig: AboutPageConfig = {
     image_url:
       'https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?w=900&q=80',
     years_trusted: '12+',
+    client_count: '500+',
     badges: [
       'ISO 9001 Certified',
       'Eco-Friendly Products',
@@ -207,6 +209,7 @@ export const defaultContactPageConfig: ContactPageConfig = {
       'Retail & Commercial',
       'Industrial',
       'Window Cleaning',
+      'Other',
     ],
   },
   map: {

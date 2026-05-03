@@ -7,18 +7,20 @@ import WhyChooseUs from '@/components/public/home/WhyChooseUs'
 import Testimonials from '@/components/public/home/Testimonials'
 import GetAQuoteBanner from '@/components/public/home/GetAQuoteBanner'
 import ContactSection from '@/components/public/home/ContactSection'
-import { getHeroSlides, getServices, getTestimonials, getSiteSettings, getBanners } from '@/lib/data/fetchers'
+import { getHeroSlides, getServices, getTestimonials, getSiteSettings, getBanners, getAboutPageConfig, getContactPageConfig } from '@/lib/data/fetchers'
 import MapSection from '@/components/public/shared/MapSection'
 import ConfigurableBanner from '@/components/public/shared/ConfigurableBanner'
 import { getBannerForPlacement } from '@/lib/utils/banners'
 
 export default async function HomePage() {
-  const [slides, services, testimonials, settings, banners] = await Promise.all([
+  const [slides, services, testimonials, settings, banners, aboutConfig, contactConfig] = await Promise.all([
     getHeroSlides(),
     getServices(),
     getTestimonials(),
     getSiteSettings(),
     getBanners(),
+    getAboutPageConfig(),
+    getContactPageConfig(),
   ])
 
   const homeAfterServicesBanner = getBannerForPlacement(banners, 'home_after_services')
@@ -35,7 +37,7 @@ export default async function HomePage() {
           <ConfigurableBanner banner={homeAfterServicesBanner} />
         </div>
       ) : null}
-      <AboutSection />
+      <AboutSection story={aboutConfig.story} />
       {homeAfterAboutBanner ? (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
           <ConfigurableBanner banner={homeAfterAboutBanner} />
@@ -43,14 +45,14 @@ export default async function HomePage() {
       ) : null}
       <VisionMissionValues />
       <WhyChooseUs />
-      <Testimonials testimonials={testimonials} />
+      {testimonials.length > 0 && <Testimonials testimonials={testimonials} />}
       <GetAQuoteBanner settings={settings} />
       {homeBeforeContactBanner ? (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
           <ConfigurableBanner banner={homeBeforeContactBanner} />
         </div>
       ) : null}
-      <ContactSection settings={settings} />
+      <ContactSection settings={settings} config={contactConfig} />
       <MapSection settings={settings} hideLeftpanel/>
     </>
   )
