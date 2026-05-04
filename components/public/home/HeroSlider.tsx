@@ -29,6 +29,12 @@ function slideBanner(slide: HeroSlide): SiteBanner | null {
     background_color: slide.banner_bg_color ?? "#1E3A5F",
     text_color: slide.banner_text_color ?? "#FFFFFF",
     accent_color: slide.banner_accent_color ?? "#F97316",
+    layout: slide.banner_layout ?? "text",
+    show_badge: slide.banner_show_badge ?? true,
+    image_url: slide.banner_image_url ?? undefined,
+    image_href: slide.banner_image_href ?? undefined,
+    transparent_bg: slide.banner_transparent_bg ?? false,
+    drop_shadow: slide.banner_drop_shadow ?? false,
   };
 }
 

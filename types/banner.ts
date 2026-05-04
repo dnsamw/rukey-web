@@ -24,6 +24,13 @@ export type SiteBanner = {
   background_color: string;
   text_color: string;
   accent_color: string;
+  // Extended fields used by hero slide banners
+  layout?: 'text' | 'image_link' | 'image_cta';
+  show_badge?: boolean;
+  image_url?: string;
+  image_href?: string;
+  transparent_bg?: boolean;
+  drop_shadow?: boolean;
 };
 
 export const DEFAULT_SITE_BANNERS: SiteBanner[] = [
