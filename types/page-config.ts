@@ -273,3 +273,28 @@ export const defaultCareersPageConfig: CareersPageConfig = {
     email: 'careers@rukey.com.au',
   },
 }
+
+// ─── Stats Bar ───────────────────────────────────────────────────────────────
+
+export type StatItem = {
+  id: string
+  icon: string
+  value: string
+  label: string
+  is_visible: boolean
+}
+
+export type StatsBarConfig = {
+  is_enabled: boolean
+  stats: StatItem[]
+}
+
+export const defaultStatsBarConfig: StatsBarConfig = {
+  is_enabled: true,
+  stats: [
+    { id: 'clients', icon: 'Users', value: '500+', label: 'Happy Clients', is_visible: true },
+    { id: 'experience', icon: 'Building2', value: '12+', label: 'Years Experience', is_visible: true },
+    { id: 'satisfaction', icon: 'ThumbsUp', value: '98%', label: 'Satisfaction Rate', is_visible: true },
+    { id: 'availability', icon: 'Clock', value: '24/7', label: 'Available Service', is_visible: true },
+  ],
+}

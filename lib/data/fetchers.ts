@@ -7,9 +7,11 @@ import {
   defaultAboutPageConfig,
   defaultCareersPageConfig,
   defaultContactPageConfig,
+  defaultStatsBarConfig,
   type AboutPageConfig,
   type CareersPageConfig,
   type ContactPageConfig,
+  type StatsBarConfig,
 } from "@/types/page-config";
 
 export type SiteSettingsData = {
@@ -302,5 +304,26 @@ export async function getJobPostings(activeOnly = true): Promise<JobPosting[]> {
     return data;
   } catch {
     return [];
+  }
+}
+
+export async function getStatsBarConfig(): Promise<StatsBarConfig> {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("site_settings")
+      .select("value")
+      .eq("key", "stats_bar")
+      .maybeSingle();
+
+    if (error || !data?.value) return defaultStatsBarConfig;
+
+    const value = data.value as Partial<StatsBarConfig>;
+    return {
+      is_enabled: value.is_enabled ?? defaultStatsBarConfig.is_enabled,
+      stats: value.stats ?? defaultStatsBarConfig.stats,
+    };
+  } catch {
+    return defaultStatsBarConfig;
   }
 }
