@@ -51,6 +51,20 @@ export default function GetAQuotePage() {
 
     setLoading(false);
     if (!error) {
+      fetch('/api/send-quote-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          phone: form.phone,
+          email: form.email || null,
+          service: form.service || null,
+          facilitySize: form.facilitySize || null,
+          frequency: form.frequency || null,
+          address: form.address || null,
+          message: form.message || null,
+        }),
+      }).catch(console.error)
       setSubmitted(true);
     } else {
       console.error("Quote form error:", error);
