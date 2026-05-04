@@ -6,8 +6,9 @@ import { createClient } from '@/lib/supabase/client'
 import AdminShell from '@/components/admin/layout/AdminShell'
 import PageHeader from '@/components/admin/ui/PageHeader'
 import Modal from '@/components/admin/ui/Modal'
+import ConfirmDialog from '@/components/admin/ui/ConfirmDialog'
 import Toast from '@/components/admin/ui/Toast'
-import { Edit2, Save } from 'lucide-react'
+import { Save, Pencil, Eye, EyeOff, Trash2 } from 'lucide-react'
 import type { SiteBanner } from '@/types/banner'
 import { BANNER_PLACEMENTS, DEFAULT_SITE_BANNERS } from '@/types/banner'
 
@@ -32,6 +33,8 @@ export default function BannersPage() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
   const [isSaving, setIsSaving] = useState(false)
+  const [deleteTarget, setDeleteTarget] = useState<string | null>(null)
+  const [deleting, setDeleting] = useState(false)
 
   useEffect(() => {
     fetchBanners()
@@ -101,7 +104,6 @@ export default function BannersPage() {
 
       if (upsertError) throw upsertError
 
-      // Trigger revalidation
       console.log('Triggering revalidation...')
       await fetch('/api/revalidate', { method: 'POST' })
 
@@ -148,12 +150,8 @@ export default function BannersPage() {
 
       if (error) throw error
 
-      // Update local state
       setBanners(banners.map(b => b.placement === placement ? { ...b, is_enabled: isEnabled } : b))
-      
-      // Trigger revalidation
       await fetch('/api/revalidate', { method: 'POST' })
-      
       setToast({ message: `Banner ${isEnabled ? 'enabled' : 'disabled'}`, type: 'success' })
       router.refresh()
     } catch (error) {
@@ -163,16 +161,16 @@ export default function BannersPage() {
     }
   }
 
-  const handleDelete = async (placement: string) => {
-    if (!confirm('Are you sure? This will disable the banner.')) return
-
+  const handleDelete = async () => {
+    if (!deleteTarget) return
+    setDeleting(true)
     try {
-      const current = banners.find((b) => b.placement === placement)
-      const fallback = DEFAULT_SITE_BANNERS.find((b) => b.placement === placement)
+      const current = banners.find((b) => b.placement === deleteTarget)
+      const fallback = DEFAULT_SITE_BANNERS.find((b) => b.placement === deleteTarget)
       const source = current ?? fallback
 
       if (!source) {
-        throw new Error(`Unknown banner placement: ${placement}`)
+        throw new Error(`Unknown banner placement: ${deleteTarget}`)
       }
 
       const payload = {
@@ -195,90 +193,95 @@ export default function BannersPage() {
 
       if (error) throw error
 
-      setBanners(banners.map(b => b.placement === placement ? { ...b, is_enabled: false } : b))
-      
-      // Trigger revalidation
+      setBanners(banners.map(b => b.placement === deleteTarget ? { ...b, is_enabled: false } : b))
       await fetch('/api/revalidate', { method: 'POST' })
-      
       setToast({ message: 'Banner disabled', type: 'success' })
       router.refresh()
     } catch (error) {
       console.error('Failed to disable banner:', error)
       setToast({ message: 'Failed to disable banner', type: 'error' })
+    } finally {
+      setDeleting(false)
+      setDeleteTarget(null)
     }
   }
 
   if (loading) {
     return (
       <AdminShell>
-        <PageHeader title="Banners & Adverts" subtitle="Manage display banners across your website" />
-        <div className="mt-8 text-center text-gray-400">Loading banners...</div>
+        <div className="flex items-center justify-center py-20">
+          <div className="w-8 h-8 border-2 border-gray-200 border-t-[var(--color-primary)] rounded-full animate-spin" />
+        </div>
       </AdminShell>
     )
   }
 
   return (
     <AdminShell>
-      <PageHeader title="Banners & Adverts" subtitle="Manage display banners across your website" />
+      <div className="max-w-5xl mx-auto space-y-6">
+        <PageHeader title="Banners & Adverts" subtitle="Manage display banners across your website" />
 
-      <div className="mt-8 grid gap-4">
-        {banners.map(banner => (
-          <div
-            key={banner.placement}
-            className="bg-white rounded-xl shadow border border-gray-100 p-6 flex items-start justify-between hover:shadow-md transition"
-          >
-            <div className="flex-1">
-              <div className="flex items-center gap-4 mb-3">
-                <h3 className="text-lg font-semibold text-[var(--color-secondary)]">
-                  {bannerLabels[banner.placement] || banner.placement}
-                </h3>
-                <label className="inline-flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={banner.is_enabled}
-                    onChange={(e) => handleToggle(banner.placement, e.target.checked)}
-                    className="w-5 h-5 text-[var(--color-primary)] rounded focus:ring-2 focus:ring-[var(--color-primary)]"
-                  />
-                  <span className="text-sm font-medium text-gray-700">
-                    {banner.is_enabled ? 'Enabled' : 'Disabled'}
-                  </span>
-                </label>
-              </div>
-              
-              <div className="space-y-2">
-                {banner.title && (
-                  <p className="text-sm">
-                    <span className="font-medium text-gray-700">Title:</span>
-                    <span className="text-gray-600 ml-2">{banner.title}</span>
-                  </p>
-                )}
-                {banner.description && (
-                  <p className="text-sm">
-                    <span className="font-medium text-gray-700">Description:</span>
-                    <span className="text-gray-600 ml-2 line-clamp-1">{banner.description}</span>
-                  </p>
-                )}
-                {banner.cta_label && (
-                  <p className="text-sm">
-                    <span className="font-medium text-gray-700">CTA:</span>
-                    <span className="text-gray-600 ml-2">{banner.cta_label}</span>
-                  </p>
-                )}
-              </div>
-            </div>
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+          <h2 className="font-bold text-[var(--color-secondary)] mb-5">All Banners</h2>
 
-            <button
-              onClick={() => handleEdit(banner)}
-              className="ml-4 p-3 text-gray-400 hover:text-[var(--color-primary)] hover:bg-orange-50 rounded-lg transition shrink-0"
-              title="Edit banner"
-            >
-              <Edit2 size={20} />
-            </button>
+          <div className="space-y-3">
+            {banners.map(banner => (
+              <div
+                key={banner.placement}
+                className={`border rounded-xl p-4 flex items-start justify-between gap-3 ${
+                  banner.is_enabled ? 'border-gray-200 bg-white' : 'border-gray-100 bg-gray-50 opacity-70'
+                }`}
+              >
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 mb-1 flex-wrap">
+                    <span className="font-semibold text-[var(--color-secondary)]">
+                      {bannerLabels[banner.placement] || banner.placement}
+                    </span>
+                    <span
+                      className={`text-xs px-2 py-0.5 rounded-full font-semibold ${
+                        banner.is_enabled ? 'bg-emerald-100 text-emerald-600' : 'bg-gray-200 text-gray-500'
+                      }`}
+                    >
+                      {banner.is_enabled ? 'Enabled' : 'Disabled'}
+                    </span>
+                  </div>
+                  {banner.title && (
+                    <p className="text-sm text-gray-500">{banner.title}</p>
+                  )}
+                  {banner.description && (
+                    <p className="text-sm text-gray-400 mt-1 line-clamp-2">{banner.description}</p>
+                  )}
+                </div>
+
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    onClick={() => handleToggle(banner.placement, !banner.is_enabled)}
+                    className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200"
+                    title={banner.is_enabled ? 'Disable' : 'Enable'}
+                  >
+                    {banner.is_enabled ? <EyeOff size={15} /> : <Eye size={15} />}
+                  </button>
+                  <button
+                    onClick={() => handleEdit(banner)}
+                    className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-500 hover:bg-blue-100"
+                    title="Edit banner"
+                  >
+                    <Pencil size={15} />
+                  </button>
+                  <button
+                    onClick={() => setDeleteTarget(banner.placement)}
+                    className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center text-red-500 hover:bg-red-100"
+                    title="Disable banner"
+                  >
+                    <Trash2 size={15} />
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
 
-      {/* Edit Banner Modal */}
       <Modal
         open={isModalOpen}
         onClose={() => {
@@ -300,7 +303,15 @@ export default function BannersPage() {
         )}
       </Modal>
 
-      {/* Toast */}
+      <ConfirmDialog
+        open={!!deleteTarget}
+        onClose={() => setDeleteTarget(null)}
+        onConfirm={handleDelete}
+        loading={deleting}
+        title="Disable Banner"
+        message={`Disable the banner "${deleteTarget ? (bannerLabels[deleteTarget] || deleteTarget) : ''}"? It will no longer appear on the site.`}
+      />
+
       {toast && (
         <Toast
           message={toast.message}
@@ -312,7 +323,6 @@ export default function BannersPage() {
   )
 }
 
-// Banner Form Component
 function BannerForm({
   banner,
   onSave,
@@ -335,8 +345,8 @@ function BannerForm({
     await onSave(formData)
   }
 
-  const inputClass = "w-full px-4 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/40 focus:border-[var(--color-primary)] transition-all"
-  const labelClass = "block text-sm font-semibold text-[var(--color-secondary)] mb-2"
+  const inputClass = 'w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/40 focus:border-[var(--color-primary)] transition-all'
+  const labelClass = 'block text-xs font-semibold text-[var(--color-secondary)] mb-1.5'
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
@@ -405,7 +415,7 @@ function BannerForm({
               type="color"
               value={formData.background_color || '#ffffff'}
               onChange={(e) => handleChange('background_color', e.target.value)}
-              className="w-12 h-11 rounded-lg border border-gray-200 cursor-pointer"
+              className="w-12 h-11 rounded-xl border border-gray-200 cursor-pointer"
             />
             <input
               type="text"
@@ -424,7 +434,7 @@ function BannerForm({
               type="color"
               value={formData.text_color || '#000000'}
               onChange={(e) => handleChange('text_color', e.target.value)}
-              className="w-12 h-11 rounded-lg border border-gray-200 cursor-pointer"
+              className="w-12 h-11 rounded-xl border border-gray-200 cursor-pointer"
             />
             <input
               type="text"
@@ -443,7 +453,7 @@ function BannerForm({
               type="color"
               value={formData.accent_color || '#F97316'}
               onChange={(e) => handleChange('accent_color', e.target.value)}
-              className="w-12 h-11 rounded-lg border border-gray-200 cursor-pointer"
+              className="w-12 h-11 rounded-xl border border-gray-200 cursor-pointer"
             />
             <input
               type="text"
@@ -456,21 +466,21 @@ function BannerForm({
         </div>
       </div>
 
-      <div className="flex justify-end gap-3 pt-6 border-t">
+      <div className="flex justify-end gap-3 pt-2">
         <button
           type="button"
           onClick={onCancel}
-          className="px-6 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition font-medium"
+          className="px-5 py-2.5 rounded-xl border border-gray-200 text-sm font-semibold text-gray-600 hover:bg-gray-50"
           disabled={isSaving}
         >
           Cancel
         </button>
         <button
           type="submit"
-          className="px-6 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-primary-dark)] transition font-medium disabled:opacity-50 flex items-center gap-2"
+          className="px-5 py-2.5 rounded-xl bg-[var(--color-primary)] text-white text-sm font-bold hover:bg-[var(--color-primary-dark)] disabled:opacity-60 inline-flex items-center gap-2"
           disabled={isSaving}
         >
-          <Save size={18} />
+          <Save size={15} />
           {isSaving ? 'Saving...' : 'Save Banner'}
         </button>
       </div>

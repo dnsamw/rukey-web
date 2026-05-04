@@ -8,7 +8,7 @@ type Props = {
   onClose: () => void
   title: string
   children: React.ReactNode
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg' | 'xl'
 }
 
 export default function Modal({ open, onClose, title, children, size = 'md' }: Props) {
@@ -25,7 +25,7 @@ export default function Modal({ open, onClose, title, children, size = 'md' }: P
 
   if (!open) return null
 
-  const sizes = { sm: 'max-w-md', md: 'max-w-xl', lg: 'max-w-3xl' }
+  const sizes = { sm: 'max-w-md', md: 'max-w-xl', lg: 'max-w-3xl', xl: 'max-w-4xl' }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
