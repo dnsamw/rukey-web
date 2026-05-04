@@ -54,6 +54,17 @@ export default function ContactSection({ settings, config }: Props) {
 
     setLoading(false);
     if (!error) {
+      fetch('/api/send-contact-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          phone: form.phone,
+          email: form.email || null,
+          service: form.service || null,
+          message: form.message || null,
+        }),
+      }).catch(console.error)
       setSubmitted(true);
     } else {
       console.error("Contact form error:", error);
