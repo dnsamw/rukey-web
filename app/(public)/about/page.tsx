@@ -65,7 +65,7 @@ export default async function AboutPage() {
                 />
               </div>
               {config.story.years_trusted ? (
-                <div className="absolute -bottom-6 -right-6 bg-[var(--color-primary)] text-white rounded-2xl p-6 shadow-xl">
+                <div className="absolute bottom-4 right-4 lg:-bottom-6 lg:-right-6 bg-primary text-white rounded-2xl p-4 lg:p-6 shadow-xl">
                   <div className="text-4xl font-black leading-none">{config.story.years_trusted}</div>
                   <div className="text-sm font-medium text-white mt-1">Years Trusted</div>
                 </div>
