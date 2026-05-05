@@ -188,7 +188,8 @@ export async function getAboutPageConfig(): Promise<AboutPageConfig> {
       .eq("key", "about_page")
       .maybeSingle();
 
-    if (error || !data?.value) return defaultAboutPageConfig;
+    if (error) { console.error('[getAboutPageConfig]', error.message); return defaultAboutPageConfig; }
+    if (!data?.value) return defaultAboutPageConfig;
 
     const value = data.value as Partial<AboutPageConfig>;
 
