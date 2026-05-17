@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { MapPin, Clock, ArrowRight, Heart } from 'lucide-react'
+import { MapPin, Clock, Heart } from 'lucide-react'
 import SectionHeading from '@/components/public/shared/SectionHeading'
 import GetAQuoteBanner from '@/components/public/home/GetAQuoteBanner'
 import {
@@ -9,6 +9,7 @@ import {
 } from '@/lib/data/fetchers'
 import ConfigurableBanner from '@/components/public/shared/ConfigurableBanner'
 import { getBannerForPlacement } from '@/lib/utils/banners'
+import ResumeUploadButton from '@/components/public/careers/ResumeUploadButton'
 
 export const metadata = {
   title: 'Careers',
@@ -91,12 +92,12 @@ export default async function CareersPage() {
                     {job.location}
                   </div>
                 </div>
-                <Link
-                  href={`mailto:${config.fallback.email}?subject=${encodeURIComponent(`Application - ${job.title}`)}`}
-                  className="inline-flex items-center gap-2 bg-[var(--color-secondary)] text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-[var(--color-primary)] transition-colors shrink-0"
-                >
-                  Apply Now <ArrowRight size={14} />
-                </Link>
+                <ResumeUploadButton
+                  jobTitle={job.title}
+                  toEmail={config.fallback.email}
+                  label="Apply Now"
+                  variant="secondary"
+                />
               </div>
             ))}
           </div>
@@ -110,11 +111,11 @@ export default async function CareersPage() {
               {config.fallback.message}
             </p>
 
-            <a  href={`mailto:${config.fallback.email}`}
-              className="inline-block bg-[var(--color-primary)] text-white px-7 py-3 rounded-full text-sm font-bold hover:bg-[var(--color-primary-dark)] transition-colors"
-            >
-              {config.fallback.button_label}
-            </a>
+            <ResumeUploadButton
+              toEmail={config.fallback.email}
+              label={config.fallback.button_label}
+              variant="primary"
+            />
           </div>
           ) : null}
         </div>

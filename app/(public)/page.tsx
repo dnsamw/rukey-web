@@ -7,13 +7,13 @@ import WhyChooseUs from '@/components/public/home/WhyChooseUs'
 import Testimonials from '@/components/public/home/Testimonials'
 import GetAQuoteBanner from '@/components/public/home/GetAQuoteBanner'
 import ContactSection from '@/components/public/home/ContactSection'
-import { getHeroSlides, getServices, getTestimonials, getSiteSettings, getBanners, getAboutPageConfig, getContactPageConfig, getStatsBarConfig } from '@/lib/data/fetchers'
+import { getHeroSlides, getServices, getTestimonials, getSiteSettings, getBanners, getAboutPageConfig, getContactPageConfig, getStatsBarConfig, getWhyChooseUsConfig } from '@/lib/data/fetchers'
 import MapSection from '@/components/public/shared/MapSection'
 import ConfigurableBanner from '@/components/public/shared/ConfigurableBanner'
 import { getBannerForPlacement } from '@/lib/utils/banners'
 
 export default async function HomePage() {
-  const [slides, services, testimonials, settings, banners, aboutConfig, contactConfig, statsConfig] = await Promise.all([
+  const [slides, services, testimonials, settings, banners, aboutConfig, contactConfig, statsConfig, whyChooseUsConfig] = await Promise.all([
     getHeroSlides(),
     getServices(),
     getTestimonials(),
@@ -22,6 +22,7 @@ export default async function HomePage() {
     getAboutPageConfig(),
     getContactPageConfig(),
     getStatsBarConfig(),
+    getWhyChooseUsConfig(),
   ])
 
   const homeAfterServicesBanner = getBannerForPlacement(banners, 'home_after_services')
@@ -45,7 +46,7 @@ export default async function HomePage() {
         </div>
       ) : null}
       <VisionMissionValues />
-      <WhyChooseUs />
+      <WhyChooseUs config={whyChooseUsConfig} />
       {testimonials.length > 0 && <Testimonials testimonials={testimonials} />}
       <GetAQuoteBanner settings={settings} />
       {homeBeforeContactBanner ? (
