@@ -51,6 +51,20 @@ export default function GetAQuotePage() {
 
     setLoading(false);
     if (!error) {
+      fetch('/api/send-quote-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          phone: form.phone,
+          email: form.email || null,
+          service: form.service || null,
+          facilitySize: form.facilitySize || null,
+          frequency: form.frequency || null,
+          address: form.address || null,
+          message: form.message || null,
+        }),
+      }).catch(console.error)
       setSubmitted(true);
     } else {
       console.error("Quote form error:", error);
@@ -176,37 +190,27 @@ export default function GetAQuotePage() {
                     />
                   </div>
                   <div>
-                    <label className={labelClass}>Company Name</label>
-                    <input
-                      name="company"
-                      value={form.company}
-                      onChange={update}
-                      placeholder="Acme Pty Ltd"
-                      className={inputClass}
-                    />
-                  </div>
-                  <div>
                     <label className={labelClass}>
-                      Email <span className="text-[var(--color-primary)]">*</span>
+                      Phone Number <span className="text-[var(--color-primary)]">*</span>
                     </label>
-                    <input
-                      name="email"
-                      type="email"
-                      required
-                      value={form.email}
-                      onChange={update}
-                      placeholder="john@company.com.au"
-                      className={inputClass}
-                    />
-                  </div>
-                  <div>
-                    <label className={labelClass}>Phone Number</label>
                     <input
                       name="phone"
                       type="tel"
+                      required
                       value={form.phone}
                       onChange={update}
                       placeholder="04XX XXX XXX"
+                      className={inputClass}
+                    />
+                  </div>
+                  <div className="sm:col-span-2">
+                    <label className={labelClass}>Email</label>
+                    <input
+                      name="email"
+                      type="email"
+                      value={form.email}
+                      onChange={update}
+                      placeholder="john@company.com.au"
                       className={inputClass}
                     />
                   </div>
@@ -214,7 +218,7 @@ export default function GetAQuotePage() {
                 <div className="pt-4 flex justify-end">
                   <button
                     onClick={() => setStep(1)}
-                    disabled={!form.name || !form.email}
+                    disabled={!form.name || !form.phone}
                     className="bg-[var(--color-primary)] text-white px-8 py-3 rounded-full font-semibold hover:bg-[var(--color-primary-dark)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Next Step →
@@ -249,6 +253,7 @@ export default function GetAQuotePage() {
                       <option>Retail & Commercial</option>
                       <option>Industrial</option>
                       <option>Window Cleaning</option>
+                      <option>Other</option>
                     </select>
                   </div>
                   <div>
@@ -265,6 +270,7 @@ export default function GetAQuotePage() {
                       <option>500 – 1000 sqm</option>
                       <option>1000 – 5000 sqm</option>
                       <option>5000+ sqm</option>
+                      <option>Not Sure</option>
                     </select>
                   </div>
                   <div>
@@ -281,6 +287,7 @@ export default function GetAQuotePage() {
                       <option>Weekly</option>
                       <option>Fortnightly</option>
                       <option>One-off / Ad hoc</option>
+                      <option>To Be Decided</option>
                     </select>
                   </div>
                   <div>
@@ -332,9 +339,8 @@ export default function GetAQuotePage() {
                 <div className="bg-gray-50 rounded-xl p-6 space-y-4 mb-8">
                   {[
                     { label: "Name", value: form.name },
-                    { label: "Email", value: form.email },
-                    { label: "Phone", value: form.phone || "—" },
-                    { label: "Company", value: form.company || "—" },
+                    { label: "Phone", value: form.phone },
+                    { label: "Email", value: form.email || "—" },
                     { label: "Service", value: form.service || "—" },
                     { label: "Facility Size", value: form.facilitySize || "—" },
                     { label: "Frequency", value: form.frequency || "—" },

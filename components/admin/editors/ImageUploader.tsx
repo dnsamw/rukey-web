@@ -12,11 +12,11 @@ type Props = {
 
 export default function ImageUploader({ value, onChange, label = 'Image' }: Props) {
   const [tab, setTab] = useState<'url' | 'upload'>('url')
-  const [urlInput, setUrlInput] = useState(value)
+  const [urlInput, setUrlInput] = useState(value ?? '')
   const [uploading, setUploading] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
 
-  const handleUrlApply = () => onChange(urlInput)
+  const handleUrlApply = () => onChange(urlInput ?? '')
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -29,8 +29,8 @@ export default function ImageUploader({ value, onChange, label = 'Image' }: Prop
     try {
       const res = await fetch('/api/upload', { method: 'POST', body: formData })
       const { url } = await res.json()
-      onChange(url)
-      setUrlInput(url)
+      onChange(url ?? '')
+      setUrlInput(url ?? '')
     } catch {
       alert('Upload failed. Please try a URL instead.')
     } finally {

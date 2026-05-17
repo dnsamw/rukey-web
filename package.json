@@ -22,7 +22,8 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-hot-toast": "^2.4.1",
-    "react-redux": "^9.2.0"
+    "react-redux": "^9.2.0",
+    "resend": "^6.12.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

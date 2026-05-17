@@ -7,9 +7,13 @@ import {
   defaultAboutPageConfig,
   defaultCareersPageConfig,
   defaultContactPageConfig,
+  defaultStatsBarConfig,
+  defaultWhyChooseUsConfig,
   type AboutPageConfig,
   type CareersPageConfig,
   type ContactPageConfig,
+  type StatsBarConfig,
+  type WhyChooseUsConfig,
 } from "@/types/page-config";
 
 export type SiteSettingsData = {
@@ -186,7 +190,8 @@ export async function getAboutPageConfig(): Promise<AboutPageConfig> {
       .eq("key", "about_page")
       .maybeSingle();
 
-    if (error || !data?.value) return defaultAboutPageConfig;
+    if (error) { console.error('[getAboutPageConfig]', error.message); return defaultAboutPageConfig; }
+    if (!data?.value) return defaultAboutPageConfig;
 
     const value = data.value as Partial<AboutPageConfig>;
 
@@ -283,6 +288,32 @@ export async function getCareersPageConfig(): Promise<CareersPageConfig> {
   }
 }
 
+export async function getWhyChooseUsConfig(): Promise<WhyChooseUsConfig> {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("site_settings")
+      .select("value")
+      .eq("key", "why_choose_us")
+      .maybeSingle();
+
+    if (error || !data?.value) return defaultWhyChooseUsConfig;
+
+    const value = data.value as Partial<WhyChooseUsConfig>;
+    return {
+      ...defaultWhyChooseUsConfig,
+      ...value,
+      reasons: value.reasons ?? defaultWhyChooseUsConfig.reasons,
+      testimonial: {
+        ...defaultWhyChooseUsConfig.testimonial,
+        ...(value.testimonial ?? {}),
+      },
+    };
+  } catch {
+    return defaultWhyChooseUsConfig;
+  }
+}
+
 export async function getJobPostings(activeOnly = true): Promise<JobPosting[]> {
   try {
     const supabase = await createClient();
@@ -302,5 +333,26 @@ export async function getJobPostings(activeOnly = true): Promise<JobPosting[]> {
     return data;
   } catch {
     return [];
+  }
+}
+
+export async function getStatsBarConfig(): Promise<StatsBarConfig> {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("site_settings")
+      .select("value")
+      .eq("key", "stats_bar")
+      .maybeSingle();
+
+    if (error || !data?.value) return defaultStatsBarConfig;
+
+    const value = data.value as Partial<StatsBarConfig>;
+    return {
+      is_enabled: value.is_enabled ?? defaultStatsBarConfig.is_enabled,
+      stats: value.stats ?? defaultStatsBarConfig.stats,
+    };
+  } catch {
+    return defaultStatsBarConfig;
   }
 }

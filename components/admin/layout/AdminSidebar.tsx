@@ -4,15 +4,17 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
   LayoutDashboard, Images, Layers, Star,
-  FileText, MessageSquare, Settings, X, ChevronRight, Megaphone, Info, Briefcase, Phone,
+  FileText, MessageSquare, Settings, X, ChevronRight, Megaphone, Info, Briefcase, Phone, BarChart2, CheckCircle,
 } from 'lucide-react'
 import Image from 'next/image'
 
 const navItems = [
   { label: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
   { label: 'Hero Slides', href: '/admin/hero', icon: Images },
+  { label: 'Stats Bar', href: '/admin/stats', icon: BarChart2 },
   { label: 'Services', href: '/admin/services', icon: Layers },
   { label: 'About Content', href: '/admin/about', icon: Info },
+  { label: 'Why Choose Us', href: '/admin/why-choose-us', icon: CheckCircle },
   { label: 'Careers Page', href: '/admin/careers', icon: Briefcase },
   { label: 'Contact Page', href: '/admin/contact', icon: Phone },
   { label: 'Testimonials', href: '/admin/testimonials', icon: Star },

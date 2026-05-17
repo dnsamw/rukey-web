@@ -1,21 +1,20 @@
 @import "tailwindcss";
 
-/* Disable automatic dark mode */
+/* Disable automatic dark mode — only activates via .dark class (which we never add) */
 @variant dark (&:where(.dark, .dark *));
 
+/* Force light mode always */
 :root {
   color-scheme: light;
 
-  /* ─── Brand Colors (admin editable) ─── */
-  --color-primary:        #F97316;
-  --color-primary-dark:   #EA6C0A;
-  --color-secondary:      #1E3A5F;
-  --color-secondary-dark: #162d4a;
-
-  /* ─── UI Colors (static) ─── */
-  --color-text:    #111827;
-  --color-muted:   #6B7280;
-  --color-border:  #E5E7EB;
+   /* Brand colors (synced with site settings fallbacks) */
+  --color-primary: #00ABC2;      /* Buttons / Icons */
+  --color-primary-dark: #00B9D1; /* Primary hover */
+  --color-secondary: #0C1E27;    /* Navbar / Footer */
+  --color-accent: #225067;       /* Secondary hover / dark accents */
+  --color-text: #111827;
+  --color-muted: #6B7280;
+  --color-border: #E5E7EB;
 }
 
 html {
@@ -24,8 +23,10 @@ html {
 }
 
 @theme inline {
-  --color-primary:        var(--color-primary);
-  --color-primary-dark:   var(--color-primary-dark);
-  --color-secondary:      var(--color-secondary);
-  --color-secondary-dark: var(--color-secondary-dark);
+  --color-primary: var(--color-primary);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
+  --color-muted: var(--color-muted);
+  --color-border: var(--color-border);
 }

@@ -29,12 +29,18 @@ function slideBanner(slide: HeroSlide): SiteBanner | null {
     background_color: slide.banner_bg_color ?? "#1E3A5F",
     text_color: slide.banner_text_color ?? "#FFFFFF",
     accent_color: slide.banner_accent_color ?? "#F97316",
+    layout: slide.banner_layout ?? "text",
+    show_badge: slide.banner_show_badge ?? true,
+    image_url: slide.banner_image_url ?? undefined,
+    image_href: slide.banner_image_href ?? undefined,
+    transparent_bg: slide.banner_transparent_bg ?? false,
+    drop_shadow: slide.banner_drop_shadow ?? false,
   };
 }
 
 export default function HeroSlider({ slides }: Props) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
-    Autoplay({ delay: 500000, stopOnInteraction: false }),
+    Autoplay({ delay: 5000, stopOnInteraction: false }),
   ]);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -74,7 +80,7 @@ export default function HeroSlider({ slides }: Props) {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-secondary)]/85 via-[var(--color-secondary)]/50 to-transparent" />
               <div className="absolute inset-0 flex items-center">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div className="max-w-480 mx-auto px-4 sm:px-6 lg:px-28 w-full">
                   <div className={`grid items-center gap-8 ${banner ? 'grid-cols-1 lg:grid-cols-[minmax(0,1fr)_620px]' : 'grid-cols-1'}`}>
                     <div className="max-w-xl">
                       <span className="inline-block bg-[var(--color-primary)] text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-5">

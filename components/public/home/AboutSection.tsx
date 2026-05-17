@@ -32,28 +32,28 @@ export default function AboutSection({ story = defaultAboutPageConfig.story }: P
 
             {/* Floating badge — years experience */}
             {story.years_trusted ? (
-            <div className="absolute -bottom-6 -right-6 bg-[var(--color-primary)] text-white rounded-2xl p-6 shadow-xl">
-              <div className="text-4xl font-black leading-none">{story.years_trusted}</div>
-              <div className="text-sm font-medium text-white mt-1">Years of<br />Experience</div>
+            <div className="absolute bottom-4 right-4 lg:-bottom-6 lg:-right-6 bg-primary text-white rounded-2xl p-4 lg:p-6 shadow-xl">
+              <div className="text-3xl lg:text-4xl font-black leading-none">{story.years_trusted}</div>
+              <div className="text-xs lg:text-sm font-medium text-white mt-1">Years of<br />Experience</div>
             </div>
             ) : null}
 
             {/* Floating badge — clients */}
             {story.client_count ? (
-            <div className="absolute -top-6 -left-6 bg-white rounded-2xl p-4 shadow-xl border border-gray-100">
-              <div className="text-2xl font-black text-[var(--color-secondary)] leading-none">{story.client_count}</div>
+            <div className="absolute top-4 left-4 lg:-top-6 lg:-left-6 bg-white rounded-2xl p-3 lg:p-4 shadow-xl border border-gray-100">
+              <div className="text-xl lg:text-2xl font-black text-secondary leading-none">{story.client_count}</div>
               <div className="text-xs font-medium text-gray-400 mt-1">Happy Clients</div>
             </div>
             ) : null}
 
-            {/* Trust badges row */}
-            <div className="absolute bottom-6 left-6 flex gap-3">
+            {/* Trust badges row — hidden on mobile to avoid overlapping the years badge */}
+            <div className="hidden lg:flex absolute bottom-6 left-6 gap-3">
               {quickBadges.map((badge) => (
                 <div
                   key={badge}
                   className="bg-white/95 backdrop-blur-sm rounded-xl px-3 py-2 flex items-center gap-2 shadow-md"
                 >
-                  <div className="w-7 h-7 bg-[var(--color-primary)]/10 rounded-lg flex items-center justify-center">
+                  <div className="w-7 h-7 bg-[var(--color-primary)]/10 rounded-lg flex items-center justify-center shrink-0">
                     <CheckCircle2 size={14} className="text-[var(--color-primary)]" />
                   </div>
                   <div className="text-xs font-bold text-[var(--color-secondary)] leading-none max-w-28 truncate">{badge}</div>
