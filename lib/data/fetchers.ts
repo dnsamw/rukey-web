@@ -8,10 +8,12 @@ import {
   defaultCareersPageConfig,
   defaultContactPageConfig,
   defaultStatsBarConfig,
+  defaultWhyChooseUsConfig,
   type AboutPageConfig,
   type CareersPageConfig,
   type ContactPageConfig,
   type StatsBarConfig,
+  type WhyChooseUsConfig,
 } from "@/types/page-config";
 
 export type SiteSettingsData = {
@@ -283,6 +285,32 @@ export async function getCareersPageConfig(): Promise<CareersPageConfig> {
     };
   } catch {
     return defaultCareersPageConfig;
+  }
+}
+
+export async function getWhyChooseUsConfig(): Promise<WhyChooseUsConfig> {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("site_settings")
+      .select("value")
+      .eq("key", "why_choose_us")
+      .maybeSingle();
+
+    if (error || !data?.value) return defaultWhyChooseUsConfig;
+
+    const value = data.value as Partial<WhyChooseUsConfig>;
+    return {
+      ...defaultWhyChooseUsConfig,
+      ...value,
+      reasons: value.reasons ?? defaultWhyChooseUsConfig.reasons,
+      testimonial: {
+        ...defaultWhyChooseUsConfig.testimonial,
+        ...(value.testimonial ?? {}),
+      },
+    };
+  } catch {
+    return defaultWhyChooseUsConfig;
   }
 }
 

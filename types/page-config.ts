@@ -274,6 +274,47 @@ export const defaultCareersPageConfig: CareersPageConfig = {
   },
 }
 
+// ─── Why Choose Us ───────────────────────────────────────────────────────────
+
+export type WhyChooseUsReason = {
+  icon: string
+  title: string
+  description: string
+}
+
+export type WhyChooseUsConfig = {
+  eyebrow: string
+  title: string
+  image_url: string
+  reasons: WhyChooseUsReason[]
+  testimonial: {
+    quote: string
+    author_name: string
+    author_role: string
+    author_initials: string
+  }
+}
+
+export const defaultWhyChooseUsConfig: WhyChooseUsConfig = {
+  eyebrow: 'Why Us',
+  title: 'The Rukey Difference',
+  image_url: 'https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?w=900&q=80',
+  reasons: [
+    { icon: 'Clock', title: 'Flexible Scheduling', description: 'We work around your hours — early mornings, evenings, weekends and public holidays.' },
+    { icon: 'Leaf', title: 'Eco-Friendly Products', description: 'We use environmentally responsible, non-toxic cleaning products safe for people and the planet.' },
+    { icon: 'Users', title: 'Trained & Vetted Staff', description: 'All our cleaners are police-checked, fully trained, and covered by comprehensive insurance.' },
+    { icon: 'Headphones', title: 'Dedicated Support', description: 'A dedicated account manager for every client — reachable whenever you need us.' },
+    { icon: 'ClipboardCheck', title: 'Quality Audits', description: 'Regular on-site quality checks ensure our standards never slip, every single visit.' },
+    { icon: 'Star', title: 'Tailored Programs', description: 'No cookie-cutter contracts — every cleaning program is built around your specific needs.' },
+  ],
+  testimonial: {
+    quote: 'Rukey transformed our office — the team is reliable, thorough and an absolute pleasure to work with.',
+    author_name: 'Sarah J.',
+    author_role: 'Operations Manager, Melbourne',
+    author_initials: 'SJ',
+  },
+}
+
 // ─── Stats Bar ───────────────────────────────────────────────────────────────
 
 export type StatItem = {
